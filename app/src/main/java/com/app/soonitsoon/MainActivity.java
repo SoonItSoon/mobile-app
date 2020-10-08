@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.app.soonitsoon.timeline.AddTimeline;
 import com.app.soonitsoon.timeline.CheckLocation;
 import com.app.soonitsoon.timeline.GpsTracker;
 
@@ -49,51 +50,104 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Button btn = findViewById(R.id.gpsBtn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        Button gpsBtn = findViewById(R.id.gpsBtn);
+        gpsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GpsTracker gpsTracker = new GpsTracker(mainActivity);
-                double latitute = gpsTracker.getLatitude();
+                double latitude = gpsTracker.getLatitude();
                 double longitude = gpsTracker.getLongitude();
 
-                String toastStr = "latitude : " + Double.toString(latitute) + ", longitude : " + Double.toString(longitude);
+                String toastStr = "latitude : " + Double.toString(latitude) + ", longitude : " + Double.toString(longitude);
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
-                mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitute, longitude), 5, true);
-
-                MapPOIItem marker = new MapPOIItem();
-                marker.setItemName("Default Marker");
-                marker.setTag(0);
-                marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitute, longitude));
-                marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
-                marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
-                mapView.addPOIItem(marker);
+                AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
+                addTimeline.add("현재 위치", latitude, longitude);
             }
         });
 
-        Button btn2 = findViewById(R.id.markBtn1);
-        btn2.setOnClickListener(new View.OnClickListener() {
+        Button markBtn1 = findViewById(R.id.markBtn1);
+        markBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GpsTracker gpsTracker = new GpsTracker(mainActivity);
-                double latitute = gpsTracker.getLatitude();
-                double longitude = gpsTracker.getLongitude();
+                TestData td = new TestData(1);
+                String name = td.loc.name;
+                double latitude = td.loc.latitude;
+                double longitude = td.loc.longitude;
 
-                CheckLocation checkLocation = new CheckLocation();
-                boolean distance = checkLocation.check(latitute, longitude, 37.49455, 126.95979);
-                Toast.makeText(getApplicationContext(), Boolean.toString(distance), Toast.LENGTH_LONG).show();
+                String toastStr = name + "latitude : " + Double.toString(latitude) + ", longitude : " + Double.toString(longitude);
+                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
-
-
+                AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
+                addTimeline.add(name, latitude, longitude);
             }
         });
 
-        Button btn3 = findViewById(R.id.markBtn2);
-        btn3.setOnClickListener(new View.OnClickListener() {
+        Button markBtn2 = findViewById(R.id.markBtn2);
+        markBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(v.getId());
+                TestData td = new TestData(2);
+                String name = td.loc.name;
+                double latitude = td.loc.latitude;
+                double longitude = td.loc.longitude;
+
+                String toastStr = name + "latitude : " + Double.toString(latitude) + ", longitude : " + Double.toString(longitude);
+                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+
+                AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
+                addTimeline.add(name, latitude, longitude);
+            }
+        });
+
+        Button markBtn3 = findViewById(R.id.markBtn3);
+        markBtn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestData td = new TestData(3);
+                String name = td.loc.name;
+                double latitude = td.loc.latitude;
+                double longitude = td.loc.longitude;
+
+                String toastStr = name + "latitude : " + Double.toString(latitude) + ", longitude : " + Double.toString(longitude);
+                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+
+                AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
+                addTimeline.add(name, latitude, longitude);
+            }
+        });
+
+        Button markBtn4 = findViewById(R.id.markBtn4);
+        markBtn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestData td = new TestData(4);
+                String name = td.loc.name;
+                double latitude = td.loc.latitude;
+                double longitude = td.loc.longitude;
+
+                String toastStr = name + "latitude : " + Double.toString(latitude) + ", longitude : " + Double.toString(longitude);
+                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+
+                AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
+                addTimeline.add(name, latitude, longitude);
+            }
+        });
+
+        Button markBtn5 = findViewById(R.id.markBtn5);
+        markBtn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestData td = new TestData(5);
+                String name = td.loc.name;
+                double latitude = td.loc.latitude;
+                double longitude = td.loc.longitude;
+
+                String toastStr = name + "latitude : " + Double.toString(latitude) + ", longitude : " + Double.toString(longitude);
+                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+
+                AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
+                addTimeline.add(name, latitude, longitude);
             }
         });
     }

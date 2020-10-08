@@ -3,10 +3,6 @@ package com.app.soonitsoon;
 // 테스트 데이터 객체
 // 객체 생성 법
 // TestData td = new TestData(num);
-// num = 1 -> 숭실대학교 정보과학관
-// num = 2 -> 노량진역
-// num = 3 -> 스타벅스 여의도점
-// num = 4 -> 현대백화점 신촌점
 public class TestData {
     public Loc loc;
 
@@ -14,37 +10,40 @@ public class TestData {
         loc = new Loc();
 
         if(num == 1) {
-            loc.latitude = 37.49455;
-            loc.longitude = 126.95979;
+            setTestLoc("겨리집", 37.494312, 126.958674);
         }
         else if(num == 2) {
-            loc.latitude = 37.513827;
-            loc.longitude = 126.941525;
+            setTestLoc("운수집", 37.599320, 127.027860);
         }
         else if(num == 3) {
-            loc.latitude = 37.524036;
-            loc.longitude = 126.924489;
+            setTestLoc("수눅집", 37.248539, 127.025557);
         }
         else if(num == 4) {
-            loc.latitude = 37.555989;
-            loc.longitude = 126.935708;
+            setTestLoc("에운집", 37.494398, 126.915473);
+        }
+        else if(num == 5) {
+            setTestLoc("현쑤집", 37.531074, 126.900790);
         }
         else {
+            loc.name = "";
             loc.latitude = 0;
             loc.longitude = 0;
         }
     }
 
-    public void setTestLoc(double latitude, double longitude) {
+    public void setTestLoc(String name, double latitude, double longitude) {
+        loc.name = name;
         loc.latitude = latitude;
         loc.longitude = longitude;
     }
 
     public static class Loc {
+        public String name;
         public double latitude;
         public double longitude;
 
         Loc() {
+            name = "";
             latitude = 0;
             longitude = 0;
         }
