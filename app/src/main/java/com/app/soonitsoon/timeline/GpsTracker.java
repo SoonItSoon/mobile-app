@@ -1,4 +1,4 @@
-package com.app.soonitsoon;
+package com.app.soonitsoon.timeline;
 
 import android.Manifest;
 import android.app.Service;
