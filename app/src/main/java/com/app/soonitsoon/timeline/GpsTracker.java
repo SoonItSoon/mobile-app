@@ -14,6 +14,8 @@ import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
+// getLatitude() -> (double) latitude
+// getLongitude() -> (double) longitude
 public class GpsTracker extends Service implements LocationListener {
 
     private final Context mContext;

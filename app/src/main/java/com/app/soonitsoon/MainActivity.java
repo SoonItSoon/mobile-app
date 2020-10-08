@@ -5,10 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +13,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.app.soonitsoon.timeline.AddTimeline;
-import com.app.soonitsoon.timeline.CheckLocation;
+import com.app.soonitsoon.timeline.DateNTime;
 import com.app.soonitsoon.timeline.GpsTracker;
 
-import net.daum.mf.map.api.MapPOIItem;
-import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
     private Activity mainActivity = this;
@@ -36,19 +28,15 @@ public class MainActivity extends AppCompatActivity {
 
         // 위치 권한 허용 받기
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    0);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
-
-        // get key hash
-//        Log.e("getKeyHash", ""+getKeyHash(MainActivity.this));
-
 
         final MapView mapView = new MapView(this);
         ViewGroup mapViewContainer = findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
 
-
+        MainBackground mainBackground = new MainBackground(mainActivity, mapView);
+        mainBackground.run();
 
         Button gpsBtn = findViewById(R.id.gpsBtn);
         gpsBtn.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 double latitude = gpsTracker.getLatitude();
                 double longitude = gpsTracker.getLongitude();
 
-                String toastStr = "latitude : " + Double.toString(latitude) + ", longitude : " + Double.toString(longitude);
+                String toastStr = "latitude : " + latitude + ", longitude : " + longitude;
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
                 AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
@@ -75,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 double latitude = td.loc.latitude;
                 double longitude = td.loc.longitude;
 
-                String toastStr = name + "latitude : " + Double.toString(latitude) + ", longitude : " + Double.toString(longitude);
+                String toastStr = name + " latitude : " + latitude + ", longitude : " + longitude;
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
                 AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
@@ -92,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 double latitude = td.loc.latitude;
                 double longitude = td.loc.longitude;
 
-                String toastStr = name + "latitude : " + Double.toString(latitude) + ", longitude : " + Double.toString(longitude);
+                String toastStr = name + " latitude : " + latitude + ", longitude : " + longitude;
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
                 AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
@@ -109,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 double latitude = td.loc.latitude;
                 double longitude = td.loc.longitude;
 
-                String toastStr = name + "latitude : " + Double.toString(latitude) + ", longitude : " + Double.toString(longitude);
+                String toastStr = name + " latitude : " + latitude + ", longitude : " + longitude;
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
                 AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
@@ -126,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 double latitude = td.loc.latitude;
                 double longitude = td.loc.longitude;
 
-                String toastStr = name + "latitude : " + Double.toString(latitude) + ", longitude : " + Double.toString(longitude);
+                String toastStr = name + " latitude : " + latitude + ", longitude : " + longitude;
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
                 AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
@@ -143,38 +131,25 @@ public class MainActivity extends AppCompatActivity {
                 double latitude = td.loc.latitude;
                 double longitude = td.loc.longitude;
 
-                String toastStr = name + "latitude : " + Double.toString(latitude) + ", longitude : " + Double.toString(longitude);
+                String toastStr = name + " latitude : " + latitude + ", longitude : " + longitude;
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
                 AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
                 addTimeline.add(name, latitude, longitude);
             }
         });
-    }
 
+        final Button dateBtn = findViewById(R.id.dateBtn);
+        dateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateNTime dateNTime = new DateNTime();
+                String curDate = dateNTime.getDate();
+                String curTime = dateNTime.getTime();
 
-
-
-    // get key hash
-    public static String getKeyHash(final Context context) {
-        PackageManager pm = context.getPackageManager();
-        try {
-            PackageInfo packageInfo = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
-            if (packageInfo == null)
-                return null;
-
-            for (Signature signature : packageInfo.signatures) {
-                try {
-                    MessageDigest md = MessageDigest.getInstance("SHA");
-                    md.update(signature.toByteArray());
-                    return android.util.Base64.encodeToString(md.digest(), android.util.Base64.NO_WRAP);
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                }
+                String toastStr = curDate + " " + curTime;
+                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
             }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
+        });
     }
 }

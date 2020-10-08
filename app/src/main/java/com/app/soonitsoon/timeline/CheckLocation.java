@@ -1,5 +1,6 @@
 package com.app.soonitsoon.timeline;
 
+// check(double lat1, double lon1, double lat2, double lon2) -> true or false
 public class CheckLocation {
     final double ALLOW_DISTANCE = 100;      // CheckLocation 허용 거리 (m)
 
