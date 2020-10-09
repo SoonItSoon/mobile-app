@@ -6,10 +6,7 @@ public class CheckLocation {
 
     // 두 좌표사이가 허용거리 이상이면 true, 이하면 false 반환
     public boolean check(double lat1, double lon1, double lat2, double lon2){
-        if (calDistance(lat1, lon1, lat2, lon2) >= ALLOW_DISTANCE)
-            return true;
-        else
-            return false;
+        return calDistance(lat1, lon1, lat2, lon2) >= ALLOW_DISTANCE;
     }
 
     // 좌표 사이에 거리 계산

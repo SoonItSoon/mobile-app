@@ -6,8 +6,8 @@ import java.util.Date;
 // getDate() -> (String) yyyy/MM/dd
 // getTime() -> (String) hh:mm:ss
 public class DateNTime {
-    final String DATE_FORMAT = "yyyy/MM/dd";
-    final String TIME_FORMAT = "hh:mm:ss";
+    private static final String DATE_FORMAT = "yyyy/MM/dd";
+    private static final String TIME_FORMAT = "hh:mm:ss";
 
     long now;
     Date mDate;

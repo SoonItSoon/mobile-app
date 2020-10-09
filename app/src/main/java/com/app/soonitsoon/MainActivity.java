@@ -49,8 +49,11 @@ public class MainActivity extends AppCompatActivity {
                 String toastStr = "latitude : " + latitude + ", longitude : " + longitude;
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
-                AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
-                addTimeline.add("현재 위치", latitude, longitude);
+//                AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
+//                addTimeline.add("현재 위치", latitude, longitude);
+
+//                MainBackground.addTimeline.setGPS(mainActivity);
+                MainBackground.addTimeline.add(latitude, longitude);
             }
         });
 
@@ -152,4 +155,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public Activity getMainActivity() { return mainActivity; }
 }
