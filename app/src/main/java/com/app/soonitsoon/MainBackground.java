@@ -1,7 +1,10 @@
 package com.app.soonitsoon;
 
 import android.app.Activity;
+import android.location.Location;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.soonitsoon.timeline.AddTimeline;
 import com.app.soonitsoon.timeline.GpsTracker;
@@ -11,19 +14,18 @@ import net.daum.mf.map.api.MapView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainBackground {
-    private static final int PERIOD = 600 * 1000;    // 타이머 동작 시간 (ms)
+public class MainBackground extends MainActivity {
+    private static final int MININUTE = 5;
+    private static final int PERIOD = 1000 * 60 * MININUTE;
 
     static int counter = 1;
 
-    private Activity mainActivity;
-    private MapView mapView;
     public static AddTimeline addTimeline;
+    public GpsTracker gpsTracker;
 
     public MainBackground(Activity mainActivity, MapView mapView) {
-        this.mainActivity = mainActivity;
-//        this.mapView = mapView;
-        addTimeline = new AddTimeline(this.mainActivity, mapView);
+        gpsTracker = new GpsTracker(mainActivity);
+        addTimeline = new AddTimeline(mapView);
     }
 
     public void run() {
@@ -34,9 +36,11 @@ public class MainBackground {
                 counter++;
 
 //                AddTimeline addTimeline = new AddTimeline(mainActivity, mapView);
-                GpsTracker gpsTracker = new GpsTracker(mainActivity);
-                double latitude = gpsTracker.getLatitude();
-                double longitude = gpsTracker.getLongitude();
+//                MainActivity main = new MainActivity();
+//                mainActivity = main.mainActivity;
+                Location location = gpsTracker.getLocation();
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
                 addTimeline.add(latitude, longitude);
             }
         };

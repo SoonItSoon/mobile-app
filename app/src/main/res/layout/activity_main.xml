@@ -19,55 +19,7 @@
                 android:id="@+id/gpsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Track GPS" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/markBtn1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="MARKER 1" />
-
-                <Button
-                    android:id="@+id/markBtn2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="MARKER 2" />
-
-                <Button
-                    android:id="@+id/markBtn3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="MARKER 3" />
-
-                <Button
-                    android:id="@+id/markBtn4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="MARKER 4" />
-
-                <Button
-                    android:id="@+id/markBtn5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="MARKER 5" />
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/dateBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="GetCurrentDate" />
+                android:text="Add Timeline" />
 
 
         </LinearLayout>

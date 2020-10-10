@@ -104,6 +104,8 @@ public class GpsTracker extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
     }
 
     @Override

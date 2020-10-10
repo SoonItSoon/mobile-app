@@ -7,7 +7,7 @@ import java.util.Date;
 // getTime() -> (String) hh:mm:ss
 public class DateNTime {
     private static final String DATE_FORMAT = "yyyy/MM/dd";
-    private static final String TIME_FORMAT = "hh:mm:ss";
+    private static final String TIME_FORMAT = "HH:mm:ss";
 
     long now;
     Date mDate;
