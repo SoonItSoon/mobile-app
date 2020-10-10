@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 double longitude = location.getLongitude();
 
                 String toastStr;
-                if (MainBackground.addTimeline.add(latitude, longitude)) {
+                if (MainBackground.timelineData.add(latitude, longitude)) {
                     toastStr = "latitude : " + latitude + ", longitude : " + longitude;
                 } else {
                     toastStr = "거리가 허용범위보다 작아 Timeline이 추가되지 않았습니다.";
