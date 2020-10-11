@@ -18,6 +18,35 @@
             </intent-filter>
         </activity>
 
+        <!-- BackgroundService -->
+        <service
+            android:name="com.app.soonitsoon.BackgroundService"
+            android:enabled="true"
+            android:stopWithTask="false">
+        </service>
+
+        <!-- 서비스 종료 이벤트-->
+        <receiver
+            android:name="com.app.soonitsoon.RestarterBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RestartServiceWhenStopped">
+            <intent-filter>
+                <action android:name="com.app.soonitsoon.RestartService" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 부팅 이벤트 -->
+        <receiver
+            android:name="com.app.soonitsoon.BootReceiver"
+            android:enabled="true"
+            android:exported="false"
+            android:label="BOOTReceiver">
+            <intent-filter >
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="8e2fb23596dd9821f09a4820560c91be"/>
     </application>
 
@@ -27,5 +56,7 @@
     <!-- GPS 사용에 필요 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 부팅 이벤트 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 </manifest>

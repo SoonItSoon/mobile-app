@@ -5,22 +5,25 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.app.soonitsoon.timeline.DateNTime;
 import com.app.soonitsoon.timeline.GpsTracker;
 
+import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 public class MainActivity extends AppCompatActivity {
     public Activity mainActivity = this;
+    private Intent mBackgroundServiceIntent;
+    private BackgroundService mBackgroundService;
 
-    GpsTracker gpsTracker = new GpsTracker(mainActivity);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,35 +38,88 @@ public class MainActivity extends AppCompatActivity {
         final MapView mapView = new MapView(this);
         ViewGroup mapViewContainer = findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
+        GpsTracker gpsTracker = new GpsTracker(mainActivity);
+        // 화면 이동
+        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(gpsTracker.getLatitude(), gpsTracker.getLongitude()), 2, true);
 
-        MainBackground mainBackground = new MainBackground(mainActivity, mapView);
-        mainBackground.run();
+        // BackgroundService
+        mBackgroundService = new BackgroundService(getApplicationContext());
+        mBackgroundServiceIntent = new Intent(getApplicationContext(), mBackgroundService.getClass());
+        // 서비스가 실행 중인지 확인
+        if (!BootReceiver.isServiceRunning(this, mBackgroundService.getClass())) {
+            // 서비스가 실행하고 있지 않는 경우 서비스 실행
+            startService(mBackgroundServiceIntent);
+        }
 
-        Button gpsBtn = findViewById(R.id.gpsBtn);
-        gpsBtn.setOnClickListener(new View.OnClickListener() {
+        Button gpsTimelineBtn = findViewById(R.id.showTimeline);
+        gpsTimelineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Location location = gpsTracker.getLocation();
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
+                DateNTime dateNTime = new DateNTime();
+                String date = dateNTime.getDate();
 
-                String toastStr;
-                if (MainBackground.timelineData.add(latitude, longitude)) {
-                    toastStr = "latitude : " + latitude + ", longitude : " + longitude;
-                } else {
-                    toastStr = "거리가 허용범위보다 작아 Timeline이 추가되지 않았습니다.";
-                }
+                String toastStr = date + " Timeline 입니다.";
+                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+                BackgroundService.timelineData.show(mapView, date);
+            }
+        });
+
+
+
+        Button btn1 = findViewById(R.id.btn1);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                BackgroundService.timelineData.addTest(1);
+
+                String toastStr = "겨리집 추가완료";
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
             }
         });
-    }
+        Button btn2 = findViewById(R.id.btn2);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    public double getLat() {
-        GpsTracker gpsTracker = new GpsTracker(this);
-        return gpsTracker.getLatitude();
-    }
-    public double getLon() {
-        GpsTracker gpsTracker = new GpsTracker(this);
-        return gpsTracker.getLongitude();
+                BackgroundService.timelineData.addTest(2);
+
+                String toastStr = "운수집 추가완료";
+                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+            }
+        });
+        Button btn3 = findViewById(R.id.btn3);
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                BackgroundService.timelineData.addTest(3);
+
+                String toastStr = "수눅집 추가완료";
+                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+            }
+        });
+        Button btn4 = findViewById(R.id.btn4);
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                BackgroundService.timelineData.addTest(4);
+
+                String toastStr = "에운집 추가완료";
+                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+            }
+        });
+        Button btn5 = findViewById(R.id.btn5);
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                BackgroundService.timelineData.addTest(5);
+
+                String toastStr = "현수집 추가완료";
+                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
