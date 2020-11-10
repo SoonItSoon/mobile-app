@@ -48,6 +48,8 @@ public class BackgroundService extends Service {
         Log.e(TAG, "BackgroundService.onCreate");
         timelineData = new TimelineData();
         gpsTracker = new GpsTracker(this);
+
+        Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -67,11 +69,11 @@ public class BackgroundService extends Service {
                 double longitude = location.getLongitude();
                 timelineData.add(latitude, longitude);
 
-
-
             }
         };
         timer.schedule(tt, 0, PERIOD);
+
+        Toast.makeText(this, "onStartCommand", Toast.LENGTH_LONG).show();
 
         return START_STICKY;
     }
@@ -83,6 +85,8 @@ public class BackgroundService extends Service {
 
         Intent broadcastIntent = new Intent("com.app.soonitsoon.RestartService");
         sendBroadcast(broadcastIntent);
+
+        Toast.makeText(this, "onDestroy", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -94,5 +98,7 @@ public class BackgroundService extends Service {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() + 5000, pendingIntent);
         super.onTaskRemoved(rootIntent);
+
+        Toast.makeText(this, "onTaskRemoved", Toast.LENGTH_LONG).show();
     }
 }

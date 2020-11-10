@@ -19,6 +19,13 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
+//    public Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+//    public Intent timelineIntent = new Intent(getApplicationContext(), TimelineActivity.class);
+//    public Intent test1Intent = new Intent(getApplicationContext(), Test1Activity.class);
+//    public Intent test2Intent = new Intent(getApplicationContext(), Test2Activity.class);
+//    public Intent test3Intent = new Intent(getApplicationContext(), Test3Activity.class);
+
+
     public Activity mainActivity = this;
     private Intent mBackgroundServiceIntent;
     private BackgroundService mBackgroundService;
