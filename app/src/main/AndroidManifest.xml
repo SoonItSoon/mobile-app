@@ -54,6 +54,11 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="8e2fb23596dd9821f09a4820560c91be" />
+
+        <activity android:name=".TimelineActivity"/>
+        <activity android:name=".Test1Activity"/>
+        <activity android:name=".Test2Activity"/>
+        <activity android:name=".Test3Activity"/>
     </application>
 
 </manifest>

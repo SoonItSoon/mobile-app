@@ -9,6 +9,7 @@ import android.location.Location;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.app.soonitsoon.timeline.GpsTracker;
 import com.app.soonitsoon.timeline.TimelineData;
@@ -17,7 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class BackgroundService extends Service {
-    private static final int MININUTE = 5;
+    private static final int MININUTE = 2;
     private static final int PERIOD = 1000 * 60 * MININUTE;
     private final static String TAG = BackgroundService.class.getSimpleName();
 
@@ -65,6 +66,9 @@ public class BackgroundService extends Service {
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
                 timelineData.add(latitude, longitude);
+
+
+
             }
         };
         timer.schedule(tt, 0, PERIOD);
