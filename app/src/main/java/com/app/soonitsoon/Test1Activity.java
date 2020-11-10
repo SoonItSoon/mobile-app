@@ -1,42 +1,31 @@
 package com.app.soonitsoon;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
-    public Activity mainActivity = this;
-    private Intent mBackgroundServiceIntent;
-    private BackgroundService mBackgroundService;
-
+public class Test1Activity extends AppCompatActivity {
+    private Activity activity = this;
     private DrawerLayout mDrawerLayout;
     private Context context = this;
-
     Toolbar toolbar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        // 위치 권한 허용 받기
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-        }
+        setContentView(R.layout.activity_test1);
 
         // 상단 바
         toolbar = findViewById(R.id.toolbar);
@@ -46,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼 만들기
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_icon); //뒤로가기 버튼 이미지 지정
 
-        mDrawerLayout = findViewById(R.id.home_layout);
+        mDrawerLayout = findViewById(R.id.test1_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -59,15 +48,15 @@ public class MainActivity extends AppCompatActivity {
                 String title = menuItem.getTitle().toString();
 
                 if(id == R.id.nav_item_home){
-                    Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
                 }
                 else if(id == R.id.nav_item_timeline){
                     Intent intent = new Intent(getApplicationContext(), TimelineActivity.class);
                     startActivity(intent);
                 }
                 else if(id == R.id.nav_item_test1){
-                    Intent intent = new Intent(getApplicationContext(), Test1Activity.class);
-                    startActivity(intent);
+                    Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
                 }
                 else if(id == R.id.nav_item_test2){
                     Intent intent = new Intent(getApplicationContext(), Test2Activity.class);
@@ -81,17 +70,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
-        // BackgroundService
-        mBackgroundService = new BackgroundService(getApplicationContext());
-        mBackgroundServiceIntent = new Intent(getApplicationContext(), mBackgroundService.getClass());
-        // 서비스가 실행 중인지 확인
-        if (!BootReceiver.isServiceRunning(this, mBackgroundService.getClass())) {
-            // 서비스가 실행하고 있지 않는 경우 서비스 실행
-            startService(mBackgroundServiceIntent);
-        }
-
     }
 
     @Override
