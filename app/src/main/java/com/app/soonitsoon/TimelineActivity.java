@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +18,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.app.soonitsoon.timeline.TimelineData;
 import com.google.android.material.navigation.NavigationView;
 import com.app.soonitsoon.timeline.DateNTime;
 import com.app.soonitsoon.timeline.GpsTracker;
 
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TimelineActivity extends AppCompatActivity {
     private Activity activity = this;
@@ -106,10 +114,22 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                BackgroundService.timelineData.addTest(1);
+//                BackgroundService.timelineData.addTest(1);
+//
+//                String toastStr = "겨리집 추가완료";
+//                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
-                String toastStr = "겨리집 추가완료";
-                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+                String test = BackgroundService.timelineData.save();
+                Toast.makeText(getApplicationContext(), test, Toast.LENGTH_LONG).show();
+                Log.e("JSON String", test);
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.getJSONObject(test);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                HashMap<String, ArrayList<TimelineData.TimelineUnit>> testTimeline = new HashMap<>();
+//                testTimeline = jsonObject.getJSONObject(test);
             }
         });
         Button btn2 = findViewById(R.id.btn2);
