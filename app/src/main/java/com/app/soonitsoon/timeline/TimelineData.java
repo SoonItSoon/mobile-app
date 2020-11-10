@@ -11,6 +11,7 @@ import net.daum.mf.map.api.MapView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -81,14 +82,24 @@ public class TimelineData {
 
             JSONArray jsonArray = new JSONArray(timelineList);
             ArrayList<String> testarr = new ArrayList<>();
-            testarr.add("aetasdfasd");
-            testarr.add("aetasdfasasdfd");
-            testarr.add("aetasdfasasdfd");
-            JSONArray jsonArray2 = new JSONArray(testarr);
-            String str = jsonArray2.toString();
+
+
+            Map map = new HashMap();
+            map.put("time", time);
+            map.put("latitude", latitude);
+            map.put("longitude", longitude);
+            map.put("danger", 0);
+
+            JSONObject jsonObject = new JSONObject(map);
+            String str2 = jsonObject.toString();
 
 //            timelineMap.put(date, timelineList);
-            timelineMap.put(date, str);
+            timelineMap.put(date, str2);
+
+            JSONObject jsonObject1 = new JSONObject(timelineMap);
+            String str3 = jsonObject1.toString();
+
+
 
             Log.e(TAG, "init 완료, 추가된 데이터 : time="+time+" latitude="+latitude+" longitude="+longitude);
             return true;
