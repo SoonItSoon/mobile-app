@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.home_layout);
 
+        // 네이게이션 바
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -153,7 +154,8 @@ public class MainActivity extends AppCompatActivity {
                 FileOutputStream outputStream;
                 try {
                     outputStream = openFileOutput("SoonItSoon.json", Context.MODE_PRIVATE);
-                    //outputStream.write(jsonObject);
+                    outputStream.write(jsonObject.toString().getBytes());
+                    outputStream.close();
                     Toast.makeText(getApplicationContext(), "성공!!", Toast.LENGTH_SHORT).show();
 
                 } catch (IOException e) {
