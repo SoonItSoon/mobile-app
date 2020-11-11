@@ -11,12 +11,27 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.JsonWriter;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 //    public Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
@@ -98,6 +113,56 @@ public class MainActivity extends AppCompatActivity {
             // 서비스가 실행하고 있지 않는 경우 서비스 실행
             startService(mBackgroundServiceIntent);
         }
+
+        Button mainBtn = findViewById(R.id.mainBtn1);
+        mainBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JSONObject jsonUnit1 = new JSONObject();
+                try {
+                    jsonUnit1.put("latitude", 11.111);
+                    jsonUnit1.put("longitude", 111.111);
+                    jsonUnit1.put("danger", 1);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JSONObject jsonUnit2 = new JSONObject();
+                try {
+                    jsonUnit2.put("latitude", 22.222);
+                    jsonUnit2.put("longitude", 122.222);
+                    jsonUnit2.put("danger", 2);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                JSONObject jsonList = new JSONObject();
+                try {
+                    jsonList.put("11:11:11", jsonUnit1);
+                    jsonList.put("12:12:12", jsonUnit2);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("2020/11/11", jsonList);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                FileOutputStream outputStream;
+                try {
+                    outputStream = openFileOutput("SoonItSoon.json", Context.MODE_PRIVATE);
+                    //outputStream.write(jsonObject);
+                    Toast.makeText(getApplicationContext(), "성공!!", Toast.LENGTH_SHORT).show();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
 
     }
 
