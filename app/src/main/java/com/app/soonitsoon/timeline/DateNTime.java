@@ -9,23 +9,20 @@ public class DateNTime {
     private static final String DATE_FORMAT = "yyyy/MM/dd";
     private static final String TIME_FORMAT = "HH:mm:ss";
 
-    long now;
-    Date mDate;
-    SimpleDateFormat simpleDate;
-    SimpleDateFormat simpleTime;
 
-    public DateNTime() {
-        now = System.currentTimeMillis();
-        mDate = new Date(now);
-        simpleDate = new SimpleDateFormat(DATE_FORMAT);
-        simpleTime = new SimpleDateFormat(TIME_FORMAT);
+    public static String getDate() {
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
+
+        return simpleDateFormat.format(date);
     }
 
-    public String getDate() {
-        return simpleDate.format(mDate);
-    }
+    public static String getTime() {
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(TIME_FORMAT);
 
-    public String getTime() {
-        return simpleTime.format(mDate);
+        return simpleDateFormat.format(date);
     }
 }

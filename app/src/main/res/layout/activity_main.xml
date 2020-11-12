@@ -45,7 +45,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="MainActivity Button" />
+                android:text="Save" />
+
+            <Button
+                android:id="@+id/mainBtn2"
+                android:layout_below="@+id/mainBtn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Load" />
+
+            <Button
+                android:id="@+id/mainBtn3"
+                android:layout_below="@+id/mainBtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Create" />
         </LinearLayout>
 
     </RelativeLayout>

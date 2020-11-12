@@ -9,25 +9,26 @@ import android.location.Location;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.app.soonitsoon.timeline.GpsTracker;
-import com.app.soonitsoon.timeline.TimelineData;
+import com.app.soonitsoon.timeline.RecordTimeline;
+
+import org.json.JSONException;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class BackgroundService extends Service {
-    private static final int MININUTE = 2;
-    private static final int PERIOD = 1000 * 60 * MININUTE;
+    private static final int MININUTE = 1;
+    private static final int PERIOD = 1000 * 60 * MININUTE/60;
     private final static String TAG = BackgroundService.class.getSimpleName();
 
-    private Context context = null;
+    private Context context;
     static int counter=1;
 
     // 테스트 버튼 때문에 public static 선언
     private GpsTracker gpsTracker;
-    public static TimelineData timelineData;
+    public static RecordTimeline recordTimeline;
 
     public BackgroundService() {
     }
@@ -46,7 +47,7 @@ public class BackgroundService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.e(TAG, "BackgroundService.onCreate");
-        timelineData = new TimelineData();
+        recordTimeline = new RecordTimeline(this, context);
         gpsTracker = new GpsTracker(this);
 
 //        Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
@@ -67,7 +68,11 @@ public class BackgroundService extends Service {
                 Location location = gpsTracker.getLocation();
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
-                timelineData.add(latitude, longitude);
+                try {
+                    recordTimeline.excute(latitude, longitude);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
         };

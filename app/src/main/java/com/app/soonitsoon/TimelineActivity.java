@@ -18,7 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.app.soonitsoon.timeline.TimelineData;
+import com.app.soonitsoon.timeline.RecordTimeline;
 import com.google.android.material.navigation.NavigationView;
 import com.app.soonitsoon.timeline.DateNTime;
 import com.app.soonitsoon.timeline.GpsTracker;
@@ -103,79 +103,79 @@ public class TimelineActivity extends AppCompatActivity {
 
                 String toastStr = date + " Timeline 입니다.";
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
-                BackgroundService.timelineData.show(mapView, date);
+                BackgroundService.recordTimeline.show(mapView, date);
             }
         });
 
 
-
-        Button btn1 = findViewById(R.id.btn1);
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//                BackgroundService.timelineData.addTest(1);
 //
-//                String toastStr = "겨리집 추가완료";
+//        Button btn1 = findViewById(R.id.btn1);
+//        btn1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+////                BackgroundService.timelineData.addTest(1);
+////
+////                String toastStr = "겨리집 추가완료";
+////                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+//
+//                String test = BackgroundService.recordTimeline.save();
+//                Toast.makeText(getApplicationContext(), test, Toast.LENGTH_LONG).show();
+//                Log.e("JSON String", test);
+//                JSONObject jsonObject = new JSONObject();
+//                try {
+//                    jsonObject.getJSONObject(test);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                HashMap<String, ArrayList<RecordTimeline.TimelineUnit>> testTimeline = new HashMap<>();
+////                testTimeline = jsonObject.getJSONObject(test);
+//            }
+//        });
+//        Button btn2 = findViewById(R.id.btn2);
+//        btn2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                BackgroundService.recordTimeline.addTest(2);
+//
+//                String toastStr = "운수집 추가완료";
 //                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
-
-                String test = BackgroundService.timelineData.save();
-                Toast.makeText(getApplicationContext(), test, Toast.LENGTH_LONG).show();
-                Log.e("JSON String", test);
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.getJSONObject(test);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                HashMap<String, ArrayList<TimelineData.TimelineUnit>> testTimeline = new HashMap<>();
-//                testTimeline = jsonObject.getJSONObject(test);
-            }
-        });
-        Button btn2 = findViewById(R.id.btn2);
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                BackgroundService.timelineData.addTest(2);
-
-                String toastStr = "운수집 추가완료";
-                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
-            }
-        });
-        Button btn3 = findViewById(R.id.btn3);
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                BackgroundService.timelineData.addTest(3);
-
-                String toastStr = "수눅집 추가완료";
-                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
-            }
-        });
-        Button btn4 = findViewById(R.id.btn4);
-        btn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                BackgroundService.timelineData.addTest(4);
-
-                String toastStr = "에운집 추가완료";
-                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
-            }
-        });
-        Button btn5 = findViewById(R.id.btn5);
-        btn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                BackgroundService.timelineData.addTest(5);
-
-                String toastStr = "현수집 추가완료";
-                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
-            }
-        });
+//            }
+//        });
+//        Button btn3 = findViewById(R.id.btn3);
+//        btn3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                BackgroundService.recordTimeline.addTest(3);
+//
+//                String toastStr = "수눅집 추가완료";
+//                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        Button btn4 = findViewById(R.id.btn4);
+//        btn4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                BackgroundService.recordTimeline.addTest(4);
+//
+//                String toastStr = "에운집 추가완료";
+//                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        Button btn5 = findViewById(R.id.btn5);
+//        btn5.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                BackgroundService.recordTimeline.addTest(5);
+//
+//                String toastStr = "현수집 추가완료";
+//                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
     @Override

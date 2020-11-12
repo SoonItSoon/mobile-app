@@ -26,14 +26,18 @@ import com.google.android.material.navigation.NavigationView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+    private final static String TAG = "MainActivity";
 //    public Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
 //    public Intent timelineIntent = new Intent(getApplicationContext(), TimelineActivity.class);
 //    public Intent test1Intent = new Intent(getApplicationContext(), Test1Activity.class);
@@ -115,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
             startService(mBackgroundServiceIntent);
         }
 
-        Button mainBtn = findViewById(R.id.mainBtn1);
-        mainBtn.setOnClickListener(new View.OnClickListener() {
+        Button mainBtn1 = findViewById(R.id.mainBtn1);
+        mainBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 JSONObject jsonUnit1 = new JSONObject();
@@ -135,6 +139,17 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                String str = jsonUnit1.toString();
+                JSONObject jso = new JSONObject();
+                double ddd = 0;
+                try {
+                    jso = new JSONObject(str);
+                    ddd = jso.getDouble("latitude");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.e(TAG, Float.toString((float)ddd));
 
                 JSONObject jsonList = new JSONObject();
                 try {
@@ -164,7 +179,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button mainBtn2 = findViewById(R.id.mainBtn2);
+        mainBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FileInputStream inputStream;
+                try {
+                    inputStream = openFileInput("SoonItSoon.json");
+                    String result = inputStream.toString();
+                    int i = inputStream.read();
+                    Log.e(getAttributionTag(), result);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
+
+        Button mainBtn3 = findViewById(R.id.mainBtn3);
+        mainBtn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File file = new File(getFilesDir().getAbsolutePath(), "SoonItSoon.json");
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Log.e("파일 저장", getFilesDir().getAbsolutePath());
+            }
+        });
 
     }
 
