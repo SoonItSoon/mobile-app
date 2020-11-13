@@ -2,6 +2,7 @@ package com.app.soonitsoon;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,8 @@ import com.app.soonitsoon.timeline.GetLocation;
 
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
+
+import java.io.File;
 
 public class TimelineActivity extends AppCompatActivity {
     private Activity activity = this;
@@ -86,8 +89,8 @@ public class TimelineActivity extends AppCompatActivity {
 
         final ShowTimeline showTimeline = new ShowTimeline(getApplication(), mapView);
 
-        Button gpsTimelineBtn = findViewById(R.id.showTimeline);
-        gpsTimelineBtn.setOnClickListener(new View.OnClickListener() {
+        Button showTLBtn = findViewById(R.id.showTimeline);
+        showTLBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String date = DateNTime.getDate();
@@ -96,6 +99,28 @@ public class TimelineActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
                 showTimeline.show(date);
+            }
+        });
+
+        Button cleanTLBtn = findViewById(R.id.cleanTimeline);
+        cleanTLBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences spref = getSharedPreferences("PrevData", MODE_PRIVATE);
+                SharedPreferences.Editor editor = spref.edit();
+                editor.clear();
+                editor.apply();
+
+                File file = new File(getFilesDir(), DateNTime.getDate());
+                boolean delete = file.delete();
+
+                String toastStr = "";
+                if(delete) {
+                    toastStr = "Timeline 파일 제거실패.";
+                }
+                else toastStr = "Timeline 파일 제거완료.";
+
+                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
             }
         });
 
