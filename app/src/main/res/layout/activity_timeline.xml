@@ -47,24 +47,28 @@
                 android:orientation="vertical">
 
                 <Button
+                    android:id="@+id/datePickBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Date : " />
+
+                <Button
                     android:id="@+id/showTimeline"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="show timeline" />
 
-                <LinearLayout
+                <Button
+                    android:id="@+id/cleanTimeline"
                     android:layout_width="match_parent"
-                    android:layout_height="37dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:text="clean timeline" />
 
-                    <Button
-                        android:id="@+id/cleanTimeline"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="clean timeline" />
-                </LinearLayout>
-
+                <Button
+                    android:id="@+id/cleanMapView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="clean MapView" />
 
             </LinearLayout>
         </LinearLayout>

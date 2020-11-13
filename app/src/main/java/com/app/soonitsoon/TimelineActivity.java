@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 
 import com.app.soonitsoon.timeline.ShowTimeline;
 import com.google.android.material.navigation.NavigationView;
@@ -32,6 +33,7 @@ public class TimelineActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private Context context = this;
     Toolbar toolbar;
+    private String selectedDate = "";   // DatePicker를 통해 선택된 날짜
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,19 +83,33 @@ public class TimelineActivity extends AppCompatActivity {
 
         // 맵 그리기
         final MapView mapView = new MapView(this);
-        ViewGroup mapViewContainer = findViewById(R.id.map_view);
+        final ViewGroup mapViewContainer = findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
         GetLocation getLocation = new GetLocation(activity);
         // 화면 이동
         mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(getLocation.getLatitude(), getLocation.getLongitude()), 2, true);
 
+        // 선택된 날짜를 오늘 날짜로 초기화
+        selectedDate = DateNTime.getDate();
+
+        // 날짜 선택 버튼
+        Button datePickBtn = findViewById(R.id.datePickBtn);
+        datePickBtn.setText("Date : " + selectedDate);
+        datePickBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker();
+            }
+        });
+
         final ShowTimeline showTimeline = new ShowTimeline(getApplication(), mapView);
 
+        // ShowTimeline 버튼
         Button showTLBtn = findViewById(R.id.showTimeline);
         showTLBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String date = DateNTime.getDate();
+                String date = selectedDate;
 
                 String toastStr = date + " Timeline 입니다.";
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
@@ -102,6 +118,7 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
+        // CleanTimeline 버튼
         Button cleanTLBtn = findViewById(R.id.cleanTimeline);
         cleanTLBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,16 +141,64 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
+        // CleanMapView 버튼
+        // TODO
+        final Button cleanMapView = findViewById(R.id.cleanMapView);
+        cleanMapView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleanMapView(mapView, mapViewContainer);
+
+                String toastStr = "MapView clean 완료";
+                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
     }
 
+    // 네비게이션 바 열기
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case android.R.id.home:{ // 왼쪽 상단 버튼 눌렀을 때
+            // 왼쪽 상단 버튼 눌렀을 때
+            case android.R.id.home:{
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // DatePick 화면 출력
+    public void showDatePicker() {
+        DialogFragment datePickFragment = new DatePickFragment();
+        datePickFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    // DatePick을 통해 선택된 날짜 처리
+    public void processDatePickerResult(int year, int month, int day) {
+        String year_string = Integer.toString(year);
+        String month_string = Integer.toString(month+1);
+        String day_string = Integer.toString(day);
+        String date_msg = year_string+"-"+month_string+"-"+day_string;
+
+        Button datePickBtn = findViewById(R.id.datePickBtn);
+        selectedDate = date_msg;
+        datePickBtn.setText("Date : " + selectedDate);
+
+        Toast.makeText(this, date_msg, Toast.LENGTH_SHORT).show();
+    }
+
+    // CleanMapView 동작
+    // TODO
+    public void cleanMapView(MapView mapView, ViewGroup mapViewContainer) {
+//        mapView = new MapView(this);
+//        mapViewContainer = findViewById(R.id.map_view);
+//        mapViewContainer.addView(mapView);
+//        GetLocation getLocation = new GetLocation(activity);
+//        // 화면 이동
+//        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(getLocation.getLatitude(), getLocation.getLongitude()), 2, true);
     }
 }
