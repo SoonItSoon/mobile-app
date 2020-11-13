@@ -2,12 +2,16 @@ package com.app.soonitsoon.timeline;
 
 import android.app.Activity;
 import android.app.Application;
+import android.graphics.Color;
 import android.icu.text.Edits;
 import android.util.Log;
 
 import com.app.soonitsoon.MainActivity;
 
+import net.daum.mf.map.api.CameraUpdateFactory;
 import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapPointBounds;
+import net.daum.mf.map.api.MapPolyline;
 import net.daum.mf.map.api.MapView;
 import net.daum.mf.map.api.MapPOIItem;
 
@@ -61,6 +65,10 @@ public class ShowTimeline {
 
         Iterator<String> iterator = jsonTLList.keys();
 
+        MapPolyline polyline = new MapPolyline();
+        polyline.setTag(1000);
+        polyline.setLineColor(Color.argb(128, 255, 51, 0));
+
         while (iterator.hasNext()) {
             String time = iterator.next();
             String title = date + " " + time;
@@ -84,6 +92,8 @@ public class ShowTimeline {
                 e.printStackTrace();
             }
 
+            polyline.addPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
+
             MapPOIItem marker = new MapPOIItem();
             marker.setItemName(title);
             marker.setTag(0);
@@ -92,5 +102,13 @@ public class ShowTimeline {
             marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
             mapView.addPOIItem(marker);
         }
+
+        // 선그리기
+        mapView.addPolyline(polyline);
+
+        // 지도 크기 맞게 조절
+        MapPointBounds mapPointBounds = new MapPointBounds(polyline.getMapPoints());
+        int padding = 100;
+        mapView.moveCamera(CameraUpdateFactory.newMapPointBounds(mapPointBounds, padding));
     }
 }
