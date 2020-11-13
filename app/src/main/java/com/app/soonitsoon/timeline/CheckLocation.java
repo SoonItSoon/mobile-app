@@ -1,7 +1,8 @@
 package com.app.soonitsoon.timeline;
 
-// check(double lat1, double lon1, double lat2, double lon2) -> true or false
 public class CheckLocation {
+    private static final String TAG = "CheckLocation";
+
     private static final double ALLOW_DISTANCE = 100;      // CheckLocation 허용 거리 (m)
 
     // 두 좌표사이가 허용거리 이상이면 true, 이하면 false 반환

@@ -1,12 +1,9 @@
 package com.app.soonitsoon.timeline;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
-
-import net.daum.mf.map.api.MapView;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,11 +14,11 @@ import java.io.IOException;
 public class RecordTimeline {
     private final static String TAG = "RecordTimeline";
     private Context context;
-    private Context applicationContext;
+    private Application application;
 
-    public RecordTimeline(Context context, Context applicationContext) {
+    public RecordTimeline(Context context, Application application) {
         this.context = context;
-        this.applicationContext = applicationContext;
+        this.application = application;
     }
 
     // 주기적으로 BackgroundService에서 동작
@@ -100,38 +97,18 @@ public class RecordTimeline {
             editor.putString("TLList", stringTLList);
             editor.apply();
         }
-
     }
 
     // String으로 된 타임라인 List를 날짜.json 파일로 저장
     private void saveTimeline(String date, String stringTLList) {
-//        FileOutputStream outputStream;
+        FileOutputStream outputStream;
         Log.e(TAG, "saveTimeline");
-//        try {
-//            outputStream = applicationContext.openFileOutput(date+".json", Context.MODE_PRIVATE);
-//            outputStream.write(stringTLList.getBytes());
-//            outputStream.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            outputStream = application.openFileOutput(date+".json", Context.MODE_PRIVATE);
+            outputStream.write(stringTLList.getBytes());
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
-    // TimelineData 보기
-    // @param Mapview, "yyyy/MM/dd"
-    public void show(MapView mapView, String date) {
-//        ArrayList<TimelineUnit> timelineList = timelineMap.get(date);
-//
-//        assert timelineList != null;
-//        for(TimelineUnit timelineUnit : timelineList) {
-//            // 마커 추가
-//            MapPOIItem marker = new MapPOIItem();
-//            marker.setItemName(date + " " + timelineUnit.time);
-//            marker.setTag(0);
-//            marker.setMapPoint(MapPoint.mapPointWithGeoCoord(timelineUnit.latitude, timelineUnit.longitude));
-//            marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-//            marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
-//            mapView.addPOIItem(marker);
-//        }
-    }
-
 }

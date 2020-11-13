@@ -11,10 +11,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.JsonWriter;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,19 +28,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
-//    public Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
-//    public Intent timelineIntent = new Intent(getApplicationContext(), TimelineActivity.class);
-//    public Intent test1Intent = new Intent(getApplicationContext(), Test1Activity.class);
-//    public Intent test2Intent = new Intent(getApplicationContext(), Test2Activity.class);
-//    public Intent test3Intent = new Intent(getApplicationContext(), Test3Activity.class);
+    public static Intent mainIntent;
+    public static Intent timelineIntent;
+    public static Intent test1Intent;
+    public static Intent test2Intent;
+    public static Intent test3Intent;
 
 
     public Activity mainActivity = this;
@@ -63,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
+
+        mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+        timelineIntent = new Intent(getApplicationContext(), TimelineActivity.class);
+        test1Intent = new Intent(getApplicationContext(), Test1Activity.class);
+        test2Intent = new Intent(getApplicationContext(), Test2Activity.class);
+        test3Intent = new Intent(getApplicationContext(), Test3Activity.class);
 
         // 상단 바
         toolbar = findViewById(R.id.toolbar);
@@ -89,20 +89,16 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
                 }
                 else if(id == R.id.nav_item_timeline){
-                    Intent intent = new Intent(getApplicationContext(), TimelineActivity.class);
-                    startActivity(intent);
+                    startActivity(timelineIntent);
                 }
                 else if(id == R.id.nav_item_test1){
-                    Intent intent = new Intent(getApplicationContext(), Test1Activity.class);
-                    startActivity(intent);
+                    startActivity(test1Intent);
                 }
                 else if(id == R.id.nav_item_test2){
-                    Intent intent = new Intent(getApplicationContext(), Test2Activity.class);
-                    startActivity(intent);
+                    startActivity(test2Intent);
                 }
                 else if(id == R.id.nav_item_test3){
-                    Intent intent = new Intent(getApplicationContext(), Test3Activity.class);
-                    startActivity(intent);
+                    startActivity(test3Intent);
                 }
 
                 return true;
@@ -168,7 +164,8 @@ public class MainActivity extends AppCompatActivity {
 
                 FileOutputStream outputStream;
                 try {
-                    outputStream = openFileOutput("SoonItSoon.json", Context.MODE_PRIVATE);
+//                    outputStream = openFileOutput("SoonItSoon.json", Context.MODE_PRIVATE);
+                    outputStream = getApplication().openFileOutput("SoonItSoon.json", Context.MODE_PRIVATE);
                     outputStream.write(jsonObject.toString().getBytes());
                     outputStream.close();
                     Toast.makeText(getApplicationContext(), "성공!!", Toast.LENGTH_SHORT).show();
