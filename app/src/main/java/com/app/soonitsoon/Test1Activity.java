@@ -2,7 +2,6 @@ package com.app.soonitsoon;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -48,23 +47,19 @@ public class Test1Activity extends AppCompatActivity {
                 String title = menuItem.getTitle().toString();
 
                 if(id == R.id.nav_item_home){
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+                    startActivity(MainActivity.mainIntent);
                 }
                 else if(id == R.id.nav_item_timeline){
-                    Intent intent = new Intent(getApplicationContext(), TimelineActivity.class);
-                    startActivity(intent);
+                    startActivity(MainActivity.timelineIntent);
                 }
                 else if(id == R.id.nav_item_test1){
                     Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
                 }
                 else if(id == R.id.nav_item_test2){
-                    Intent intent = new Intent(getApplicationContext(), Test2Activity.class);
-                    startActivity(intent);
+                    startActivity(MainActivity.test2Intent);
                 }
                 else if(id == R.id.nav_item_test3){
-                    Intent intent = new Intent(getApplicationContext(), Test3Activity.class);
-                    startActivity(intent);
+                    startActivity(MainActivity.test3Intent);
                 }
 
                 return true;

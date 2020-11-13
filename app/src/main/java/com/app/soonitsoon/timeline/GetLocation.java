@@ -16,7 +16,8 @@ import androidx.core.content.ContextCompat;
 
 // getLatitude() -> (double) latitude
 // getLongitude() -> (double) longitude
-public class GpsTracker extends Service implements LocationListener {
+public class GetLocation extends Service implements LocationListener {
+    private static final String TAG = "GetLocation";
 
     private final Context mContext;
     Location location;
@@ -28,7 +29,7 @@ public class GpsTracker extends Service implements LocationListener {
     private static final long MIN_TIME_BW_UPDATES = 1000;
     protected LocationManager locationManager;
 
-    public GpsTracker(Context mContext) {
+    public GetLocation(Context mContext) {
         this.mContext = mContext;
         getLocation();
     }
@@ -85,7 +86,7 @@ public class GpsTracker extends Service implements LocationListener {
                 }
             }
         } catch (Exception e) {
-            Log.d("@@@", "" + e.toString());
+            Log.d(TAG, "" + e.toString());
         }
 
         return location;
@@ -128,8 +129,8 @@ public class GpsTracker extends Service implements LocationListener {
 
     public void stopUsingGPS() {
         if (locationManager != null) {
-            locationManager.removeUpdates(GpsTracker.this);
-            Log.e("GpsTracker", "StopGps");
+            locationManager.removeUpdates(GetLocation.this);
+            Log.e(TAG, "StopGps");
         }
     }
 }

@@ -13,17 +13,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
-//    public Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
-//    public Intent timelineIntent = new Intent(getApplicationContext(), TimelineActivity.class);
-//    public Intent test1Intent = new Intent(getApplicationContext(), Test1Activity.class);
-//    public Intent test2Intent = new Intent(getApplicationContext(), Test2Activity.class);
-//    public Intent test3Intent = new Intent(getApplicationContext(), Test3Activity.class);
+    private final static String TAG = "MainActivity";
+    public static Intent mainIntent;
+    public static Intent timelineIntent;
+    public static Intent test1Intent;
+    public static Intent test2Intent;
+    public static Intent test3Intent;
 
 
     public Activity mainActivity = this;
@@ -45,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
 
+        mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+        timelineIntent = new Intent(getApplicationContext(), TimelineActivity.class);
+        test1Intent = new Intent(getApplicationContext(), Test1Activity.class);
+        test2Intent = new Intent(getApplicationContext(), Test2Activity.class);
+        test3Intent = new Intent(getApplicationContext(), Test3Activity.class);
+
         // 상단 바
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -55,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.home_layout);
 
+        // 네이게이션 바
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -69,20 +89,16 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
                 }
                 else if(id == R.id.nav_item_timeline){
-                    Intent intent = new Intent(getApplicationContext(), TimelineActivity.class);
-                    startActivity(intent);
+                    startActivity(timelineIntent);
                 }
                 else if(id == R.id.nav_item_test1){
-                    Intent intent = new Intent(getApplicationContext(), Test1Activity.class);
-                    startActivity(intent);
+                    startActivity(test1Intent);
                 }
                 else if(id == R.id.nav_item_test2){
-                    Intent intent = new Intent(getApplicationContext(), Test2Activity.class);
-                    startActivity(intent);
+                    startActivity(test2Intent);
                 }
                 else if(id == R.id.nav_item_test3){
-                    Intent intent = new Intent(getApplicationContext(), Test3Activity.class);
-                    startActivity(intent);
+                    startActivity(test3Intent);
                 }
 
                 return true;
@@ -98,6 +114,101 @@ public class MainActivity extends AppCompatActivity {
             // 서비스가 실행하고 있지 않는 경우 서비스 실행
             startService(mBackgroundServiceIntent);
         }
+
+        Button mainBtn1 = findViewById(R.id.mainBtn1);
+        mainBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JSONObject jsonUnit1 = new JSONObject();
+                try {
+                    jsonUnit1.put("latitude", 11.111);
+                    jsonUnit1.put("longitude", 111.111);
+                    jsonUnit1.put("danger", 1);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JSONObject jsonUnit2 = new JSONObject();
+                try {
+                    jsonUnit2.put("latitude", 22.222);
+                    jsonUnit2.put("longitude", 122.222);
+                    jsonUnit2.put("danger", 2);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                String str = jsonUnit1.toString();
+                JSONObject jso = new JSONObject();
+                double ddd = 0;
+                try {
+                    jso = new JSONObject(str);
+                    ddd = jso.getDouble("latitude");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.e(TAG, Float.toString((float)ddd));
+
+                JSONObject jsonList = new JSONObject();
+                try {
+                    jsonList.put("11:11:11", jsonUnit1);
+                    jsonList.put("12:12:12", jsonUnit2);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("2020/11/11", jsonList);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                FileOutputStream outputStream;
+                try {
+//                    outputStream = openFileOutput("SoonItSoon.json", Context.MODE_PRIVATE);
+                    outputStream = getApplication().openFileOutput("SoonItSoon.json", Context.MODE_PRIVATE);
+                    outputStream.write(jsonObject.toString().getBytes());
+                    outputStream.close();
+                    Toast.makeText(getApplicationContext(), "성공!!", Toast.LENGTH_SHORT).show();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Button mainBtn2 = findViewById(R.id.mainBtn2);
+        mainBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FileInputStream inputStream;
+                try {
+                    inputStream = openFileInput("SoonItSoon.json");
+                    String result = inputStream.toString();
+                    int i = inputStream.read();
+                    Log.e(getAttributionTag(), result);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+        Button mainBtn3 = findViewById(R.id.mainBtn3);
+        mainBtn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File file = new File(getFilesDir().getAbsolutePath(), "SoonItSoon.json");
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Log.e("파일 저장", getFilesDir().getAbsolutePath());
+            }
+        });
 
     }
 

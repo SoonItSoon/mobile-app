@@ -9,25 +9,26 @@ import android.location.Location;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.app.soonitsoon.timeline.GpsTracker;
-import com.app.soonitsoon.timeline.TimelineData;
+import com.app.soonitsoon.timeline.GetLocation;
+import com.app.soonitsoon.timeline.RecordTimeline;
+
+import org.json.JSONException;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class BackgroundService extends Service {
-    private static final int MININUTE = 2;
+    private static final String TAG = "BackgoundService";
+
+    private static final int MININUTE = 1;
     private static final int PERIOD = 1000 * 60 * MININUTE;
-    private final static String TAG = BackgroundService.class.getSimpleName();
 
-    private Context context = null;
-    static int counter=1;
+    private Context context;
+    private static int counter=1;
 
-    // 테스트 버튼 때문에 public static 선언
-    private GpsTracker gpsTracker;
-    public static TimelineData timelineData;
+    private GetLocation getLocation;
+    private RecordTimeline recordTimeline;
 
     public BackgroundService() {
     }
@@ -45,17 +46,17 @@ public class BackgroundService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e(TAG, "BackgroundService.onCreate");
-        timelineData = new TimelineData();
-        gpsTracker = new GpsTracker(this);
+        Log.e(TAG, "onCreate");
+        recordTimeline = new RecordTimeline(this, getApplication());
+        getLocation = new GetLocation(this);
 
-        Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        Log.e(TAG, "BackgroundService.onStartCommand");
+        Log.e(TAG, "onStartCommand");
 
         final Timer timer = new Timer();
         TimerTask tt = new TimerTask() {
@@ -64,16 +65,20 @@ public class BackgroundService extends Service {
                 Log.e("테스크 카운터", String.valueOf(counter));
                 counter++;
 
-                Location location = gpsTracker.getLocation();
+                Location location = getLocation.getLocation();
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
-                timelineData.add(latitude, longitude);
+                try {
+                    recordTimeline.excute(latitude, longitude);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
         };
         timer.schedule(tt, 0, PERIOD);
 
-        Toast.makeText(this, "onStartCommand", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "onStartCommand", Toast.LENGTH_LONG).show();
 
         return START_STICKY;
     }
@@ -81,24 +86,25 @@ public class BackgroundService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "BackgroundService.onDestroy");
+        Log.e(TAG, "onDestroy");
 
         Intent broadcastIntent = new Intent("com.app.soonitsoon.RestartService");
         sendBroadcast(broadcastIntent);
 
-        Toast.makeText(this, "onDestroy", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "onDestroy", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
-        Log.e(TAG, "BackgroundService.onTaskRemoved");
-        //create an intent that you want to start again.
+        Log.e(TAG, "onTaskRemoved");
+
+        // Intent 재시작
         Intent intent = new Intent(getApplicationContext(), BackgroundService.class);
         PendingIntent pendingIntent = PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() + 5000, pendingIntent);
         super.onTaskRemoved(rootIntent);
 
-        Toast.makeText(this, "onTaskRemoved", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "onTaskRemoved", Toast.LENGTH_LONG).show();
     }
 }
