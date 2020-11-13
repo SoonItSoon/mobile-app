@@ -22,7 +22,7 @@ public class BackgroundService extends Service {
     private static final String TAG = "BackgoundService";
 
     private static final int MININUTE = 1;
-    private static final int PERIOD = 1000 * 60 * MININUTE;
+    private static final int PERIOD = 1000 * 60 * MININUTE/6;
 
     private Context context;
     private static int counter=1;
@@ -67,6 +67,7 @@ public class BackgroundService extends Service {
 
                 Location location = getLocation.getLocation();
                 double latitude = location.getLatitude();
+//                double latitude = 38 - counter;
                 double longitude = location.getLongitude();
                 try {
                     recordTimeline.excute(latitude, longitude);

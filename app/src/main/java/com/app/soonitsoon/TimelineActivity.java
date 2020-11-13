@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.app.soonitsoon.timeline.ShowTimeline;
 import com.google.android.material.navigation.NavigationView;
 import com.app.soonitsoon.timeline.DateNTime;
 import com.app.soonitsoon.timeline.GetLocation;
@@ -83,16 +84,18 @@ public class TimelineActivity extends AppCompatActivity {
         // 화면 이동
         mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(getLocation.getLatitude(), getLocation.getLongitude()), 2, true);
 
+        final ShowTimeline showTimeline = new ShowTimeline(getApplication(), mapView);
 
         Button gpsTimelineBtn = findViewById(R.id.showTimeline);
         gpsTimelineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DateNTime dateNTime = new DateNTime();
-                String date = dateNTime.getDate();
+                String date = DateNTime.getDate();
 
                 String toastStr = date + " Timeline 입니다.";
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+
+                showTimeline.show(date);
             }
         });
 
