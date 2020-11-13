@@ -52,7 +52,7 @@ public class RecordTimeline {
                 // 타임라인 List
                 String prevTLList = spref.getString("TLList", "");
                 JSONObject jsonTLList = new JSONObject(prevTLList);
-                jsonTLUnit.put(time, stringTLUnit);
+                jsonTLList.put(time, stringTLUnit);
                 String stringTLList = jsonTLList.toString();
 
                 // 데이터 파일로 저장
