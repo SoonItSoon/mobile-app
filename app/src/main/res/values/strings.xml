@@ -1,17 +1,19 @@
 <resources>
     <string name="app_name">SoonItSoon</string>
 
-<!--    Navigation Header String    -->
+    <!--    Navigation Header String    -->
     <string name="nav_header_title">Header Title</string>
     <string name="nav_header_subtitle">Header Subtitle</string>
     <string name="nav_header_desc">Header Description</string>
 
-<!--    Navigation Menu String      -->
+    <!--    Navigation Menu String      -->
     <string name="nav_menu_home">Home</string>
     <string name="nav_menu_timeline">Timeline</string>
     <string name="nav_menu_test1">Test1</string>
     <string name="nav_menu_test2">Test2</string>
     <string name="nav_menu_test3">Test3</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
