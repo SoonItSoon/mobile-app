@@ -1,4 +1,4 @@
-package com.app.soonitsoon;
+package com.app.soonitsoon.background;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

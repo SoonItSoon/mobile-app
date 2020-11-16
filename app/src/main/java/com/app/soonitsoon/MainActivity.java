@@ -19,16 +19,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.app.soonitsoon.background.BackgroundService;
+import com.app.soonitsoon.background.BootReceiver;
+import com.app.soonitsoon.timeline.TimelineActivity;
 import com.google.android.material.navigation.NavigationView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
@@ -119,60 +113,7 @@ public class MainActivity extends AppCompatActivity {
         mainBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONObject jsonUnit1 = new JSONObject();
-                try {
-                    jsonUnit1.put("latitude", 11.111);
-                    jsonUnit1.put("longitude", 111.111);
-                    jsonUnit1.put("danger", 1);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                JSONObject jsonUnit2 = new JSONObject();
-                try {
-                    jsonUnit2.put("latitude", 22.222);
-                    jsonUnit2.put("longitude", 122.222);
-                    jsonUnit2.put("danger", 2);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-                String str = jsonUnit1.toString();
-                JSONObject jso = new JSONObject();
-                double ddd = 0;
-                try {
-                    jso = new JSONObject(str);
-                    ddd = jso.getDouble("latitude");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                Log.e(TAG, Float.toString((float)ddd));
-
-                JSONObject jsonList = new JSONObject();
-                try {
-                    jsonList.put("11:11:11", jsonUnit1);
-                    jsonList.put("12:12:12", jsonUnit2);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("2020/11/11", jsonList);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                FileOutputStream outputStream;
-                try {
-//                    outputStream = openFileOutput("SoonItSoon.json", Context.MODE_PRIVATE);
-                    outputStream = getApplication().openFileOutput("SoonItSoon.json", Context.MODE_PRIVATE);
-                    outputStream.write(jsonObject.toString().getBytes());
-                    outputStream.close();
-                    Toast.makeText(getApplicationContext(), "성공!!", Toast.LENGTH_SHORT).show();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         });
 
@@ -180,17 +121,7 @@ public class MainActivity extends AppCompatActivity {
         mainBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FileInputStream inputStream;
-                try {
-                    inputStream = openFileInput("SoonItSoon.json");
-                    String result = inputStream.toString();
-                    int i = inputStream.read();
-                    Log.e(getAttributionTag(), result);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
             }
         });
 
@@ -199,14 +130,7 @@ public class MainActivity extends AppCompatActivity {
         mainBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File file = new File(getFilesDir().getAbsolutePath(), "SoonItSoon.json");
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
-                Log.e("파일 저장", getFilesDir().getAbsolutePath());
             }
         });
 

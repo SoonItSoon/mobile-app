@@ -1,4 +1,4 @@
-package com.app.soonitsoon;
+package com.app.soonitsoon.timeline;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,10 +18,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 
-import com.app.soonitsoon.timeline.ShowTimeline;
+import com.app.soonitsoon.DatePickFragment;
+import com.app.soonitsoon.MainActivity;
+import com.app.soonitsoon.R;
 import com.google.android.material.navigation.NavigationView;
-import com.app.soonitsoon.timeline.DateNTime;
-import com.app.soonitsoon.timeline.GetLocation;
 
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -114,6 +114,10 @@ public class TimelineActivity extends AppCompatActivity {
                 String toastStr = date + " Timeline 입니다.";
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
+                // Clear MapView
+                mapView.removeAllPOIItems();
+                mapView.removeAllPolylines();
+                // Show Timeline
                 showTimeline.show(date);
             }
         });
@@ -148,6 +152,8 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cleanMapView(mapView, mapViewContainer);
+                mapView.removeAllPOIItems();
+                mapView.removeAllPolylines();
 
                 String toastStr = "MapView clean 완료";
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
@@ -194,6 +200,9 @@ public class TimelineActivity extends AppCompatActivity {
     // CleanMapView 동작
     // TODO
     public void cleanMapView(MapView mapView, ViewGroup mapViewContainer) {
+//        mapView.poiItem
+//
+//
 //        mapView = new MapView(this);
 //        mapViewContainer = findViewById(R.id.map_view);
 //        mapViewContainer.addView(mapView);

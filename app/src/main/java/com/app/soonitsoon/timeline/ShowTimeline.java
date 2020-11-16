@@ -1,12 +1,8 @@
 package com.app.soonitsoon.timeline;
 
-import android.app.Activity;
 import android.app.Application;
 import android.graphics.Color;
-import android.icu.text.Edits;
 import android.util.Log;
-
-import com.app.soonitsoon.MainActivity;
 
 import net.daum.mf.map.api.CameraUpdateFactory;
 import net.daum.mf.map.api.MapPoint;
@@ -19,7 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +33,7 @@ public class ShowTimeline {
     }
 
     public void show(String date) {
+        // Json 파일 읽기
         InputStream inputStream;
         String stringTLList = "";
         try {
@@ -56,6 +52,7 @@ public class ShowTimeline {
             e.printStackTrace();
         }
 
+        //Json 파일(String) -> JsonObject
         JSONObject jsonTLList = new JSONObject();
         try {
             jsonTLList = new JSONObject(stringTLList);
@@ -63,15 +60,18 @@ public class ShowTimeline {
             e.printStackTrace();
         }
 
+        // Key Set
         Iterator<String> iterator = jsonTLList.keys();
 
+        // PolyLine 설정
         MapPolyline polyline = new MapPolyline();
         polyline.setTag(1000);
         polyline.setLineColor(Color.argb(128, 255, 51, 0));
 
+        // 각 위치마다 좌표 찍기 및 라인 그리기
         while (iterator.hasNext()) {
             String time = iterator.next();
-            String title = date + " " + time;
+            String title = time;
             String stringTLUnit = "";
             JSONObject jsonTLUnit = new JSONObject();
             try {
@@ -98,12 +98,12 @@ public class ShowTimeline {
             marker.setItemName(title);
             marker.setTag(0);
             marker.setMapPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude));
-            marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
-            marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+            marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+            marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
             mapView.addPOIItem(marker);
         }
 
-        // 선그리기
+        // 라인 그리기
         mapView.addPolyline(polyline);
 
         // 지도 크기 맞게 조절
