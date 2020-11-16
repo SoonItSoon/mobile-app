@@ -76,7 +76,6 @@ public class TimelineActivity extends AppCompatActivity {
                 else if(id == R.id.nav_item_test3){
                     startActivity(MainActivity.test3Intent);
                 }
-
                 return true;
             }
         });
@@ -92,76 +91,46 @@ public class TimelineActivity extends AppCompatActivity {
         // 선택된 날짜를 오늘 날짜로 초기화
         selectedDate = DateNTime.getDate();
 
+        final ShowTimeline showTimeline = new ShowTimeline(getApplication(), mapView);
+        showTimeline.show(selectedDate);
+
         // 날짜 선택 버튼
         Button datePickBtn = findViewById(R.id.datePickBtn);
-        datePickBtn.setText("Date : " + selectedDate);
+        datePickBtn.setText(selectedDate);
         datePickBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePicker();
+                showDatePicker(mapView, showTimeline);
             }
         });
 
-        final ShowTimeline showTimeline = new ShowTimeline(getApplication(), mapView);
-
-        // ShowTimeline 버튼
-        Button showTLBtn = findViewById(R.id.showTimeline);
-        showTLBtn.setOnClickListener(new View.OnClickListener() {
+        // DeleteTimeline 버튼
+        Button deleteTLBtn = findViewById(R.id.deleteTimeline);
+        deleteTLBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String date = selectedDate;
+                if(selectedDate.equals(DateNTime.getDate())) {
+                    SharedPreferences spref = getSharedPreferences("PrevData", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = spref.edit();
+                    editor.clear();
+                    editor.apply();
+                }
 
-                String toastStr = date + " Timeline 입니다.";
-                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
-
-                // Clear MapView
-                mapView.removeAllPOIItems();
-                mapView.removeAllPolylines();
-                // Show Timeline
-                showTimeline.show(date);
-            }
-        });
-
-        // CleanTimeline 버튼
-        Button cleanTLBtn = findViewById(R.id.cleanTimeline);
-        cleanTLBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences spref = getSharedPreferences("PrevData", MODE_PRIVATE);
-                SharedPreferences.Editor editor = spref.edit();
-                editor.clear();
-                editor.apply();
-
-                File file = new File(getFilesDir(), DateNTime.getDate());
+                File file = new File(getFilesDir(), selectedDate + ".json");
                 boolean delete = file.delete();
 
                 String toastStr = "";
                 if(delete) {
-                    toastStr = "Timeline 파일 제거실패.";
+                    toastStr = "Timeline 파일 제거완료.";
+                    // Clear MapView
+                    mapView.removeAllPOIItems();
+                    mapView.removeAllPolylines();
                 }
-                else toastStr = "Timeline 파일 제거완료.";
+                else toastStr = "Timeline 파일 제거실패.";
 
                 Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
             }
         });
-
-        // CleanMapView 버튼
-        // TODO
-        final Button cleanMapView = findViewById(R.id.cleanMapView);
-        cleanMapView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cleanMapView(mapView, mapViewContainer);
-                mapView.removeAllPOIItems();
-                mapView.removeAllPolylines();
-
-                String toastStr = "MapView clean 완료";
-                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
-            }
-        });
-
-
-
     }
 
     // 네비게이션 바 열기
@@ -178,13 +147,13 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     // DatePick 화면 출력
-    public void showDatePicker() {
-        DialogFragment datePickFragment = new DatePickFragment();
+    public void showDatePicker(MapView mapView, ShowTimeline showTimeline) {
+        DialogFragment datePickFragment = new DatePickFragment(mapView, showTimeline);
         datePickFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     // DatePick을 통해 선택된 날짜 처리
-    public void processDatePickerResult(int year, int month, int day) {
+    public void processDatePickerResult(int year, int month, int day, MapView mapView, ShowTimeline showTimeline) {
         String year_string = Integer.toString(year);
         String month_string = Integer.toString(month+1);
         String day_string = Integer.toString(day);
@@ -192,22 +161,16 @@ public class TimelineActivity extends AppCompatActivity {
 
         Button datePickBtn = findViewById(R.id.datePickBtn);
         selectedDate = date_msg;
-        datePickBtn.setText("Date : " + selectedDate);
+        datePickBtn.setText(selectedDate);
 
-        Toast.makeText(this, date_msg, Toast.LENGTH_SHORT).show();
-    }
 
-    // CleanMapView 동작
-    // TODO
-    public void cleanMapView(MapView mapView, ViewGroup mapViewContainer) {
-//        mapView.poiItem
-//
-//
-//        mapView = new MapView(this);
-//        mapViewContainer = findViewById(R.id.map_view);
-//        mapViewContainer.addView(mapView);
-//        GetLocation getLocation = new GetLocation(activity);
-//        // 화면 이동
-//        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(getLocation.getLatitude(), getLocation.getLongitude()), 2, true);
+        String toastStr = selectedDate + " Timeline 입니다.";
+        Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+
+        // Clear MapView
+        mapView.removeAllPOIItems();
+        mapView.removeAllPolylines();
+        // Show Timeline
+        showTimeline.show(selectedDate);
     }
 }
