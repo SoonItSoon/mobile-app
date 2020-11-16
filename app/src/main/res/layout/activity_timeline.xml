@@ -14,7 +14,7 @@
         <View
             android:id="@+id/view_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="@color/colorAccent"
             android:layout_below="@+id/toolbar"/>
 
@@ -33,42 +33,40 @@
                 android:textColor="@color/colorPrimary"
                 android:layout_gravity="center"
                 android:fontFamily="@font/nanum_square"/>
+
         </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar">
+            android:layout_below="@+id/view_toolbar"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/datePickBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/colorPrimary"
+                android:layout_margin="@dimen/btn_margin"
+                android:background="@drawable/radius"/>
+
+            <Button
+                android:id="@+id/deleteTimeline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="선택된 날짜 타임라인 삭제 (주의!! 누르면 바로 삭제됩니다!!)"
+                android:textColor="@color/colorPrimary"
+                android:layout_margin="@dimen/btn_margin"
+                android:background="@drawable/radius"/>
 
             <LinearLayout
                 android:id="@+id/map_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/datePickBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Date : " />
-
-                <Button
-                    android:id="@+id/showTimeline"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="show timeline" />
-
-                <Button
-                    android:id="@+id/cleanTimeline"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="clean timeline" />
-
-                <Button
-                    android:id="@+id/cleanMapView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="clean MapView" />
+                android:orientation="vertical"
+                android:layout_margin="@dimen/content_margin">
 
             </LinearLayout>
         </LinearLayout>

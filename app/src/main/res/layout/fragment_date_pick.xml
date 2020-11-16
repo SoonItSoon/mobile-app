@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DatePickFragment">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+<DatePicker xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:calendarViewShown="true"
+    android:datePickerMode="calendar"
+    android:layout_gravity="center_horizontal"
+    android:endYear="2100"
+    android:maxDate="12/31/2100"
+    android:minDate="01/01/2020"
+    android:spinnersShown="true"
+    android:theme="@android:style/Theme.Holo.Light"
+    android:startYear="2020" />
