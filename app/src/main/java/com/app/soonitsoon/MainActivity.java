@@ -24,6 +24,15 @@ import com.app.soonitsoon.background.BootReceiver;
 import com.app.soonitsoon.timeline.TimelineActivity;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
     public static Intent mainIntent;
@@ -108,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
             // 서비스가 실행하고 있지 않는 경우 서비스 실행
             startService(mBackgroundServiceIntent);
         }
+
+
 
         Button mainBtn1 = findViewById(R.id.mainBtn1);
         mainBtn1.setOnClickListener(new View.OnClickListener() {

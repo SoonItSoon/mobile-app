@@ -46,6 +46,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/radius"
+                android:textColor="@color/colorWhite"
+                android:layout_margin="2dp"
                 android:text="1" />
 
             <Button
@@ -53,6 +56,9 @@
                 android:layout_below="@+id/mainBtn1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/radius"
+                android:textColor="@color/colorWhite"
+                android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:text="2" />
 
@@ -61,6 +67,9 @@
                 android:layout_below="@+id/mainBtn2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/radius"
+                android:textColor="@color/colorWhite"
+                android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:text="3" />
         </LinearLayout>
