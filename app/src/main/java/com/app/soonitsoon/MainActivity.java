@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +20,7 @@ import android.widget.Toast;
 
 import com.app.soonitsoon.background.BackgroundService;
 import com.app.soonitsoon.background.BootReceiver;
+import com.app.soonitsoon.interest.InterestActivity;
 import com.app.soonitsoon.timeline.TimelineActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -28,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
     public static Intent mainIntent;
     public static Intent timelineIntent;
-    public static Intent test1Intent;
+    public static Intent interestIntent;
     public static Intent test2Intent;
     public static Intent test3Intent;
 
 
-    public Activity mainActivity = this;
+    public static Activity activity;
     private Intent mBackgroundServiceIntent;
     private BackgroundService mBackgroundService;
 
@@ -46,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        activity = this;
+
+        TimelineActivity.killTimelineActivity();
+        InterestActivity.killInterestActivity();
+        Test2Activity.killTest2Activity();
+        Test3Activity.killTest3Activity();
 
         // 위치 권한 허용 받기
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -54,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainIntent = new Intent(getApplicationContext(), MainActivity.class);
         timelineIntent = new Intent(getApplicationContext(), TimelineActivity.class);
-        test1Intent = new Intent(getApplicationContext(), Test1Activity.class);
+        interestIntent = new Intent(getApplicationContext(), InterestActivity.class);
         test2Intent = new Intent(getApplicationContext(), Test2Activity.class);
         test3Intent = new Intent(getApplicationContext(), Test3Activity.class);
 
@@ -66,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼 만들기
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_icon); //뒤로가기 버튼 이미지 지정
 
-        mDrawerLayout = findViewById(R.id.home_layout);
+        mDrawerLayout = findViewById(R.id.layout_home);
 
         // 네이게이션 바
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -85,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
                 else if(id == R.id.nav_item_timeline){
                     startActivity(timelineIntent);
                 }
-                else if(id == R.id.nav_item_test1){
-                    startActivity(test1Intent);
+                else if(id == R.id.nav_item_interest){
+                    startActivity(interestIntent);
                 }
                 else if(id == R.id.nav_item_test2){
                     startActivity(test2Intent);
@@ -109,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             startService(mBackgroundServiceIntent);
         }
 
-        Button mainBtn1 = findViewById(R.id.mainBtn1);
+        Button mainBtn1 = findViewById(R.id.btn_home_1);
         mainBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button mainBtn2 = findViewById(R.id.mainBtn2);
+        Button mainBtn2 = findViewById(R.id.btn_home_2);
         mainBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Button mainBtn3 = findViewById(R.id.mainBtn3);
+        Button mainBtn3 = findViewById(R.id.btn_home_3);
         mainBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,5 +151,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void killMainActivity() {
+        if(activity != null)
+            activity.finish();
     }
 }

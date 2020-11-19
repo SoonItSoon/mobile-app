@@ -14,10 +14,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.app.soonitsoon.interest.InterestActivity;
+import com.app.soonitsoon.timeline.TimelineActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class Test2Activity extends AppCompatActivity {
-    private Activity activity = this;
+    public static Activity activity;
     private DrawerLayout mDrawerLayout;
     private Context context = this;
     Toolbar toolbar;
@@ -26,6 +28,12 @@ public class Test2Activity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test2);
+        activity = this;
+
+        MainActivity.killMainActivity();
+        TimelineActivity.killTimelineActivity();
+        InterestActivity.killInterestActivity();
+        Test3Activity.killTest3Activity();
 
         // 상단 바
         toolbar = findViewById(R.id.toolbar);
@@ -53,8 +61,8 @@ public class Test2Activity extends AppCompatActivity {
                 else if(id == R.id.nav_item_timeline){
                     startActivity(MainActivity.timelineIntent);
                 }
-                else if(id == R.id.nav_item_test1){
-                    startActivity(MainActivity.test1Intent);
+                else if(id == R.id.nav_item_interest){
+                    startActivity(MainActivity.interestIntent);
                 }
                 else if(id == R.id.nav_item_test2){
                     Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
@@ -77,5 +85,10 @@ public class Test2Activity extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void killTest2Activity() {
+        if(activity != null)
+            activity.finish();
     }
 }

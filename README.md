@@ -120,7 +120,7 @@ TimelineActivity
 
 ```
 ParsingXML
-Test1Activity
+interestActivity
 Test2Activity
 Test3Activity
 DatePickFragment

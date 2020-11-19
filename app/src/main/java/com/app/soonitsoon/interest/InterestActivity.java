@@ -1,9 +1,12 @@
-package com.app.soonitsoon;
+package com.app.soonitsoon.interest;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -13,10 +16,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.app.soonitsoon.MainActivity;
+import com.app.soonitsoon.R;
+import com.app.soonitsoon.Test2Activity;
+import com.app.soonitsoon.Test3Activity;
+import com.app.soonitsoon.timeline.TimelineActivity;
 import com.google.android.material.navigation.NavigationView;
 
-public class Test1Activity extends AppCompatActivity {
-    private Activity activity = this;
+public class InterestActivity extends AppCompatActivity {
+    public static Activity activity;
     private DrawerLayout mDrawerLayout;
     private Context context = this;
     Toolbar toolbar;
@@ -24,7 +32,13 @@ public class Test1Activity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test1);
+        setContentView(R.layout.activity_interest);
+        activity = this;
+
+        MainActivity.killMainActivity();
+        TimelineActivity.killTimelineActivity();
+        Test2Activity.killTest2Activity();
+        Test3Activity.killTest3Activity();
 
         // 상단 바
         toolbar = findViewById(R.id.toolbar);
@@ -34,7 +48,7 @@ public class Test1Activity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼 만들기
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_icon); //뒤로가기 버튼 이미지 지정
 
-        mDrawerLayout = findViewById(R.id.test1_layout);
+        mDrawerLayout = findViewById(R.id.layout_interest);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -52,7 +66,7 @@ public class Test1Activity extends AppCompatActivity {
                 else if(id == R.id.nav_item_timeline){
                     startActivity(MainActivity.timelineIntent);
                 }
-                else if(id == R.id.nav_item_test1){
+                else if(id == R.id.nav_item_interest){
                     Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
                 }
                 else if(id == R.id.nav_item_test2){
@@ -65,6 +79,17 @@ public class Test1Activity extends AppCompatActivity {
                 return true;
             }
         });
+
+        // 관심분야 편집 버튼
+        Button settingBtn = findViewById(R.id.btn_interest_setting);
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent settingIntent = new Intent(getApplicationContext(), InterestSettingActivity.class);
+                startActivity(settingIntent);
+            }
+        });
+
     }
 
     @Override
@@ -76,5 +101,10 @@ public class Test1Activity extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void killInterestActivity() {
+        if(activity != null)
+            activity.finish();
     }
 }
