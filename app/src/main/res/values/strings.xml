@@ -1,19 +1,45 @@
 <resources>
     <string name="app_name">SoonItSoon</string>
 
+    <!--    Navigation String    -->
     <!--    Navigation Header String    -->
     <string name="nav_header_title">Header Title</string>
     <string name="nav_header_subtitle">Header Subtitle</string>
     <string name="nav_header_desc">Header Description</string>
-
     <!--    Navigation Menu String      -->
-    <string name="nav_menu_home">Home</string>
+    <string name="nav_menu_home">홈 화면</string>
     <string name="nav_menu_timeline">내 동선 확인하기</string>
-    <string name="nav_menu_test1">Test1</string>
+    <string name="nav_menu_interest">관심분야 정보 확인하기</string>
     <string name="nav_menu_test2">Test2</string>
     <string name="nav_menu_test3">Test3</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Intrest String -->
+    <!-- Intrest Setting String -->
+    <string name="intrest_setting_title">관심분야 편집</string>
+    <!-- Intrest Add String -->
+    <string name="intrest_add_title">관심분야 추가</string>
+    <string name="intrest_add_nickname">관심분야 별명</string>
+    <string name="intrest_add_location">지역</string>
+    <string name="intrest_add_disaster_kind">재난 종류</string>
+    <string name="intrest_add_disaster_keyword">키워드 종류</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
 
 </resources>

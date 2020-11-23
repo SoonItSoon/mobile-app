@@ -14,10 +14,10 @@
             android:title="@string/nav_menu_timeline"
             />
         <item
-            android:id="@+id/nav_item_test1"
+            android:id="@+id/nav_item_interest"
             android:icon="@drawable/ic_launcher_foreground"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:title="@string/nav_menu_test1"
+            android:title="@string/nav_menu_interest"
             />
         <item
             android:id="@+id/nav_item_test2"

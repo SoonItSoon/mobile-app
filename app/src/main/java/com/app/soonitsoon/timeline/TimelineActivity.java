@@ -21,6 +21,9 @@ import androidx.fragment.app.DialogFragment;
 import com.app.soonitsoon.DatePickFragment;
 import com.app.soonitsoon.MainActivity;
 import com.app.soonitsoon.R;
+import com.app.soonitsoon.Test2Activity;
+import com.app.soonitsoon.Test3Activity;
+import com.app.soonitsoon.interest.InterestActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import net.daum.mf.map.api.MapPoint;
@@ -29,7 +32,7 @@ import net.daum.mf.map.api.MapView;
 import java.io.File;
 
 public class TimelineActivity extends AppCompatActivity {
-    private Activity activity = this;
+    public static Activity activity;
     private DrawerLayout mDrawerLayout;
     private Context context = this;
     Toolbar toolbar;
@@ -39,6 +42,12 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+        activity = this;
+
+        MainActivity.killMainActivity();
+        InterestActivity.killInterestActivity();
+        Test2Activity.killTest2Activity();
+        Test3Activity.killTest3Activity();
 
         // 상단 바
         toolbar = findViewById(R.id.toolbar);
@@ -48,7 +57,7 @@ public class TimelineActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼 만들기
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_icon); //뒤로가기 버튼 이미지 지정
 
-        mDrawerLayout = findViewById(R.id.timeline_layout);
+        mDrawerLayout = findViewById(R.id.layout_timeline);
 
         // 네비게이션 바
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -67,8 +76,8 @@ public class TimelineActivity extends AppCompatActivity {
                 else if(id == R.id.nav_item_timeline){
                     Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
                 }
-                else if(id == R.id.nav_item_test1){
-                    startActivity(MainActivity.test1Intent);
+                else if(id == R.id.nav_item_interest){
+                    startActivity(MainActivity.interestIntent);
                 }
                 else if(id == R.id.nav_item_test2){
                     startActivity(MainActivity.test2Intent);
@@ -95,7 +104,7 @@ public class TimelineActivity extends AppCompatActivity {
         showTimeline.show(selectedDate);
 
         // 날짜 선택 버튼
-        Button datePickBtn = findViewById(R.id.datePickBtn);
+        Button datePickBtn = findViewById(R.id.btn_timeline_datepick);
         datePickBtn.setText(selectedDate);
         datePickBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +114,7 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
         // DeleteTimeline 버튼
-        Button deleteTLBtn = findViewById(R.id.deleteTimeline);
+        Button deleteTLBtn = findViewById(R.id.btn_timeline_delete);
         deleteTLBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,7 +168,7 @@ public class TimelineActivity extends AppCompatActivity {
         String day_string = Integer.toString(day);
         String date_msg = year_string+"-"+month_string+"-"+day_string;
 
-        Button datePickBtn = findViewById(R.id.datePickBtn);
+        Button datePickBtn = findViewById(R.id.btn_timeline_datepick);
         selectedDate = date_msg;
         datePickBtn.setText(selectedDate);
 
@@ -172,5 +181,10 @@ public class TimelineActivity extends AppCompatActivity {
         mapView.removeAllPolylines();
         // Show Timeline
         showTimeline.show(selectedDate);
+    }
+
+    public static void killTimelineActivity() {
+        if(activity != null)
+            activity.finish();
     }
 }
