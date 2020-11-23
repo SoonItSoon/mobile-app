@@ -60,7 +60,9 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                card_view:cardCornerRadius="4dp">
+                card_view:cardCornerRadius="8dp"
+                android:layout_marginBottom="@dimen/content_margin"
+                card_view:cardBackgroundColor="@color/colorPrimaryDark">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -73,13 +75,14 @@
                         android:layout_height="wrap_content"
                         android:text="관심분야1"
                         android:textSize="18dp"
-                        android:layout_marginBottom="@dimen/btn_margin"/>
+                        android:layout_marginBottom="@dimen/btn_margin"
+                        android:textColor="@color/colorPrimary"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="여기에는 관심분야1에 설정된 문자내용이 들어온답니다~"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/colorWhite"
                         android:textSize="24dp"/>
 
                 </LinearLayout>
@@ -91,7 +94,9 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                card_view:cardCornerRadius="4dp">
+                card_view:cardCornerRadius="8dp"
+                android:layout_marginBottom="@dimen/content_margin"
+                card_view:cardBackgroundColor="@color/colorPrimaryDark">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -104,13 +109,14 @@
                         android:layout_height="wrap_content"
                         android:text="관심분야2"
                         android:textSize="18dp"
-                        android:layout_marginBottom="@dimen/btn_margin"/>
+                        android:layout_marginBottom="@dimen/btn_margin"
+                        android:textColor="@color/colorPrimary"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="여기에는 관심분야2에 설정된 문자내용이 들어온답니다~"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/colorWhite"
                         android:textSize="24dp"/>
 
                 </LinearLayout>

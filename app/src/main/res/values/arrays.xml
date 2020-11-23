@@ -148,8 +148,8 @@
         <item>재난3_키워드2</item>
         <item>재난3_키워드3</item>
         <item>재난3_키워드4</item>
-        <item>재난2_키워드5</item>
-        <item>재난2_키워드6</item>
+        <item>재난3_키워드5</item>
+        <item>재난3_키워드6</item>
     </string-array>
 
     <string-array name="disaster_3">
@@ -157,9 +157,9 @@
         <item>재난4_키워드2</item>
         <item>재난4_키워드3</item>
         <item>재난4_키워드4</item>
-        <item>재난2_키워드5</item>
-        <item>재난2_키워드6</item>
-        <item>재난2_키워드7</item>
+        <item>재난4_키워드5</item>
+        <item>재난4_키워드6</item>
+        <item>재난4_키워드7</item>
     </string-array>
 
 </resources>
