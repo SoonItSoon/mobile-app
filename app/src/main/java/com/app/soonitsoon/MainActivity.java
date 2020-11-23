@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.app.soonitsoon.background.BackgroundService;
 import com.app.soonitsoon.background.BootReceiver;
 import com.app.soonitsoon.interest.InterestActivity;
+import com.app.soonitsoon.message.MessageActivity;
 import com.app.soonitsoon.timeline.TimelineActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public static Intent timelineIntent;
     public static Intent interestIntent;
     public static Intent test2Intent;
-    public static Intent test3Intent;
+    public static Intent messageIntent;
 
 
     public static Activity activity;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         TimelineActivity.killTimelineActivity();
         InterestActivity.killInterestActivity();
         Test2Activity.killTest2Activity();
-        Test3Activity.killTest3Activity();
+        MessageActivity.killMessageActivity();
 
         // 위치 권한 허용 받기
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         timelineIntent = new Intent(getApplicationContext(), TimelineActivity.class);
         interestIntent = new Intent(getApplicationContext(), InterestActivity.class);
         test2Intent = new Intent(getApplicationContext(), Test2Activity.class);
-        test3Intent = new Intent(getApplicationContext(), Test3Activity.class);
+        messageIntent = new Intent(getApplicationContext(), MessageActivity.class);
 
         // 상단 바
         toolbar = findViewById(R.id.toolbar);
@@ -97,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
                 else if(id == R.id.nav_item_test2){
                     startActivity(test2Intent);
                 }
-                else if(id == R.id.nav_item_test3){
-                    startActivity(test3Intent);
+                else if(id == R.id.nav_item_message){
+                    startActivity(messageIntent);
                 }
 
                 return true;

@@ -22,7 +22,7 @@ import com.app.soonitsoon.DatePickFragment;
 import com.app.soonitsoon.MainActivity;
 import com.app.soonitsoon.R;
 import com.app.soonitsoon.Test2Activity;
-import com.app.soonitsoon.Test3Activity;
+import com.app.soonitsoon.message.MessageActivity;
 import com.app.soonitsoon.interest.InterestActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -36,7 +36,7 @@ public class TimelineActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private Context context = this;
     Toolbar toolbar;
-    private String selectedDate = "";   // DatePicker를 통해 선택된 날짜
+    private String selectedDate;   // DatePicker를 통해 선택된 날짜
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class TimelineActivity extends AppCompatActivity {
         MainActivity.killMainActivity();
         InterestActivity.killInterestActivity();
         Test2Activity.killTest2Activity();
-        Test3Activity.killTest3Activity();
+        MessageActivity.killMessageActivity();
 
         // 상단 바
         toolbar = findViewById(R.id.toolbar);
@@ -82,8 +82,8 @@ public class TimelineActivity extends AppCompatActivity {
                 else if(id == R.id.nav_item_test2){
                     startActivity(MainActivity.test2Intent);
                 }
-                else if(id == R.id.nav_item_test3){
-                    startActivity(MainActivity.test3Intent);
+                else if(id == R.id.nav_item_message){
+                    startActivity(MainActivity.messageIntent);
                 }
                 return true;
             }
@@ -156,8 +156,9 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     // DatePick 화면 출력
+    // Timeline 에서 Call
     public void showDatePicker(MapView mapView, ShowTimeline showTimeline) {
-        DialogFragment datePickFragment = new DatePickFragment(mapView, showTimeline);
+        DialogFragment datePickFragment = new DatePickFragment(selectedDate, mapView, showTimeline);
         datePickFragment.show(getSupportFragmentManager(), "datePicker");
     }
 

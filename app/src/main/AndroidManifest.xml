@@ -60,7 +60,7 @@
         <activity android:name=".interest.InterestSettingActivity"/>
         <activity android:name=".interest.InterestAddActivity"/>
         <activity android:name=".Test2Activity"/>
-        <activity android:name=".Test3Activity"/>
+        <activity android:name=".message.MessageActivity"/>
     </application>
 
 </manifest>

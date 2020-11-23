@@ -2,7 +2,6 @@ package com.app.soonitsoon;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -15,6 +14,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.app.soonitsoon.interest.InterestActivity;
+import com.app.soonitsoon.message.MessageActivity;
 import com.app.soonitsoon.timeline.TimelineActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,7 +33,7 @@ public class Test2Activity extends AppCompatActivity {
         MainActivity.killMainActivity();
         TimelineActivity.killTimelineActivity();
         InterestActivity.killInterestActivity();
-        Test3Activity.killTest3Activity();
+        MessageActivity.killMessageActivity();
 
         // 상단 바
         toolbar = findViewById(R.id.toolbar);
@@ -67,8 +67,8 @@ public class Test2Activity extends AppCompatActivity {
                 else if(id == R.id.nav_item_test2){
                     Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
                 }
-                else if(id == R.id.nav_item_test3){
-                    startActivity(MainActivity.test3Intent);
+                else if(id == R.id.nav_item_message){
+                    startActivity(MainActivity.messageIntent);
                 }
 
                 return true;
