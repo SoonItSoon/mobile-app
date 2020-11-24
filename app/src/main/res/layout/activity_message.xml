@@ -56,7 +56,11 @@
                     <Button
                         android:id="@+id/btn_search_date_from"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radius"
+                        android:textColor="@color/colorPrimary"
+                        android:text="From Date"
+                        android:layout_margin="@dimen/btn_margin"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -70,7 +74,11 @@
                     <Button
                         android:id="@+id/btn_search_date_to"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radius"
+                        android:textColor="@color/colorPrimary"
+                        android:text="To Date"
+                        android:layout_margin="@dimen/btn_margin"/>
                 </LinearLayout>
             </LinearLayout>
             <!-- Date Layout (end) -->
@@ -91,13 +99,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/search_location_0"/>
+                    android:text="@string/search_location_0"
+                    android:background="@drawable/radius"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_margin="@dimen/btn_margin"/>
                 <Button
                     android:id="@+id/btn_search_location_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/search_location_1"/>
+                    android:text="@string/search_location_1"
+                    android:background="@drawable/radius"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_margin="@dimen/btn_margin"/>
             </LinearLayout>
             <!-- Location Layout (end) -->
 
@@ -112,31 +126,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="6">
+                android:weightSum="4">
                 <RadioButton
                     android:id="@+id/radio_disaster_0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/colorPrimary"
+                    android:background="@drawable/radio_button_default"
+                    android:button="@color/colorWhite"
+                    android:paddingBottom="@dimen/radio_padding"
+                    android:paddingTop="@dimen/radio_padding"
+                    android:layout_marginRight="@dimen/radio_padding"
                     android:text="@string/search_disaster_0" />
                 <RadioButton
                     android:id="@+id/radio_disaster_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/radio_button_default"
+                    android:button="@color/colorWhite"
+                    android:paddingBottom="@dimen/radio_padding"
+                    android:paddingTop="@dimen/radio_padding"
+                    android:layout_marginRight="@dimen/radio_padding"
                     android:text="@string/search_disaster_1"/>
                 <RadioButton
                     android:id="@+id/radio_disaster_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/radio_button_default"
+                    android:button="@color/colorWhite"
+                    android:paddingBottom="@dimen/radio_padding"
+                    android:paddingTop="@dimen/radio_padding"
+                    android:layout_marginRight="@dimen/radio_padding"
                     android:text="@string/search_disaster_2"/>
                 <RadioButton
                     android:id="@+id/radio_disaster_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/radio_button_default"
+                    android:button="@color/colorWhite"
+                    android:paddingBottom="@dimen/radio_padding"
+                    android:paddingTop="@dimen/radio_padding"
                     android:text="@string/search_disaster_3"/>
+            </RadioGroup>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
                 <RadioButton
                     android:id="@+id/radio_disaster_4"
                     android:layout_width="wrap_content"
@@ -149,6 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/search_disaster_5"/>
+
             </RadioGroup>
             <!-- Disaster Category Layout (end) -->
 

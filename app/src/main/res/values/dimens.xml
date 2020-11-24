@@ -10,5 +10,7 @@
     <dimen name="content_margin">16dp</dimen>
     <dimen name="btn_margin">4dp</dimen>
 
+    <dimen name="radio_padding">8dp</dimen>
+
 
 </resources>

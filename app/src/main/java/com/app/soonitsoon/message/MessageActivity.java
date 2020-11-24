@@ -32,6 +32,7 @@ import com.app.soonitsoon.timeline.TimelineActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MessageActivity extends AppCompatActivity {
     public static Activity activity;
@@ -113,7 +114,7 @@ public class MessageActivity extends AppCompatActivity {
         toDate = DateNTime.getDate();
         // From 날짜 선택 버튼
         Button fromDatePickBtn = findViewById(R.id.btn_search_date_from);
-        fromDatePickBtn.setText(fromDate);
+        fromDatePickBtn.setText(DateNTime.toKoreanDate(fromDate));
         fromDatePickBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +123,7 @@ public class MessageActivity extends AppCompatActivity {
         });
         // To 날짜 선택 버튼
         Button toDatePickBtn = findViewById(R.id.btn_search_date_to);
-        toDatePickBtn.setText(toDate);
+        toDatePickBtn.setText(DateNTime.toKoreanDate(toDate));
         toDatePickBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,6 +143,8 @@ public class MessageActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         btnLocation1.setText(location1[which]);
                         location1Index = which;
+                        location2Index = 0;
+                        btnLocation2.setText("전체");
                         int location2ID = getResources().getIdentifier("location_" + location1Index, "array", getPackageName());
                         location2 = getResources().getStringArray(location2ID);
                         btnLocation2.setEnabled(true);
@@ -233,16 +236,16 @@ public class MessageActivity extends AppCompatActivity {
         if (flag == 0) {
             Button datePickBtn = findViewById(R.id.btn_search_date_from);
             fromDate = date_msg;
-            datePickBtn.setText(fromDate);
+            datePickBtn.setText(DateNTime.toKoreanDate(fromDate));
         }
         else if (flag == 1) {
             Button datePickBtn = findViewById(R.id.btn_search_date_to);
             toDate = date_msg;
-            datePickBtn.setText(toDate);
+            datePickBtn.setText(DateNTime.toKoreanDate(toDate));
         }
 
-        String toastStr = "기간 선택";
-        Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+//        String toastStr = "기간 선택";
+//        Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
     }
 
     // 레이아웃 ArrayList 초기화
