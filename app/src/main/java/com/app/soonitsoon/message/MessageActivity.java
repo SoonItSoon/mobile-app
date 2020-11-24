@@ -5,11 +5,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -20,7 +20,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import com.app.soonitsoon.DatePickFragment;
 import com.app.soonitsoon.MainActivity;
@@ -32,7 +31,6 @@ import com.app.soonitsoon.timeline.TimelineActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MessageActivity extends AppCompatActivity {
     public static Activity activity;
@@ -50,12 +48,15 @@ public class MessageActivity extends AppCompatActivity {
     private int location1Index;
     private int location2Index;
 
-    // 하위 레이아웃 Array
-    private final static int SIZE_OF_LAYOUTS = 6;
-    private ArrayList<LinearLayout> disasterLayouts;
-
     // 재난 종류
     private int disasterIndex;
+    private final static int NUM_OF_DISASTER = 6;
+
+    // 재난 종류 선택 라디오 버튼
+    private ArrayList<RadioButton> disasterRadios;
+
+    // 재난 하위 레이아웃 Array
+    private ArrayList<LinearLayout> disasterLayouts;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -166,16 +167,24 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+        // 재난 라디오 버튼 초기화
+        disasterRadios = new ArrayList<>();
+        initDisasterRadios();
+
         // 재난 하위 레이아웃 초기화
         disasterLayouts = new ArrayList<>();
         initDisasterLayouts();
 
         // 재난 구분 선택 부분
         disasterIndex = -1; // 재난 종류 초기화
-        RadioGroup disasterGroup = findViewById(R.id.radioGroup_search_disaster_category);
-        disasterGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        final RadioGroup disasterGroup1 = findViewById(R.id.radioGroup_search_disaster_category_1);
+        final RadioGroup disasterGroup2 = findViewById(R.id.radioGroup_search_disaster_category_2);
+        disasterGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == -1) return; // clearCheck() 호출로 이벤트가 발생한 경우 처리
+                disasterGroup2.clearCheck(); // 그룹2의 체크는 모두 해제
+                uncheckDisasterRadios(); // 모든 라디오 버튼 해체 효과
                 goneDisasterLayouts(); // 하위 레이아웃 숨김
                 if(checkedId == R.id.radio_disaster_0) {
                     disasterIndex = 0;
@@ -185,13 +194,32 @@ public class MessageActivity extends AppCompatActivity {
                     disasterIndex = 2;
                 } else if (checkedId == R.id.radio_disaster_3) {
                     disasterIndex = 3;
-                } else if (checkedId == R.id.radio_disaster_4) {
+                } else {
+                    disasterIndex = -1;
+                }
+                if (disasterIndex != -1) {
+                    checkDisasterRadio(disasterIndex); // 선택된 라디오 버튼 선택 효과
+                    showDisasterLayout(disasterIndex); // 선택된 재난 종류 하위 레이어 표시
+                }
+            }
+        });
+        disasterGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == -1) return; // clearCheck() 호출로 이벤트가 발생한 경우 처리
+                disasterGroup1.clearCheck(); // 그룹1의 체크는 모두 해제
+                uncheckDisasterRadios(); // 모든 라디오 버튼 해체 효과
+                goneDisasterLayouts(); // 하위 레이아웃 숨김
+                if(checkedId == R.id.radio_disaster_4) {
                     disasterIndex = 4;
                 } else if (checkedId == R.id.radio_disaster_5) {
                     disasterIndex = 5;
+                } else {
+                    disasterIndex = -1;
                 }
                 if (disasterIndex != -1) {
-                    showDisasterLayouts(disasterIndex);
+                    checkDisasterRadio(disasterIndex); // 선택된 라디오 버튼 선택 효과
+                    showDisasterLayout(disasterIndex); // 선택된 재난 종류 하위 레이어 표시
                 }
             }
         });
@@ -248,10 +276,38 @@ public class MessageActivity extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
     }
 
+    // 재난 라디오 버튼 ArrayList 초기화
+    private void initDisasterRadios() {
+        int disasterRadioID;
+        for(int i=0; i<NUM_OF_DISASTER; i++) {
+            disasterRadioID = getResources().getIdentifier("radio_disaster_" + i, "id", getPackageName());
+            RadioButton radioButton = findViewById(disasterRadioID);
+            disasterRadios.add(radioButton);
+        }
+    }
+
+    // 모든 재난 라디오 버튼 해제
+    private void uncheckDisasterRadios() {
+        if (disasterRadios != null) {
+            for(RadioButton radioButton : disasterRadios) {
+                radioButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                radioButton.setBackground(getResources().getDrawable(R.drawable.radio_button_unselected));
+            }
+        }
+    }
+
+    // 선택된 재난 라디오 버튼 체크
+    private void checkDisasterRadio(int radioNum) {
+        if (disasterRadios != null) {
+            disasterRadios.get(radioNum).setTextColor(getResources().getColor(R.color.colorPrimary));
+            disasterRadios.get(radioNum).setBackground(getResources().getDrawable(R.drawable.radio_button_selected));
+        }
+    }
+
     // 레이아웃 ArrayList 초기화
     private void initDisasterLayouts() {
         int disasterLayoutID;
-        for(int i=0; i<SIZE_OF_LAYOUTS; i++) {
+        for(int i=0; i<NUM_OF_DISASTER; i++) {
             disasterLayoutID = getResources().getIdentifier("layout_search_disaster_" + i, "id", getPackageName());
             LinearLayout linearLayout = findViewById(disasterLayoutID);
             disasterLayouts.add(linearLayout);
@@ -268,7 +324,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     // 선택된 재난 종류의 하위 카테고리 선택 레이아웃 표시
-    private void showDisasterLayouts(int layoutNum) {
+    private void showDisasterLayout(int layoutNum) {
         if (disasterLayouts != null) {
             disasterLayouts.get(layoutNum).setVisibility(View.VISIBLE);
         }

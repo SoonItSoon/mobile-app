@@ -122,26 +122,26 @@
                 android:text="@string/search_disaster_category"
                 android:layout_marginTop="@dimen/content_margin"/>
             <RadioGroup
-                android:id="@+id/radioGroup_search_disaster_category"
+                android:id="@+id/radioGroup_search_disaster_category_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="4">
+                android:orientation="horizontal">
                 <RadioButton
                     android:id="@+id/radio_disaster_0"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/colorPrimary"
                     android:background="@drawable/radio_button_default"
+                    android:layout_weight="1"
                     android:button="@color/colorWhite"
                     android:paddingBottom="@dimen/radio_padding"
                     android:paddingTop="@dimen/radio_padding"
                     android:layout_marginRight="@dimen/radio_padding"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="@string/search_disaster_0" />
                 <RadioButton
                     android:id="@+id/radio_disaster_1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/radio_button_default"
@@ -149,10 +149,12 @@
                     android:paddingBottom="@dimen/radio_padding"
                     android:paddingTop="@dimen/radio_padding"
                     android:layout_marginRight="@dimen/radio_padding"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="@string/search_disaster_1"/>
                 <RadioButton
                     android:id="@+id/radio_disaster_2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/radio_button_default"
@@ -160,35 +162,55 @@
                     android:paddingBottom="@dimen/radio_padding"
                     android:paddingTop="@dimen/radio_padding"
                     android:layout_marginRight="@dimen/radio_padding"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="@string/search_disaster_2"/>
                 <RadioButton
                     android:id="@+id/radio_disaster_3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/radio_button_default"
                     android:button="@color/colorWhite"
                     android:paddingBottom="@dimen/radio_padding"
                     android:paddingTop="@dimen/radio_padding"
+                    android:layout_marginRight="@dimen/radio_padding"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="@string/search_disaster_3"/>
             </RadioGroup>
             <RadioGroup
+                android:id="@+id/radioGroup_search_disaster_category_2"
+                android:layout_marginTop="@dimen/radio_padding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="4">
-
                 <RadioButton
                     android:id="@+id/radio_disaster_4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
+                    android:background="@drawable/radio_button_default"
+                    android:button="@color/colorWhite"
+                    android:paddingBottom="@dimen/radio_padding"
+                    android:paddingTop="@dimen/radio_padding"
+                    android:layout_marginRight="@dimen/radio_padding"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="@string/search_disaster_4"/>
                 <RadioButton
                     android:id="@+id/radio_disaster_5"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
+                    android:background="@drawable/radio_button_default"
+                    android:button="@color/colorWhite"
+                    android:paddingBottom="@dimen/radio_padding"
+                    android:paddingTop="@dimen/radio_padding"
+                    android:layout_marginRight="@dimen/radio_padding"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="@string/search_disaster_5"/>
 
             </RadioGroup>
