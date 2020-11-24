@@ -215,9 +215,10 @@ public class MessageActivity extends AppCompatActivity {
             defualtDate = fromDate;
             datePickFragment = new DatePickFragment(defualtDate, toDate, flag);
         }
+        // toDate 인 경우
         else if (flag == 1) {
             defualtDate = toDate;
-            datePickFragment = new DatePickFragment(defualtDate, flag);
+            datePickFragment = new DatePickFragment(defualtDate, fromDate, flag);
         }
         datePickFragment.show(getSupportFragmentManager(), "datePicker");
     }
@@ -244,6 +245,7 @@ public class MessageActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
     }
 
+    // 레이아웃 ArrayList 초기화
     private void initDisasterLayouts() {
         int disasterLayoutID;
         for(int i=0; i<SIZE_OF_LAYOUTS; i++) {
@@ -253,6 +255,7 @@ public class MessageActivity extends AppCompatActivity {
         }
     }
 
+    // 모든 재난의 하위 카테고리 숨김
     private void goneDisasterLayouts() {
         if (disasterLayouts != null) {
             for(LinearLayout linearLayout : disasterLayouts) {
@@ -261,12 +264,14 @@ public class MessageActivity extends AppCompatActivity {
         }
     }
 
+    // 선택된 재난 종류의 하위 카테고리 선택 레이아웃 표시
     private void showDisasterLayouts(int layoutNum) {
         if (disasterLayouts != null) {
             disasterLayouts.get(layoutNum).setVisibility(View.VISIBLE);
         }
     }
 
+    // 메시지 검색 Activity 종료 (Activity 전환 시)
     public static void killMessageActivity() {
         if(activity != null)
             activity.finish();

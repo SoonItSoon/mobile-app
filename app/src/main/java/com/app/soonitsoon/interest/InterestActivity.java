@@ -103,6 +103,7 @@ public class InterestActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // 관심분야 Activity 종료 (Activity 전환 시)
     public static void killInterestActivity() {
         if(activity != null)
             activity.finish();

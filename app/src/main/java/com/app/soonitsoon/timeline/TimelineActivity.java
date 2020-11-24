@@ -184,6 +184,7 @@ public class TimelineActivity extends AppCompatActivity {
         showTimeline.show(selectedDate);
     }
 
+    // 타임라인 Activity 종료 (Activity 전환 시)
     public static void killTimelineActivity() {
         if(activity != null)
             activity.finish();

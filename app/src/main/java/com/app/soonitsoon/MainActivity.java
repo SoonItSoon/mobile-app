@@ -154,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // 메인 Activity 종료 (Activity 전환 시)
     public static void killMainActivity() {
         if(activity != null)
             activity.finish();

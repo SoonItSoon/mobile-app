@@ -22,25 +22,31 @@ public class DatePickFragment extends DialogFragment implements DatePickerDialog
     private int searchFlag; // fromDate or toDate
     private String defaultDate; // DatePicker 생성 시 defaultDate 설정을 위한 값
     private Calendar maxCalendar; // fromDate MAX 값을 설정하기위한 toDate 값
+    private Calendar minCalendar; // toDate MIN 값을 설정하기위한 toDate 값
 
     // toDate 인 경우 생성
-    public DatePickFragment(String date, int flag) {
-        defaultDate = date;
-        this.mapView = null;
-        this.showTimeline = null;
-        searchFlag = flag;
-        maxCalendar = Calendar.getInstance();
-    }
+//    public DatePickFragment(String date, int flag) {
+//        defaultDate = date;
+//        this.mapView = null;
+//        this.showTimeline = null;
+//        searchFlag = flag;
+//        maxCalendar = Calendar.getInstance();
+//    }
 
-    // fromDate 인 경우 생성
-    public DatePickFragment(String date, String toDate, int flag) {
+    // fromDate, toDate 인 경우 생성
+    public DatePickFragment(String date, String targetDate, int flag) {
         defaultDate = date;
         this.mapView = null;
         this.showTimeline = null;
         searchFlag = flag;
         maxCalendar = Calendar.getInstance();
-        String[] parsingDate = toDate.split("-");
-        maxCalendar.set(Integer.parseInt(parsingDate[0]), Integer.parseInt(parsingDate[1]) - 1, Integer.parseInt(parsingDate[2]));
+        minCalendar = Calendar.getInstance();
+        String[] parsingDate = targetDate.split("-");
+        if (flag == 0) {
+            maxCalendar.set(Integer.parseInt(parsingDate[0]), Integer.parseInt(parsingDate[1]) - 1, Integer.parseInt(parsingDate[2]));
+        } else if (flag == 1) {
+            minCalendar.set(Integer.parseInt(parsingDate[0]), Integer.parseInt(parsingDate[1]) - 1, Integer.parseInt(parsingDate[2]));
+        }
     }
 
     // timeline에서 생성
@@ -70,8 +76,12 @@ public class DatePickFragment extends DialogFragment implements DatePickerDialog
 
         // DatePicker 생성
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, dayOfMonth);
-        // 날짜 선택 최댓값 설정
+        // 날짜 선택 최댓값 설정 (오늘 날짜 또는 toDate)
         datePickerDialog.getDatePicker().setMaxDate(maxCalendar.getTime().getTime());
+        // toDate인 경우 최솟값 설정
+        if (searchFlag == 1) {
+            datePickerDialog.getDatePicker().setMinDate(minCalendar.getTime().getTime());
+        }
 
         return datePickerDialog;
     }
