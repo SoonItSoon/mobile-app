@@ -53,6 +53,7 @@
                 android:background="@drawable/radius"/>
 
             <Button
+                android:visibility="gone"
                 android:id="@+id/btn_timeline_delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +67,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_margin="@dimen/content_margin">
+                android:layout_margin="@dimen/btn_margin"
+                android:padding="@dimen/content_margin"
+                android:background="@drawable/radius">
 
             </LinearLayout>
         </LinearLayout>

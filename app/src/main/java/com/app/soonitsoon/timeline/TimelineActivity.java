@@ -105,7 +105,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         // 날짜 선택 버튼
         Button datePickBtn = findViewById(R.id.btn_timeline_datepick);
-        datePickBtn.setText(selectedDate);
+        datePickBtn.setText(DateNTime.toKoreanDate(selectedDate));
         datePickBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +137,7 @@ public class TimelineActivity extends AppCompatActivity {
                 }
                 else toastStr = "Timeline 파일 제거실패.";
 
-                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -171,11 +171,11 @@ public class TimelineActivity extends AppCompatActivity {
 
         Button datePickBtn = findViewById(R.id.btn_timeline_datepick);
         selectedDate = date_msg;
-        datePickBtn.setText(selectedDate);
+        datePickBtn.setText(DateNTime.toKoreanDate(selectedDate));
 
 
-        String toastStr = selectedDate + " Timeline 입니다.";
-        Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+//        String toastStr = selectedDate + " Timeline 입니다.";
+//        Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
         // Clear MapView
         mapView.removeAllPOIItems();
