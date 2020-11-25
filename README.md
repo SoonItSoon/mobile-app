@@ -121,7 +121,7 @@ TimelineActivity
 ```
 ParsingXML
 Test1Activity
-SafetyActivity
+Test2Activity
 Test3Activity
 DatePickFragment
 TestData

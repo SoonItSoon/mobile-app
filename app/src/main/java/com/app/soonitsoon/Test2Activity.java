@@ -16,7 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class Test3Activity extends AppCompatActivity {
+public class Test2Activity extends AppCompatActivity {
     private Activity activity = this;
     private DrawerLayout mDrawerLayout;
     private Context context = this;
@@ -25,7 +25,7 @@ public class Test3Activity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test3);
+        setContentView(R.layout.activity_test2);
 
         // 상단 바
         toolbar = findViewById(R.id.toolbar);
@@ -35,7 +35,7 @@ public class Test3Activity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼 만들기
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_icon); //뒤로가기 버튼 이미지 지정
 
-        mDrawerLayout = findViewById(R.id.test3_layout);
+        mDrawerLayout = findViewById(R.id.test2_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -57,10 +57,10 @@ public class Test3Activity extends AppCompatActivity {
                     startActivity(MainActivity.test1Intent);
                 }
                 else if(id == R.id.nav_item_test2){
-                    startActivity(MainActivity.test3Intent);
+                    Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
                 }
                 else if(id == R.id.nav_item_test3){
-                    Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
+                    startActivity(MainActivity.test3Intent);
                 }
 
                 return true;
