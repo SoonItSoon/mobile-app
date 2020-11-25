@@ -76,7 +76,7 @@ public class SafetyActivity extends AppCompatActivity {
             }
         });
         // 접촉 의심 지역 방문 확인
-
+        // 겨리 로그인 확인용
 
         // 알림 전송
         createNotificationChannel();
