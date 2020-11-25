@@ -56,8 +56,8 @@ public class Test3Activity extends AppCompatActivity {
                 else if(id == R.id.nav_item_test1){
                     startActivity(MainActivity.test1Intent);
                 }
-                else if(id == R.id.nav_item_test2){
-                    startActivity(MainActivity.test3Intent);
+                else if(id == R.id.nav_item_safety){
+                    startActivity(MainActivity.safetyIntent);
                 }
                 else if(id == R.id.nav_item_test3){
                     Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
