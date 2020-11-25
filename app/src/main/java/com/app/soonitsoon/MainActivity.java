@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public static Intent mainIntent;
     public static Intent timelineIntent;
     public static Intent test1Intent;
-    public static Intent test2Intent;
+    public static Intent safetyIntent;
     public static Intent test3Intent;
 
 
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         mainIntent = new Intent(getApplicationContext(), MainActivity.class);
         timelineIntent = new Intent(getApplicationContext(), TimelineActivity.class);
         test1Intent = new Intent(getApplicationContext(), Test1Activity.class);
-        test2Intent = new Intent(getApplicationContext(), Test2Activity.class);
+        safetyIntent = new Intent(getApplicationContext(), SafetyActivity.class);
         test3Intent = new Intent(getApplicationContext(), Test3Activity.class);
 
         // 상단 바
@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
                 else if(id == R.id.nav_item_test1){
                     startActivity(test1Intent);
                 }
-                else if(id == R.id.nav_item_test2){
-                    startActivity(test2Intent);
+                else if(id == R.id.nav_item_safety){
+                    startActivity(safetyIntent);
                 }
                 else if(id == R.id.nav_item_test3){
                     startActivity(test3Intent);

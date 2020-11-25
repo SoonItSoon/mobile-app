@@ -57,7 +57,7 @@
 
         <activity android:name=".timeline.TimelineActivity"/>
         <activity android:name=".Test1Activity"/>
-        <activity android:name=".Test2Activity"/>
+        <activity android:name=".SafetyActivity"/>
         <activity android:name=".Test3Activity"/>
     </application>
 

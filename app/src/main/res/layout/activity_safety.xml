@@ -2,7 +2,7 @@
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/test2_layout"
+    android:id="@+id/layout_safety"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -26,7 +26,7 @@
 
             <TextView
                 android:id="@+id/toolbar_title"
-                android:text="@string/nav_menu_test2"
+                android:text="@string/nav_menu_safety"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
@@ -35,7 +35,19 @@
                 android:fontFamily="@font/nanum_square"/>
         </androidx.appcompat.widget.Toolbar>
 
-<!--        <LinearLayout-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
+
+            <Button
+                android:id="@+id/alertButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="알림을 띄워보자" />
+        </LinearLayout>
+        <!--        <LinearLayout-->
 <!--            -->
 <!--        </LinearLayout>-->
 
@@ -48,6 +60,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/navi_header"
-        app:menu="@menu/navi_menu" />
+        app:menu="@menu/navi_menu" >
+
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
