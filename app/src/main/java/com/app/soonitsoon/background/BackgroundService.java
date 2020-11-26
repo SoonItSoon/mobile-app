@@ -10,10 +10,13 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.app.soonitsoon.safety.CheckSafetyInfo;
+import com.app.soonitsoon.timeline.CheckLocation;
 import com.app.soonitsoon.timeline.GetLocation;
 import com.app.soonitsoon.timeline.RecordTimeline;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -65,6 +68,7 @@ public class BackgroundService extends Service {
                 Log.e("테스크 카운터", String.valueOf(counter));
                 counter++;
 
+                // Timeline
                 Location location = getLocation.getLocation();
                 double latitude = location.getLatitude();
 //                double latitude = 35 - counter;
@@ -74,6 +78,10 @@ public class BackgroundService extends Service {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                // checkSafetyInfo
+                // TODO : 윤수한테 "추가된 확진자 접촉 의심 지역" 이름 지어달라고 하기
+                CheckSafetyInfo.getDangerInfo();
 
             }
         };
