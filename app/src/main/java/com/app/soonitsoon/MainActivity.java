@@ -8,11 +8,17 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -58,6 +64,28 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
+//        if (ContextCompat.checkSelfPermission(this, android.settings.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) != PackageManager.PERMISSION_GRANTED) {
+//
+//        }
+
+        // since REQUEST_IGNORE_BATTERY_OPTIMIZATIONS is **not** dangerous permission,
+        // but we need to check that app has `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` permission.
+        if (PackageManager.PERMISSION_GRANTED != getApplication().getPackageManager()
+                .checkPermission(android.Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                        getApplication().getPackageName())) { // 권한 체크
+            Log.d(TAG, "checkBatteryOptimization: application hasn't REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission");
+        }
+
+        PowerManager powerManager = (PowerManager) getApplication().getSystemService(Context.POWER_SERVICE);
+        boolean ignoringBatteryOptimizations = powerManager.isIgnoringBatteryOptimizations(this.getPackageName());
+        if (!ignoringBatteryOptimizations) { // 예외사항에 이미 추가되었는지 확인
+            Log.d(TAG, "checkBatteryOptimization: Not ignored Battery Optimizations.");
+
+            Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            intent.setData(Uri.parse(String.format("package:%s", this.getPackageName())));
+            startActivity(intent);
+        }
+
 
         mainIntent = new Intent(getApplicationContext(), MainActivity.class);
         timelineIntent = new Intent(getApplicationContext(), TimelineActivity.class);
