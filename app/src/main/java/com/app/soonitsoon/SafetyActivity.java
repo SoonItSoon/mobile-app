@@ -63,13 +63,13 @@ public class SafetyActivity extends AppCompatActivity {
                 else if(id == R.id.nav_item_timeline){
                     startActivity(MainActivity.timelineIntent);
                 }
-                else if(id == R.id.nav_item_test1){
+                else if(id == R.id.nav_item_interest){
                     startActivity(MainActivity.interestIntent);
                 }
                 else if(id == R.id.nav_item_safety){
                     startActivity(MainActivity.safetyIntent);
                 }
-                else if(id == R.id.nav_item_test3){
+                else if(id == R.id.nav_item_message){
                     startActivity(MainActivity.messageIntent);
                 }
 

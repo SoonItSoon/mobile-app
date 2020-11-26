@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
+
+        // 배터리 최적화 제외 권한 받기
+        // TODO
 //        if (ContextCompat.checkSelfPermission(this, android.settings.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) != PackageManager.PERMISSION_GRANTED) {
 //
 //        }
@@ -76,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "checkBatteryOptimization: application hasn't REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission");
         }
 
+        // 배터리 최적화 세팅 화면 열기
         PowerManager powerManager = (PowerManager) getApplication().getSystemService(Context.POWER_SERVICE);
         boolean ignoringBatteryOptimizations = powerManager.isIgnoringBatteryOptimizations(this.getPackageName());
         if (!ignoringBatteryOptimizations) { // 예외사항에 이미 추가되었는지 확인
@@ -85,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             intent.setData(Uri.parse(String.format("package:%s", this.getPackageName())));
             startActivity(intent);
         }
-
 
         mainIntent = new Intent(getApplicationContext(), MainActivity.class);
         timelineIntent = new Intent(getApplicationContext(), TimelineActivity.class);
