@@ -77,7 +77,6 @@ public class SafetyActivity extends AppCompatActivity {
         });
         // 접촉 의심 지역 방문 확인
         // 겨리 로그인 확인용 3333
-
         // 알림 전송
         createNotificationChannel();
         findViewById(R.id.alertButton).setOnClickListener(new View.OnClickListener() {
@@ -103,7 +102,11 @@ public class SafetyActivity extends AppCompatActivity {
 
                 NotificationManager mNotificationManager =
                         (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                mNotificationManager.notify(0, mBuilder.build());
+                for (int j = 0; j < 3; j++) {
+                    final int i = j;
+                    mNotificationManager.notify(i, mBuilder.build());
+
+                }
             }
         });
     }
