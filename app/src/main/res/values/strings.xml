@@ -9,9 +9,10 @@
     <!--    Navigation Menu String      -->
     <string name="nav_menu_home">홈 화면</string>
     <string name="nav_menu_timeline">내 동선 확인하기</string>
-    <string name="nav_menu_safety">확진자 접촉 의심 지역 방문</string>
+    <string name="nav_menu_safety">확진자 접촉 의심 지역 방문 확인하기</string>
     <string name="nav_menu_interest">관심분야 정보 확인하기</string>
     <string name="nav_menu_message">재난문자 검색</string>
+    <string name="nav_menu_briefing">일일 브리핑 정보 확인하기</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -28,6 +28,15 @@
                 android:textColor="@color/colorPrimary"
                 android:layout_gravity="center"
                 android:fontFamily="@font/nanum_square"/>
+
+            <Button
+                android:id="@+id/btn_message_goHome"
+                android:layout_height="30dp"
+                android:layout_width="30dp"
+                android:layout_gravity="left"
+                android:background="@drawable/ic_back_home"
+                android:layout_marginRight="10dp"/>
+
         </androidx.appcompat.widget.Toolbar>
 
         <!-- Contents Layout (start) -->

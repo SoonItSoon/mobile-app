@@ -62,6 +62,7 @@
 
         <activity android:name=".timeline.TimelineActivity"/>
         <activity android:name=".SafetyActivity"/>
+        <activity android:name=".BriefingActivity"/>
         <activity android:name=".interest.InterestActivity"/>
         <activity android:name=".interest.InterestSettingActivity"/>
         <activity android:name=".interest.InterestAddActivity"/>
