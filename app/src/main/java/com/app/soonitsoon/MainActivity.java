@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
     public static Intent mainIntent;
     public static Intent timelineIntent;
+    public static Intent safetyIntent;
     public static Intent interestIntent;
-    public static Intent test2Intent;
     public static Intent messageIntent;
 
 
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         TimelineActivity.killTimelineActivity();
         InterestActivity.killInterestActivity();
-        Test2Activity.killTest2Activity();
+        SafetyActivity.killSafetyActivity();
         MessageActivity.killMessageActivity();
 
         // 위치 권한 허용 받기
@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
         mainIntent = new Intent(getApplicationContext(), MainActivity.class);
         timelineIntent = new Intent(getApplicationContext(), TimelineActivity.class);
+        safetyIntent = new Intent(getApplicationContext(), SafetyActivity.class);
         interestIntent = new Intent(getApplicationContext(), InterestActivity.class);
-        test2Intent = new Intent(getApplicationContext(), Test2Activity.class);
         messageIntent = new Intent(getApplicationContext(), MessageActivity.class);
 
         // 상단 바
@@ -95,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
                 else if(id == R.id.nav_item_interest){
                     startActivity(interestIntent);
                 }
-                else if(id == R.id.nav_item_test2){
-                    startActivity(test2Intent);
+                else if(id == R.id.nav_item_safety){
+                    startActivity(safetyIntent);
                 }
                 else if(id == R.id.nav_item_message){
                     startActivity(messageIntent);

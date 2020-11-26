@@ -56,10 +56,10 @@
             android:value="8e2fb23596dd9821f09a4820560c91be" />
 
         <activity android:name=".timeline.TimelineActivity"/>
+        <activity android:name=".SafetyActivity"/>
         <activity android:name=".interest.InterestActivity"/>
         <activity android:name=".interest.InterestSettingActivity"/>
         <activity android:name=".interest.InterestAddActivity"/>
-        <activity android:name=".Test2Activity"/>
         <activity android:name=".message.MessageActivity"/>
     </application>
 

@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,12 +19,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import com.app.soonitsoon.DatePickFragment;
 import com.app.soonitsoon.MainActivity;
 import com.app.soonitsoon.R;
-import com.app.soonitsoon.Test2Activity;
+import com.app.soonitsoon.SafetyActivity;
 import com.app.soonitsoon.interest.InterestActivity;
 import com.app.soonitsoon.timeline.DateNTime;
 import com.app.soonitsoon.timeline.TimelineActivity;
@@ -65,7 +63,7 @@ public class MessageActivity extends AppCompatActivity {
         MainActivity.killMainActivity();
         TimelineActivity.killTimelineActivity();
         InterestActivity.killInterestActivity();
-        Test2Activity.killTest2Activity();
+        SafetyActivity.killSafetyActivity();
 
         // 상단 바
         toolbar = findViewById(R.id.toolbar);
@@ -96,8 +94,8 @@ public class MessageActivity extends AppCompatActivity {
                 else if(id == R.id.nav_item_interest){
                     startActivity(MainActivity.interestIntent);
                 }
-                else if(id == R.id.nav_item_test2){
-                    startActivity(MainActivity.test2Intent);
+                else if(id == R.id.nav_item_safety){
+                    startActivity(MainActivity.safetyIntent);
                 }
                 else if(id == R.id.nav_item_message){
                     Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
