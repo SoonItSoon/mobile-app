@@ -58,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         // 배터리 예외 권한이 있는지 확인
-//        if (PackageManager.PERMISSION_GRANTED != getApplication().getPackageManager()
-//                .checkPermission(android.Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-//                        getApplication().getPackageName())) { // 권한 체크
-//            Log.d(TAG, "checkBatteryOptimization: application hasn't REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission");
-//        }
+        if (PackageManager.PERMISSION_GRANTED != getApplication().getPackageManager()
+                .checkPermission(android.Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                        getApplication().getPackageName())) { // 권한 체크
+            Log.d(TAG, "checkBatteryOptimization: application hasn't REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission");
+        }
 
         // 배터리 최적화 예외가 되어 있지 않으면 세팅 화면 열기
         PowerManager powerManager = (PowerManager) getApplication().getSystemService(Context.POWER_SERVICE);
@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+
         // BackgroundService
         mBackgroundService = new BackgroundService(getApplicationContext());
         mBackgroundServiceIntent = new Intent(getApplicationContext(), mBackgroundService.getClass());
@@ -83,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
             // 서비스가 실행하고 있지 않는 경우 서비스 실행
             startService(mBackgroundServiceIntent);
         }
-
         // 화면 전환 버튼들
         Button mainBtnBriefing = findViewById(R.id.btn_home_briefing);
         mainBtnBriefing.setOnClickListener(new View.OnClickListener() {
