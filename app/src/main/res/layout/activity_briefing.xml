@@ -26,7 +26,7 @@
 
             <TextView
                 android:id="@+id/toolbar_title"
-                android:text="@string/nav_menu_safety"
+                android:text="@string/nav_menu_briefing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
@@ -35,7 +35,7 @@
                 android:fontFamily="@font/nanum_square"/>
 
             <Button
-                android:id="@+id/btn_safety_goHome"
+                android:id="@+id/btn_briefing_goHome"
                 android:layout_height="30dp"
                 android:layout_width="30dp"
                 android:layout_gravity="left"
@@ -49,17 +49,8 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/toolbar">
 
-            <Button
-                android:id="@+id/alertButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="알림을 띄워보자" />
-        </LinearLayout>
-        <!--        <LinearLayout-->
-<!--            -->
-<!--        </LinearLayout>-->
 
+        </LinearLayout>
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
