@@ -67,6 +67,7 @@
         <activity android:name=".interest.InterestSettingActivity"/>
         <activity android:name=".interest.InterestAddActivity"/>
         <activity android:name=".message.MessageActivity"/>
+        <activity android:name=".message.MessageResultActivity"/>
     </application>
 
 </manifest>

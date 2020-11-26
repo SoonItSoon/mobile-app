@@ -12,6 +12,7 @@
     <string name="nav_menu_safety">확진자 접촉 의심 지역 방문 확인하기</string>
     <string name="nav_menu_interest">관심분야 정보 확인하기</string>
     <string name="nav_menu_message">재난문자 검색</string>
+    <string name="nav_menu_message_result">재난문자 검색 결과</string>
     <string name="nav_menu_briefing">일일 브리핑 정보 확인하기</string>
 
     <!-- TODO: Remove or change this placeholder text -->
