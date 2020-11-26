@@ -98,34 +98,34 @@ public class BackgroundService extends Service {
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         Log.e(TAG, "onTaskRemoved");
-
-        final Timer timer = new Timer();
-        TimerTask tt = new TimerTask() {
-            @Override
-            public void run() {
-                Log.e("테스크 카운터", String.valueOf(counter));
-                counter++;
-
-                Location location = getLocation.getLocation();
-                double latitude = location.getLatitude();
-//                double latitude = 38 - ((double)counter/10);
-                double longitude = location.getLongitude();
-                try {
-                    recordTimeline.excute(latitude, longitude);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        };
-        timer.schedule(tt, 0, PERIOD);
+//
+//        final Timer timer = new Timer();
+//        TimerTask tt = new TimerTask() {
+//            @Override
+//            public void run() {
+//                Log.e("테스크 카운터", String.valueOf(counter));
+//                counter++;
+//
+//                Location location = getLocation.getLocation();
+//                double latitude = location.getLatitude();
+////                double latitude = 38 - ((double)counter/10);
+//                double longitude = location.getLongitude();
+//                try {
+//                    recordTimeline.excute(latitude, longitude);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        };
+//        timer.schedule(tt, 0, PERIOD);
 
         // Intent 재시작
-//        Intent intent = new Intent(getApplicationContext(), BackgroundService.class);
-//        PendingIntent pendingIntent = PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
-//        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() + 5000, pendingIntent);
-//        super.onTaskRemoved(rootIntent);
+        Intent intent = new Intent(getApplicationContext(), BackgroundService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() + 5000, pendingIntent);
+        super.onTaskRemoved(rootIntent);
 
 //        Toast.makeText(this, "onTaskRemoved", Toast.LENGTH_LONG).show();
     }

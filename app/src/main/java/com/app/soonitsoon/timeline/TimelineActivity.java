@@ -21,6 +21,9 @@ import androidx.fragment.app.DialogFragment;
 import com.app.soonitsoon.DatePickFragment;
 import com.app.soonitsoon.MainActivity;
 import com.app.soonitsoon.R;
+import com.app.soonitsoon.Test2Activity;
+import com.app.soonitsoon.message.MessageActivity;
+import com.app.soonitsoon.interest.InterestActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import net.daum.mf.map.api.MapPoint;
@@ -29,16 +32,22 @@ import net.daum.mf.map.api.MapView;
 import java.io.File;
 
 public class TimelineActivity extends AppCompatActivity {
-    private Activity activity = this;
+    public static Activity activity;
     private DrawerLayout mDrawerLayout;
     private Context context = this;
     Toolbar toolbar;
-    private String selectedDate = "";   // DatePicker를 통해 선택된 날짜
+    private String selectedDate;   // DatePicker를 통해 선택된 날짜
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+        activity = this;
+
+        MainActivity.killMainActivity();
+        InterestActivity.killInterestActivity();
+        Test2Activity.killTest2Activity();
+        MessageActivity.killMessageActivity();
 
         // 상단 바
         toolbar = findViewById(R.id.toolbar);
@@ -48,7 +57,7 @@ public class TimelineActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼 만들기
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_icon); //뒤로가기 버튼 이미지 지정
 
-        mDrawerLayout = findViewById(R.id.timeline_layout);
+        mDrawerLayout = findViewById(R.id.layout_timeline);
 
         // 네비게이션 바
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -67,14 +76,14 @@ public class TimelineActivity extends AppCompatActivity {
                 else if(id == R.id.nav_item_timeline){
                     Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
                 }
-                else if(id == R.id.nav_item_test1){
-                    startActivity(MainActivity.test1Intent);
+                else if(id == R.id.nav_item_interest){
+                    startActivity(MainActivity.interestIntent);
                 }
                 else if(id == R.id.nav_item_safety){
                     startActivity(MainActivity.safetyIntent);
                 }
-                else if(id == R.id.nav_item_test3){
-                    startActivity(MainActivity.test3Intent);
+                else if(id == R.id.nav_item_message){
+                    startActivity(MainActivity.messageIntent);
                 }
                 return true;
             }
@@ -95,8 +104,8 @@ public class TimelineActivity extends AppCompatActivity {
         showTimeline.show(selectedDate);
 
         // 날짜 선택 버튼
-        Button datePickBtn = findViewById(R.id.datePickBtn);
-        datePickBtn.setText(selectedDate);
+        Button datePickBtn = findViewById(R.id.btn_timeline_datepick);
+        datePickBtn.setText(DateNTime.toKoreanDate(selectedDate));
         datePickBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +114,7 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
         // DeleteTimeline 버튼
-        Button deleteTLBtn = findViewById(R.id.deleteTimeline);
+        Button deleteTLBtn = findViewById(R.id.btn_timeline_delete);
         deleteTLBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,7 +137,7 @@ public class TimelineActivity extends AppCompatActivity {
                 }
                 else toastStr = "Timeline 파일 제거실패.";
 
-                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -147,8 +156,9 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     // DatePick 화면 출력
+    // Timeline 에서 Call
     public void showDatePicker(MapView mapView, ShowTimeline showTimeline) {
-        DialogFragment datePickFragment = new DatePickFragment(mapView, showTimeline);
+        DialogFragment datePickFragment = new DatePickFragment(selectedDate, mapView, showTimeline);
         datePickFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
@@ -159,18 +169,24 @@ public class TimelineActivity extends AppCompatActivity {
         String day_string = Integer.toString(day);
         String date_msg = year_string+"-"+month_string+"-"+day_string;
 
-        Button datePickBtn = findViewById(R.id.datePickBtn);
+        Button datePickBtn = findViewById(R.id.btn_timeline_datepick);
         selectedDate = date_msg;
-        datePickBtn.setText(selectedDate);
+        datePickBtn.setText(DateNTime.toKoreanDate(selectedDate));
 
 
-        String toastStr = selectedDate + " Timeline 입니다.";
-        Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
+//        String toastStr = selectedDate + " Timeline 입니다.";
+//        Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
         // Clear MapView
         mapView.removeAllPOIItems();
         mapView.removeAllPolylines();
         // Show Timeline
         showTimeline.show(selectedDate);
+    }
+
+    // 타임라인 Activity 종료 (Activity 전환 시)
+    public static void killTimelineActivity() {
+        if(activity != null)
+            activity.finish();
     }
 }

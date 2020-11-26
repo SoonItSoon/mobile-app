@@ -28,4 +28,26 @@ public class DateNTime {
 
         return simpleDateFormat.format(date);
     }
+
+    // 받은 날짜를 한글로
+    // @ret : (String) yyyy년 MM월 dd일
+    public static String toKoreanDate (String date) {
+        String koreanDate;
+        String[] paresDate;
+        paresDate = date.split("-");
+        koreanDate = paresDate[0] + "년 " + paresDate[1] + "월 " + paresDate[2] + "일";
+
+        return koreanDate;
+    }
+
+    // 받은 시간을 한글로
+    // @ret : (String) hh시 mm분
+    public static String toKoreanTime (String time) {
+        String koreanTime;
+        String[] paresTime;
+        paresTime = time.split(":");
+        koreanTime = paresTime[0] + "시 " + paresTime[1] + "분";
+
+        return koreanTime;
+    }
 }
