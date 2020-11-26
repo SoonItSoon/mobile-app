@@ -26,7 +26,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 
 public class SafetyActivity extends AppCompatActivity {
-    private Activity activity = this;
+    private static Activity activity;
     private DrawerLayout mDrawerLayout;
     private Context context = this;
     Toolbar toolbar;
@@ -35,6 +35,7 @@ public class SafetyActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_safety);
+        activity = this;
 
         // 상단 바
         toolbar = findViewById(R.id.toolbar);
@@ -63,13 +64,13 @@ public class SafetyActivity extends AppCompatActivity {
                     startActivity(MainActivity.timelineIntent);
                 }
                 else if(id == R.id.nav_item_test1){
-                    startActivity(MainActivity.test1Intent);
+                    startActivity(MainActivity.interestIntent);
                 }
                 else if(id == R.id.nav_item_safety){
                     startActivity(MainActivity.safetyIntent);
                 }
                 else if(id == R.id.nav_item_test3){
-                    startActivity(MainActivity.test3Intent);
+                    startActivity(MainActivity.messageIntent);
                 }
 
                 return true;
@@ -136,5 +137,9 @@ public class SafetyActivity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+    public static void killSafetyActivity() {
+        if(activity != null)
+            activity.finish();
     }
 }

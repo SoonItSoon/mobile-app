@@ -21,7 +21,7 @@ import androidx.fragment.app.DialogFragment;
 import com.app.soonitsoon.DatePickFragment;
 import com.app.soonitsoon.MainActivity;
 import com.app.soonitsoon.R;
-import com.app.soonitsoon.Test2Activity;
+import com.app.soonitsoon.SafetyActivity;
 import com.app.soonitsoon.message.MessageActivity;
 import com.app.soonitsoon.interest.InterestActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -46,7 +46,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         MainActivity.killMainActivity();
         InterestActivity.killInterestActivity();
-        Test2Activity.killTest2Activity();
+        SafetyActivity.killSafetyActivity();
         MessageActivity.killMessageActivity();
 
         // 상단 바

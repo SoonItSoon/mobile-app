@@ -29,15 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
     public static Intent mainIntent;
     public static Intent timelineIntent;
-<<<<<<< HEAD
-    public static Intent test1Intent;
     public static Intent safetyIntent;
-    public static Intent test3Intent;
-=======
     public static Intent interestIntent;
-    public static Intent test2Intent;
     public static Intent messageIntent;
->>>>>>> develop
 
 
     public static Activity activity;
@@ -57,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         TimelineActivity.killTimelineActivity();
         InterestActivity.killInterestActivity();
-        Test2Activity.killTest2Activity();
+        SafetyActivity.killSafetyActivity();
         MessageActivity.killMessageActivity();
 
         // 위치 권한 허용 받기
@@ -67,15 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
         mainIntent = new Intent(getApplicationContext(), MainActivity.class);
         timelineIntent = new Intent(getApplicationContext(), TimelineActivity.class);
-<<<<<<< HEAD
-        test1Intent = new Intent(getApplicationContext(), Test1Activity.class);
         safetyIntent = new Intent(getApplicationContext(), SafetyActivity.class);
-        test3Intent = new Intent(getApplicationContext(), Test3Activity.class);
-=======
         interestIntent = new Intent(getApplicationContext(), InterestActivity.class);
-        test2Intent = new Intent(getApplicationContext(), Test2Activity.class);
         messageIntent = new Intent(getApplicationContext(), MessageActivity.class);
->>>>>>> develop
 
         // 상단 바
         toolbar = findViewById(R.id.toolbar);

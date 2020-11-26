@@ -56,17 +56,11 @@
             android:value="8e2fb23596dd9821f09a4820560c91be" />
 
         <activity android:name=".timeline.TimelineActivity"/>
-<<<<<<< HEAD
-        <activity android:name=".Test1Activity"/>
         <activity android:name=".SafetyActivity"/>
-        <activity android:name=".Test3Activity"/>
-=======
         <activity android:name=".interest.InterestActivity"/>
         <activity android:name=".interest.InterestSettingActivity"/>
         <activity android:name=".interest.InterestAddActivity"/>
-        <activity android:name=".Test2Activity"/>
         <activity android:name=".message.MessageActivity"/>
->>>>>>> develop
     </application>
 
 </manifest>

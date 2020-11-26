@@ -18,7 +18,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.app.soonitsoon.MainActivity;
 import com.app.soonitsoon.R;
-import com.app.soonitsoon.Test2Activity;
+import com.app.soonitsoon.SafetyActivity;
 import com.app.soonitsoon.message.MessageActivity;
 import com.app.soonitsoon.timeline.TimelineActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -37,7 +37,7 @@ public class InterestActivity extends AppCompatActivity {
 
         MainActivity.killMainActivity();
         TimelineActivity.killTimelineActivity();
-        Test2Activity.killTest2Activity();
+        SafetyActivity.killSafetyActivity();
         MessageActivity.killMessageActivity();
 
         // 상단 바
@@ -69,8 +69,8 @@ public class InterestActivity extends AppCompatActivity {
                 else if(id == R.id.nav_item_interest){
                     Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
                 }
-                else if(id == R.id.nav_item_test2){
-                    startActivity(MainActivity.test2Intent);
+                else if(id == R.id.nav_item_safety){
+                    startActivity(MainActivity.safetyIntent);
                 }
                 else if(id == R.id.nav_item_message){
                     startActivity(MainActivity.messageIntent);
