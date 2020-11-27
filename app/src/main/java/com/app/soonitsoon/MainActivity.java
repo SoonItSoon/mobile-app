@@ -20,7 +20,14 @@ import com.app.soonitsoon.background.BackgroundService;
 import com.app.soonitsoon.background.BootReceiver;
 import com.app.soonitsoon.interest.InterestActivity;
 import com.app.soonitsoon.message.MessageActivity;
+import com.app.soonitsoon.safety.CheckSafetyInfo;
 import com.app.soonitsoon.timeline.TimelineActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
@@ -30,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
     private BackgroundService mBackgroundService;
 
     private Context context = this;
+
+    // 나중에 지우기
+    private CheckSafetyInfo checkSafetyInfo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +91,64 @@ public class MainActivity extends AppCompatActivity {
         mainBtnBriefing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), BriefingActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), BriefingActivity.class);
+//                startActivity(intent);
+
+                // Unit
+                JSONObject jsonDangerUnit11 = new JSONObject();
+                JSONObject jsonDangerUnit12 = new JSONObject();
+                JSONObject jsonDangerUnit21 = new JSONObject();
+                try {
+                    jsonDangerUnit11.put("startTime", "12:00:00");
+                    jsonDangerUnit11.put("endTime", "14:00:00");
+                    jsonDangerUnit11.put("place", "해남읍 정성한우촌");
+
+                    jsonDangerUnit12.put("startTime", "11:00:00");
+                    jsonDangerUnit12.put("endTime", "14:00:00");
+                    jsonDangerUnit12.put("place", "해남 삼산면 매화정");
+
+                    jsonDangerUnit21.put("startTime", "21:51:00");
+                    jsonDangerUnit21.put("endTime", "22:37:00");
+                    jsonDangerUnit21.put("place", "우리동네오락실");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String stringDangerUnit11 = jsonDangerUnit11.toString();
+                String stringDangerUnit12 = jsonDangerUnit12.toString();
+                String stringDangerUnit21 = jsonDangerUnit21.toString();
+
+                // List
+                JSONObject jsonDangerList1 = new JSONObject();
+                JSONObject jsonDangerList2 = new JSONObject();
+
+                try {
+                    jsonDangerList1.put("1", stringDangerUnit11);
+                    jsonDangerList1.put("2", stringDangerUnit12);
+                    jsonDangerList2.put("1", stringDangerUnit21);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String stringDangerList1 = jsonDangerList1.toString();
+                String stringDangerList2 = jsonDangerList2.toString();
+
+                JSONObject jsonDangerObject = new JSONObject();
+                try {
+                    jsonDangerObject.put("2020-11-22", stringDangerList1);
+                    jsonDangerObject.put("2020-11-21", stringDangerList2);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String stringDangerObject = jsonDangerObject.toString();
+                // File
+                FileOutputStream outputStream;
+                try {
+                    outputStream = getApplication().openFileOutput("test.json", Context.MODE_PRIVATE);
+                    outputStream.write(stringDangerObject.getBytes());
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
         Button mainBtnInterest = findViewById(R.id.btn_home_interest);
