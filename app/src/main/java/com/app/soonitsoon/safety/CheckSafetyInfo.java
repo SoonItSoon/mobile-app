@@ -3,7 +3,10 @@ package com.app.soonitsoon.safety;
 import android.app.Application;
 import android.content.Context;
 import android.icu.text.Edits;
+import android.location.Location;
 import android.util.Log;
+
+import com.app.soonitsoon.timeline.CheckLocation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,106 +17,158 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
+
 
 public class CheckSafetyInfo {
     private Context context;
     private static Application application;
+    private  int dangerCount;
 
     public CheckSafetyInfo(Context context, Application application) {
         this.context = context;
         this.application = application;
+        dangerCount = 0;
     }
     // TODO : getServerInfo
     // TODO : getTimeline
-    public static void getDangerInfo() throws JSONException {
+    public void getDangerInfo() throws JSONException {
         // TODO : getServerInfo.getSafety 로 받아온 값
-        // {"date" : {"startTime", "endTime", "place"}, ...}
-        // 밑의 예시는 2020/11/26 15:11:58
-        // [진도군청]나주시 확진자 동선안내▶11.22. 해남 삼산면 매화정 12시~14시▶11.23. 해남읍 정성한우촌 11시~14시 방문하신분은 보건소에서 검사바랍니다.
+        ArrayList<ArrayList<String>> dangerList = get();
 
-        InputStream inputStreamDanger;
-        String stringDangerObject = "";
-        try {
-            inputStreamDanger = application.openFileInput("test.json");
+        if (dangerList == null)
+            return;
 
-            if (inputStreamDanger != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStreamDanger);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                stringDangerObject = bufferedReader.readLine();
-                inputStreamDanger.close();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // TODO : Timeline 받아오기
+        for (ArrayList<String> dangerUnit : dangerList){
+            String date = dangerUnit.get(0);
+            String startTime = dangerUnit.get(1);
+            String endTime = dangerUnit.get(2);
+            String locName = dangerUnit.get(3);
+            String locAddr = dangerUnit.get(4);
 
-        //Json 파일(String) -> JsonObject
-        JSONObject jsonDangerObject = new JSONObject();
-        try {
-            jsonDangerObject = new JSONObject(stringDangerObject);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        Iterator<String>  DangerDate = jsonDangerObject.keys();
-        int numDate = 0;
-        String[] stringDangerList = new String[jsonDangerObject.length()];
-        while (DangerDate.hasNext()) {
-
-            stringDangerList[numDate] = jsonDangerObject.getString(DangerDate.next());
-            JSONObject jsonDangerList = new JSONObject();
+            InputStream inputStreamTimeline;
+            String stringTLList = "";
             try {
-                jsonDangerList = new JSONObject(stringDangerList[numDate]);
+                inputStreamTimeline = application.openFileInput(date+".json");
+
+                if (inputStreamTimeline != null) {
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStreamTimeline);
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                    stringTLList = bufferedReader.readLine();
+                    inputStreamTimeline.close();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //Json 파일(String) -> JsonObject
+            JSONObject jsonTLList = new JSONObject();
+            try {
+                jsonTLList = new JSONObject(stringTLList);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Iterator<String> DangerIndex = jsonDangerList.keys();
-            int numIndex = 0;
-            String[] stringDangerUnit = new String[jsonDangerList.length()];
-            while (DangerIndex.hasNext()) {
 
-                stringDangerUnit[numIndex] = jsonDangerList.getString(DangerIndex.next());
-                JSONObject jsonDangerUnit = new JSONObject();
-                try {
-                    jsonDangerUnit = new JSONObject(stringDangerUnit[numIndex]);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            // 접촉 의심 시간 내 타임라인을 받아오기 위한 시간 저장
+            Iterator<String> iterator = jsonTLList.keys();
+            String prev = "";
+            ArrayList<String> dangerTimeList = new ArrayList<>();
+
+            while(iterator.hasNext()) {
+                String time = iterator.next();
+                int start = 1;
+                int end = 1;
+
+                if (start == 0 && end == 0) {          // 내가 접촉 의심 시간이야 (접촉 의심 시간이 범위가 아닌 경우)
+                    dangerTimeList.add(time);
+                    break;
                 }
-                numIndex++;
+                else if (start == -1 && end == 1) {    // 내가 접촉 의심 시간 안에 있어
+                    if(!prev.isEmpty())
+                        dangerTimeList.add(prev);
+                }
+                else if ((start == -1 && end == -1) || (start == -1 && end == 0)) {    // 내가 접촉 의심 시간보다 빨라 또는 엔드타임과 같아
+                    if (!prev.isEmpty())
+                        dangerTimeList.add(prev);
+                    dangerTimeList.add(time);
+                    break;
+                }
+                prev = time;
             }
-            numDate++;
-        }
-        // TODO : Timeline 받아오기
-        /*
-        InputStream inputStreamTimeline;
-        String stringTLList = "";
-        try {
-            inputStreamTimeline = application.openFileInput(jsonDangerObject.get+".json");
 
-            if (inputStreamTimeline != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStreamTimeline);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                stringTLList = bufferedReader.readLine();
-                inputStreamTimeline.close();
+            // TODO : 주소 -> lat/lon 바꾸고
+            String[] strLocRequest = RequestHttpConnection.request(locName);
+            double dangerLat = Double.parseDouble(strLocRequest[1]);
+            double dangerLon = Double.parseDouble(strLocRequest[0]);
+
+            int timelineFlag = 0;
+            for (String dangerTime : dangerTimeList) {
+                String strTLUnit = jsonTLList.getString(dangerTime);
+                JSONObject jsonTLUnit = new JSONObject(strTLUnit);
+
+                double timelineLat = jsonTLUnit.getDouble("latitude");
+                double timelineLon = jsonTLUnit.getDouble("longitude");
+
+                // M단위
+                boolean distance = CheckLocation.check(dangerLat, timelineLat, dangerLon, timelineLon);
+
+                // true : 거리가 멀다  / false : 거리가 가깝다 -> 위험하다 -> DANGER값 1로 바꾼다
+                if (distance == false) {
+                    // TODO : Danger값을 바꾸는 모듈을 만들고 넣자
+
+                    // dangerCount 설정해주는 곳
+                    if (timelineFlag == 0) {
+                        dangerCount++;
+                    }
+                    timelineFlag++;
+                }
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
-        //Json 파일(String) -> JsonObject
-        JSONObject jsonTLList = new JSONObject();
-        try {
-            jsonTLList = new JSONObject(stringTLList);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-*/
+        // TODO : 알림 보내기 "!!확진자 접촉 위험 알림!!" "총 @개의 장소에서 접촉 위험을 발견했습니다"
+    }
 
+    private static ArrayList<ArrayList<String>> get () {
+        ArrayList<ArrayList<String>> dangerList= new ArrayList<>();
+        ArrayList<String> dangerUnit = new ArrayList<>();
+        dangerUnit.add("2020-11-20");
+        dangerUnit.add("22:30:00");
+        dangerUnit.add("23:59:59");
+        dangerUnit.add("부산 코아 노래연습장");
+        dangerUnit.add("금곡대로303번길 80");
+        dangerList.add(dangerUnit);
+        dangerUnit = new ArrayList<>();
+
+        dangerUnit.add("2020-11-21");
+        dangerUnit.add("00:00:00");
+        dangerUnit.add("03:00:00");
+        dangerUnit.add("부산 코아 노래연습장");
+        dangerUnit.add("금곡대로303번길 80");
+        dangerList.add(dangerUnit);
+        dangerUnit = new ArrayList<>();
+
+        dangerUnit.add("2020-11-22");
+        dangerUnit.add("12:00:00");
+        dangerUnit.add("14:00:00");
+        dangerUnit.add("해남 삼산면 매화정");
+        dangerUnit.add("-");
+        dangerList.add(dangerUnit);
+        dangerUnit = new ArrayList<>();
+
+        dangerUnit.add("2020-11-23");
+        dangerUnit.add("11:00:00");
+        dangerUnit.add("14:00:00");
+        dangerUnit.add("해남읍 정성한우촌");
+        dangerUnit.add("-");
+        dangerList.add(dangerUnit);
+
+        return dangerList;
     }
 
 }

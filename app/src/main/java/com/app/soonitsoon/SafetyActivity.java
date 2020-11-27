@@ -38,6 +38,8 @@ public class SafetyActivity extends AppCompatActivity {
             }
         });
 
+        final String GROUP_KEY_WORK_EMAIL = "com.android.example.WORK_EMAIL";
+
         // 알림 전송
         createNotificationChannel();
         findViewById(R.id.alertButton).setOnClickListener(new View.OnClickListener() {
@@ -59,11 +61,12 @@ public class SafetyActivity extends AppCompatActivity {
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setAutoCancel(true)
                         .setOnlyAlertOnce(true)
+                        .setGroup(GROUP_KEY_WORK_EMAIL)
                         .setContentIntent(mPendingIntent);
 
                 NotificationManager mNotificationManager =
                         (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                for (int j = 0; j < 3; j++) {
+                for (int j = 0; j < 5; j++) {
                     final int i = j;
                     mNotificationManager.notify(i, mBuilder.build());
 
