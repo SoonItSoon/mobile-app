@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,14 +38,21 @@ public class MessageActivity extends AppCompatActivity {
     private int location2Index;
 
     // 재난 종류
-    private int disasterIndex;
     private final static int NUM_OF_DISASTER = 6;
+    private int disasterIndex;
 
     // 재난 종류 선택 라디오 버튼
     private ArrayList<RadioButton> disasterRadios;
 
     // 재난 하위 레이아웃 Array
     private ArrayList<LinearLayout> disasterLayouts;
+
+    // 조건이 잘 선택되었는지 확인 하는 값
+    private final static int CHECKED_DATE = 8;
+    private final static int CHECKED_LOCATION = 4;
+    private final static int CHECKED_CATEGORY = 2;
+    private final static int CHECKED_SUB_CATEGORY = 1;
+    private int isChecked;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,10 +69,14 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+        // 체크 변수 초기화
+        isChecked = 0;
+
         // 기간 선택
         // 오늘 날짜로 초기화
         fromDate = DateNTime.getDate();
         toDate = DateNTime.getDate();
+        checkCondition(CHECKED_DATE);    // 날짜 선택 완료
         // From 날짜 선택 버튼
         Button fromDatePickBtn = findViewById(R.id.btn_search_date_from);
         fromDatePickBtn.setText(DateNTime.toKoreanDate(fromDate));
@@ -96,6 +109,7 @@ public class MessageActivity extends AppCompatActivity {
                         btnLocation1.setText(location1[which]);
                         location1Index = which;
                         location2Index = 0;
+                        checkCondition(CHECKED_LOCATION);   // 지역 선택 완료
                         btnLocation2.setText("전체");
                         int location2ID = getResources().getIdentifier("location_" + location1Index, "array", getPackageName());
                         location2 = getResources().getStringArray(location2ID);
@@ -133,10 +147,11 @@ public class MessageActivity extends AppCompatActivity {
         disasterGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == -1) return; // clearCheck() 호출로 이벤트가 발생한 경우 처리
-                disasterGroup2.clearCheck(); // 그룹2의 체크는 모두 해제
-                uncheckDisasterRadios(); // 모든 라디오 버튼 해체 효과
-                goneDisasterLayouts(); // 하위 레이아웃 숨김
+                if (checkedId == -1) return;    // clearCheck() 호출로 이벤트가 발생한 경우 처리
+                disasterGroup2.clearCheck();    // 그룹2의 체크는 모두 해제
+                uncheckDisasterRadios();    // 모든 라디오 버튼 해체 효과
+                goneDisasterLayouts();  // 하위 레이아웃 숨김
+                uncheckCondition(CHECKED_CATEGORY); // 재난 종류 선택 미완료
                 if(checkedId == R.id.radio_disaster_0) {
                     disasterIndex = 0;
                 } else if(checkedId == R.id.radio_disaster_1) {
@@ -149,18 +164,20 @@ public class MessageActivity extends AppCompatActivity {
                     disasterIndex = -1;
                 }
                 if (disasterIndex != -1) {
-                    checkDisasterRadio(disasterIndex); // 선택된 라디오 버튼 선택 효과
-                    showDisasterLayout(disasterIndex); // 선택된 재난 종류 하위 레이어 표시
+                    checkDisasterRadio(disasterIndex);  // 선택된 라디오 버튼 선택 효과
+                    showDisasterLayout(disasterIndex);  // 선택된 재난 종류 하위 레이어 표시
+                    checkCondition(CHECKED_CATEGORY);   // 재난 종류 선택 완료
                 }
             }
         });
         disasterGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == -1) return; // clearCheck() 호출로 이벤트가 발생한 경우 처리
-                disasterGroup1.clearCheck(); // 그룹1의 체크는 모두 해제
-                uncheckDisasterRadios(); // 모든 라디오 버튼 해체 효과
-                goneDisasterLayouts(); // 하위 레이아웃 숨김
+                if (checkedId == -1) return;    // clearCheck() 호출로 이벤트가 발생한 경우 처리
+                disasterGroup1.clearCheck();    // 그룹1의 체크는 모두 해제
+                uncheckDisasterRadios();    // 모든 라디오 버튼 해체 효과
+                goneDisasterLayouts();  // 하위 레이아웃 숨김
+                uncheckCondition(CHECKED_CATEGORY); // 재난 종류 선택 미완료
                 if(checkedId == R.id.radio_disaster_4) {
                     disasterIndex = 4;
                 } else if (checkedId == R.id.radio_disaster_5) {
@@ -169,8 +186,47 @@ public class MessageActivity extends AppCompatActivity {
                     disasterIndex = -1;
                 }
                 if (disasterIndex != -1) {
-                    checkDisasterRadio(disasterIndex); // 선택된 라디오 버튼 선택 효과
-                    showDisasterLayout(disasterIndex); // 선택된 재난 종류 하위 레이어 표시
+                    checkDisasterRadio(disasterIndex);  // 선택된 라디오 버튼 선택 효과
+                    showDisasterLayout(disasterIndex);  // 선택된 재난 종류 하위 레이어 표시
+                    checkCondition(CHECKED_CATEGORY);   // 재난 종류 선택 완료
+                }
+            }
+        });
+
+        // 하위 카테고리 선택 완료
+        checkCondition(CHECKED_SUB_CATEGORY);
+
+        // 검색 버튼
+        Button searchBtn = findViewById(R.id.btn_message_search);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 날짜 선택이 되어있지 않은 경우
+                if ((isChecked & CHECKED_DATE) == 0) {
+                    Toast.makeText(getApplicationContext(), "기간이 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                }
+                // 지역 선택이 되어있지 않은 경우
+                else if ((isChecked & CHECKED_LOCATION) == 0) {
+                    Toast.makeText(getApplicationContext(), "지역이 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                }
+                // 재난 종류 선택이 되어있지 않은 경우
+                else if ((isChecked & CHECKED_CATEGORY) == 0) {
+                    Toast.makeText(getApplicationContext(), "재난 종류가 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                }
+                // 하위 카테고리가 되어있지 않은 경우
+                else if ((isChecked & CHECKED_SUB_CATEGORY) == 0) {
+                    Toast.makeText(getApplicationContext(), "검색 필수 조건이 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                }
+                // 모두 다 선택이 된 경우
+                else {
+                    final Intent intent = new Intent(getApplicationContext(), MessageResultActivity.class);
+                    intent.putExtra("fromDate", fromDate);
+                    intent.putExtra("toDate", toDate);
+                    intent.putExtra("location1Index", location1Index);
+                    intent.putExtra("location2Index", location2Index);
+                    intent.putExtra("disasterIndex", disasterIndex);
+                    intent.putExtra("subCategory", "subCategory");
+                    startActivity(intent);
                 }
             }
         });
@@ -211,9 +267,6 @@ public class MessageActivity extends AppCompatActivity {
             toDate = date_msg;
             datePickBtn.setText(DateNTime.toKoreanDate(toDate));
         }
-
-//        String toastStr = "기간 선택";
-//        Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
     }
 
     // 재난 라디오 버튼 ArrayList 초기화
@@ -268,5 +321,13 @@ public class MessageActivity extends AppCompatActivity {
         if (disasterLayouts != null) {
             disasterLayouts.get(layoutNum).setVisibility(View.VISIBLE);
         }
+    }
+
+    // 조건 선택되었을때 호출
+    private void checkCondition(int checkedCondition) {
+        isChecked |= checkedCondition;
+    }
+    private void uncheckCondition(int uncheckedCondition) {
+        isChecked &= (~uncheckedCondition);
     }
 }

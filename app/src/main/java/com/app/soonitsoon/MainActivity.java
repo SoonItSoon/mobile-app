@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -23,11 +25,20 @@ import com.app.soonitsoon.message.MessageActivity;
 import com.app.soonitsoon.safety.CheckSafetyInfo;
 import com.app.soonitsoon.timeline.TimelineActivity;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
@@ -49,8 +60,15 @@ public class MainActivity extends AppCompatActivity {
         activity = this;
 
         // 위치 권한 허용 받기
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+            }
+        }
+        else {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 0);
+            }
         }
 
         // 배터리 최적화 제외 권한 받기
@@ -60,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         // 배터리 예외 권한이 있는지 확인
-//        if (PackageManager.PERMISSION_GRANTED != getApplication().getPackageManager()
-//                .checkPermission(android.Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-//                        getApplication().getPackageName())) { // 권한 체크
-//            Log.d(TAG, "checkBatteryOptimization: application hasn't REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission");
-//        }
+        if (PackageManager.PERMISSION_GRANTED != getApplication().getPackageManager()
+                .checkPermission(android.Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                        getApplication().getPackageName())) { // 권한 체크
+            Log.d(TAG, "checkBatteryOptimization: application hasn't REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission");
+        }
 
         // 배터리 최적화 예외가 되어 있지 않으면 세팅 화면 열기
         PowerManager powerManager = (PowerManager) getApplication().getSystemService(Context.POWER_SERVICE);
@@ -76,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             intent.setData(Uri.parse(String.format("package:%s", this.getPackageName())));
             startActivity(intent);
         }
+
 
         // BackgroundService
         mBackgroundService = new BackgroundService(getApplicationContext());
