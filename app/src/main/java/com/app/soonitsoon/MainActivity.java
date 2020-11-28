@@ -24,6 +24,15 @@ import com.app.soonitsoon.interest.InterestActivity;
 import com.app.soonitsoon.message.MessageActivity;
 import com.app.soonitsoon.timeline.TimelineActivity;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
 
@@ -84,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             // 서비스가 실행하고 있지 않는 경우 서비스 실행
             startService(mBackgroundServiceIntent);
         }
+
         // 화면 전환 버튼들
         Button mainBtnBriefing = findViewById(R.id.btn_home_briefing);
         mainBtnBriefing.setOnClickListener(new View.OnClickListener() {

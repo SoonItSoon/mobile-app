@@ -10,14 +10,19 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.app.soonitsoon.GetServerInfo;
 import com.app.soonitsoon.safety.CheckSafetyInfo;
 import com.app.soonitsoon.timeline.CheckLocation;
 import com.app.soonitsoon.timeline.GetLocation;
 import com.app.soonitsoon.timeline.RecordTimeline;
 
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapPoint;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,7 +30,7 @@ public class BackgroundService extends Service {
     private static final String TAG = "BackgoundService";
 
     private static final int MININUTE = 1;
-    private static final int PERIOD = 1000 * 60 * MININUTE;
+    private static final int PERIOD = 1000 * 60 * MININUTE/60 * 5;
 
     private Context context;
     private static int counter=1;
@@ -61,13 +66,14 @@ public class BackgroundService extends Service {
         super.onStartCommand(intent, flags, startId);
         Log.e(TAG, "onStartCommand");
 
+        // 지정한 시간마다 동작하는 타이머
         final Timer timer = new Timer();
         TimerTask tt = new TimerTask() {
             @Override
             public void run() {
                 Log.e("테스크 카운터", String.valueOf(counter));
-                counter++;
 
+                // RecordTimeline 실행
                 // Timeline
                 Location location = getLocation.getLocation();
                 double latitude = location.getLatitude();
@@ -79,6 +85,49 @@ public class BackgroundService extends Service {
                     e.printStackTrace();
                 }
 
+                // REST 콜 파싱 테스트
+                if(counter == 1) {
+                    String str = GetServerInfo.getTestData();
+                    Log.e(TAG, "REST 콜을 통해 읽은 Json : " + str);
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(str);
+
+                        // Key Set
+                        Iterator<String> iterator = jsonObject.keys();
+                        while (iterator.hasNext()) {
+                            String time = iterator.next();
+                            String stringTLUnit = "";
+                            JSONObject jsonTLUnit = new JSONObject();
+                            try {
+                                stringTLUnit = jsonObject.getString(time);
+                                jsonTLUnit = new JSONObject(stringTLUnit);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            int lat = 0;
+                            String lon = "";
+                            String danger = "";
+                            try {
+                                lat = jsonTLUnit.getInt("id");
+                                lon = jsonTLUnit.getString("date");
+                                danger = jsonTLUnit.getString("text");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            Log.e(TAG, "파싱된 시간 : " + time);
+                            Log.e(TAG, "파싱된 lon : " + lat);
+                            Log.e(TAG, "파싱된 lat : " + lon);
+                            Log.e(TAG, "파싱된 danger : " + danger);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                counter++;
                 // checkSafetyInfo
                 // TODO : 윤수한테 "추가된 확진자 접촉 의심 지역" 이름 지어달라고 하기
                 CheckSafetyInfo.getDangerInfo();
