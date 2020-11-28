@@ -14,22 +14,22 @@
             android:title="@string/nav_menu_timeline"
             />
         <item
-            android:id="@+id/nav_item_test1"
+            android:id="@+id/nav_item_interest"
             android:icon="@drawable/ic_launcher_foreground"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:title="@string/nav_menu_test1"
+            android:title="@string/nav_menu_interest"
             />
         <item
-            android:id="@+id/nav_item_test2"
+            android:id="@+id/nav_item_safety"
             android:icon="@drawable/ic_launcher_foreground"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:title="@string/nav_menu_test2"
+            android:title="@string/nav_menu_safety"
             />
         <item
-            android:id="@+id/nav_item_test3"
+            android:id="@+id/nav_item_message"
             android:icon="@drawable/ic_launcher_foreground"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:title="@string/nav_menu_test3"
+            android:title="@string/nav_menu_message"
             />
     </group>
 </menu>

@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_message"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:text="@string/nav_menu_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:textColor="@color/colorPrimary"
+                android:layout_gravity="center"
+                android:fontFamily="@font/nanum_square"/>
+
+            <Button
+                android:id="@+id/btn_message_goHome"
+                android:layout_height="30dp"
+                android:layout_width="30dp"
+                android:layout_gravity="left"
+                android:background="@drawable/ic_back_home"
+                android:layout_marginRight="10dp"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <!-- Contents Layout (start) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:layout_margin="@dimen/content_margin"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <!-- Date Layout (start) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/search_start_date"/>
+                    <Button
+                        android:id="@+id/btn_search_date_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radius"
+                        android:textColor="@color/colorPrimary"
+                        android:text="From Date"
+                        android:layout_margin="@dimen/btn_margin"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/search_end_date"/>
+                    <Button
+                        android:id="@+id/btn_search_date_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radius"
+                        android:textColor="@color/colorPrimary"
+                        android:text="To Date"
+                        android:layout_margin="@dimen/btn_margin"/>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- Date Layout (end) -->
+
+            <!-- Location Layout (start) -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/search_location"
+                android:layout_marginTop="@dimen/content_margin"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_search_location_0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/search_location_0"
+                    android:background="@drawable/radius"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_margin="@dimen/btn_margin"/>
+                <Button
+                    android:id="@+id/btn_search_location_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/search_location_1"
+                    android:background="@drawable/radius"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_margin="@dimen/btn_margin"/>
+            </LinearLayout>
+            <!-- Location Layout (end) -->
+
+            <!-- Disaster Category Layout (start) -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/search_disaster_category"
+                android:layout_marginTop="@dimen/content_margin"/>
+            <RadioGroup
+                android:id="@+id/radioGroup_search_disaster_category_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/radio_disaster_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radio_button_default"
+                    android:layout_weight="1"
+                    android:button="@color/colorWhite"
+                    android:paddingBottom="@dimen/radio_padding"
+                    android:paddingTop="@dimen/radio_padding"
+                    android:layout_marginRight="@dimen/radio_padding"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="@string/search_disaster_0" />
+                <RadioButton
+                    android:id="@+id/radio_disaster_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_button_default"
+                    android:button="@color/colorWhite"
+                    android:paddingBottom="@dimen/radio_padding"
+                    android:paddingTop="@dimen/radio_padding"
+                    android:layout_marginRight="@dimen/radio_padding"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="@string/search_disaster_1"/>
+                <RadioButton
+                    android:id="@+id/radio_disaster_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_button_default"
+                    android:button="@color/colorWhite"
+                    android:paddingBottom="@dimen/radio_padding"
+                    android:paddingTop="@dimen/radio_padding"
+                    android:layout_marginRight="@dimen/radio_padding"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="@string/search_disaster_2"/>
+                <RadioButton
+                    android:id="@+id/radio_disaster_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_button_default"
+                    android:button="@color/colorWhite"
+                    android:paddingBottom="@dimen/radio_padding"
+                    android:paddingTop="@dimen/radio_padding"
+                    android:layout_marginRight="@dimen/radio_padding"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="@string/search_disaster_3"/>
+            </RadioGroup>
+            <RadioGroup
+                android:id="@+id/radioGroup_search_disaster_category_2"
+                android:layout_marginTop="@dimen/radio_padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+                <RadioButton
+                    android:id="@+id/radio_disaster_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@drawable/radio_button_default"
+                    android:button="@color/colorWhite"
+                    android:paddingBottom="@dimen/radio_padding"
+                    android:paddingTop="@dimen/radio_padding"
+                    android:layout_marginRight="@dimen/radio_padding"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="@string/search_disaster_4"/>
+                <RadioButton
+                    android:id="@+id/radio_disaster_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="@drawable/radio_button_default"
+                    android:button="@color/colorWhite"
+                    android:paddingBottom="@dimen/radio_padding"
+                    android:paddingTop="@dimen/radio_padding"
+                    android:layout_marginRight="@dimen/radio_padding"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="@string/search_disaster_5"/>
+
+            </RadioGroup>
+            <!-- Disaster Category Layout (end) -->
+
+            <!-- Disaster_0 Layout (start) -->
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/layout_search_disaster_0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Disaster_0 Layout Row 1 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_0_0"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/search_disaster_0_0_0"/>
+                <!-- Disaster_0 Layout Row 2 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_0_1"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_0_1_0"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_0_1_1"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_0_1_2"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_0_1_3"/>
+                </LinearLayout>
+                <!-- Disaster_0 Layout Row 3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/search_disaster_0_2"
+                        android:layout_marginTop="@dimen/content_margin"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="8">
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/search_disaster_0_2_0"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_weight="7">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="@string/search_disaster_0_2_1"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <!-- Disaster_0 Layout Row 4 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_text"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/search_disaster_text_hint"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <!-- Disaster_0 Layout (end) -->
+
+            <!-- Disaster_1 Layout (start) -->
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/layout_search_disaster_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Disaster_1 Layout Row 1 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_1_0"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/search_disaster_1_0_0"/>
+                <!-- Disaster_1 Layout Row 2 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_1_1"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_1_1_0"/>
+                <!-- Disaster_1 Layout Row 3 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_text"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/search_disaster_text_hint"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <!-- Disaster_1 Layout (end) -->
+
+            <!-- Disaster_2 Layout (start) -->
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/layout_search_disaster_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Disaster_2 Layout Row 1 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_2_0"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_2_0_0"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_2_0_1"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_2_0_2"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_2_0_3"/>
+                </LinearLayout>
+                <!-- Disaster_2 Layout Row 2 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_text"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/search_disaster_text_hint"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <!-- Disaster_2 Layout (end) -->
+
+            <!-- Disaster_3 Layout (start) -->
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/layout_search_disaster_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Disaster_3 Layout Row 1 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_3_0"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_3_0_0"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_3_0_1"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_3_0_2"/>
+                </LinearLayout>
+                <!-- Disaster_3 Layout Row 2 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_text"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/search_disaster_text_hint"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <!-- Disaster_3 Layout (end) -->
+
+            <!-- Disaster_4 Layout (start) -->
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/layout_search_disaster_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Disaster_4 Layout Row 1 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_4_0"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_4_0_0"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_4_0_1"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_disaster_4_0_2"/>
+                </LinearLayout>
+                <!-- Disaster_4 Layout Row 2 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_text"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/search_disaster_text_hint"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <!-- Disaster_4 Layout (end) -->
+
+            <!-- Disaster_5 Layout (start) -->
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/layout_search_disaster_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Disaster_5 Layout Row 1 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_5_0"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/search_disaster_5_0_0"/>
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/search_disaster_5_0_1"/>
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/search_disaster_5_0_2"/>
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/search_disaster_5_0_3"/>
+                    </RadioGroup>
+                </LinearLayout>
+                <!-- Disaster_5 Layout Row 2 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_text"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/search_disaster_text_hint"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <!-- Disaster_5 Layout (end) -->
+
+        </LinearLayout>
+        <!-- Contents Layout (end) -->
+
+        <Button
+            android:id="@+id/btn_message_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:background="@drawable/radio_button_selected"
+            android:layout_margin="@dimen/btn_margin"
+            android:textColor="@color/colorPrimary"
+            android:text="검색" />
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

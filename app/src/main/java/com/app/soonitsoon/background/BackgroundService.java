@@ -11,6 +11,8 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.app.soonitsoon.GetServerInfo;
+import com.app.soonitsoon.safety.CheckSafetyInfo;
+import com.app.soonitsoon.timeline.CheckLocation;
 import com.app.soonitsoon.timeline.GetLocation;
 import com.app.soonitsoon.timeline.RecordTimeline;
 
@@ -72,6 +74,7 @@ public class BackgroundService extends Service {
                 Log.e("테스크 카운터", String.valueOf(counter));
 
                 // RecordTimeline 실행
+                // Timeline
                 Location location = getLocation.getLocation();
                 double latitude = location.getLatitude();
 //                double latitude = 35 - counter;
@@ -125,6 +128,10 @@ public class BackgroundService extends Service {
                 }
 
                 counter++;
+                // checkSafetyInfo
+                // TODO : 윤수한테 "추가된 확진자 접촉 의심 지역" 이름 지어달라고 하기
+                CheckSafetyInfo.getDangerInfo();
+
             }
         };
         timer.schedule(tt, 0, PERIOD);
@@ -148,34 +155,34 @@ public class BackgroundService extends Service {
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         Log.e(TAG, "onTaskRemoved");
-
-        final Timer timer = new Timer();
-        TimerTask tt = new TimerTask() {
-            @Override
-            public void run() {
-                Log.e("테스크 카운터", String.valueOf(counter));
-                counter++;
-
-                Location location = getLocation.getLocation();
-                double latitude = location.getLatitude();
-//                double latitude = 38 - ((double)counter/10);
-                double longitude = location.getLongitude();
-                try {
-                    recordTimeline.excute(latitude, longitude);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        };
-        timer.schedule(tt, 0, PERIOD);
+//
+//        final Timer timer = new Timer();
+//        TimerTask tt = new TimerTask() {
+//            @Override
+//            public void run() {
+//                Log.e("테스크 카운터", String.valueOf(counter));
+//                counter++;
+//
+//                Location location = getLocation.getLocation();
+//                double latitude = location.getLatitude();
+////                double latitude = 38 - ((double)counter/10);
+//                double longitude = location.getLongitude();
+//                try {
+//                    recordTimeline.excute(latitude, longitude);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        };
+//        timer.schedule(tt, 0, PERIOD);
 
         // Intent 재시작
-//        Intent intent = new Intent(getApplicationContext(), BackgroundService.class);
-//        PendingIntent pendingIntent = PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
-//        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() + 5000, pendingIntent);
-//        super.onTaskRemoved(rootIntent);
+        Intent intent = new Intent(getApplicationContext(), BackgroundService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() + 5000, pendingIntent);
+        super.onTaskRemoved(rootIntent);
 
 //        Toast.makeText(this, "onTaskRemoved", Toast.LENGTH_LONG).show();
     }

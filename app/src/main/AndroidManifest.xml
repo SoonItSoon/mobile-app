@@ -2,12 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.soonitsoon">
 
-    <!-- 네트워크 사용에 필요 -->
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- GPS 사용에 필요 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 부팅 이벤트 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
         android:allowBackup="true"
@@ -24,14 +26,16 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- BackgroundService -->
+        </activity>
+        <!-- BackgroundService -->
         <service
             android:name=".background.BackgroundService"
             android:enabled="true"
-            android:stopWithTask="false"></service> <!-- 서비스 종료 이벤트 -->
+            android:stopWithTask="false">
+        </service>
+        <!-- 서비스 종료 이벤트 -->
         <receiver
             android:name=".background.RestarterBroadcastReceiver"
             android:enabled="true"
@@ -40,7 +44,8 @@
             <intent-filter>
                 <action android:name="com.app.soonitsoon.RestartService" />
             </intent-filter>
-        </receiver> <!-- 부팅 이벤트 -->
+        </receiver>
+        <!-- 부팅 이벤트 -->
         <receiver
             android:name=".background.BootReceiver"
             android:enabled="true"
@@ -56,9 +61,13 @@
             android:value="8e2fb23596dd9821f09a4820560c91be" />
 
         <activity android:name=".timeline.TimelineActivity"/>
-        <activity android:name=".Test1Activity"/>
-        <activity android:name=".Test2Activity"/>
-        <activity android:name=".Test3Activity"/>
+        <activity android:name=".SafetyActivity"/>
+        <activity android:name=".BriefingActivity"/>
+        <activity android:name=".interest.InterestActivity"/>
+        <activity android:name=".interest.InterestSettingActivity"/>
+        <activity android:name=".interest.InterestAddActivity"/>
+        <activity android:name=".message.MessageActivity"/>
+        <activity android:name=".message.MessageResultActivity"/>
     </application>
 
 </manifest>

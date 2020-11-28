@@ -71,7 +71,7 @@ public class ShowTimeline {
         // 각 위치마다 좌표 찍기 및 라인 그리기
         while (iterator.hasNext()) {
             String time = iterator.next();
-            String title = time;
+            String title = DateNTime.toKoreanTime(time);
             String stringTLUnit = "";
             JSONObject jsonTLUnit = new JSONObject();
             try {
