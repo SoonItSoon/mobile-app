@@ -97,8 +97,8 @@ public class MessageActivity extends AppCompatActivity {
         });
 
         // 지역 선택 부분
-        final Button btnLocation1 = findViewById(R.id.btn_search_location_0);
-        final Button btnLocation2 = findViewById(R.id.btn_search_location_1);
+        final Button btnLocation1 = findViewById(R.id.btn_search_main_location);
+        final Button btnLocation2 = findViewById(R.id.btn_search_sub_location);
         location1 = getResources().getStringArray(R.array.location);
         btnLocation1.setOnClickListener(new View.OnClickListener() {
             @Override

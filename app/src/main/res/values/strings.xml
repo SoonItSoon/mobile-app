@@ -33,30 +33,25 @@
     <string name="search_start_date">시작 날짜</string>
     <string name="search_end_date">종료 날짜</string>
     <string name="search_location">송출 지역</string>
-    <string name="search_location_0">시/도</string>
-    <string name="search_location_1">시/군/구</string>
-    <string name="search_disaster_category">재난 구분</string>
+    <string name="search_main_location">시/도</string>
+    <string name="search_sub_location">시/군/구</string>
     <!-- Disaster Option String -->
+    <string name="search_disaster_category">재난 구분</string>
     <string name="search_disaster_0">전염병</string>
     <string name="search_disaster_1">지진</string>
     <string name="search_disaster_2">미세먼지</string>
     <string name="search_disaster_3">태풍</string>
     <string name="search_disaster_4">홍수</string>
     <string name="search_disaster_5">그 외</string>
-    <string name="search_disaster_6">재난6</string>
-    <string name="search_disaster_7">재난7</string>
     <!-- Disaster SubOption String -->
     <!-- Disaster_0 String -->
     <string name="search_disaster_0_0">전염병 종류</string>
     <string name="search_disaster_0_0_0">코로나-19</string>
     <string name="search_disaster_0_1">내용 분류</string>
-    <string name="search_disaster_0_1_0">확진자 발생</string>
+    <string name="search_disaster_0_1_0">보건소 방문</string>
     <string name="search_disaster_0_1_1">확진자 동선</string>
-    <string name="search_disaster_0_1_2">보건소 방문</string>
-    <string name="search_disaster_0_1_3">캠페인</string>
-    <string name="search_disaster_0_2">소속 및 번호 (선택)</string>
-    <string name="search_disaster_0_2_0">소속(구)</string>
-    <string name="search_disaster_0_2_1">확진자 번호</string>
+    <string name="search_disaster_0_1_2">확진자 발생</string>
+    <string name="search_disaster_0_1_9">캠페인</string>
     <!-- Disaster_1 String -->
     <string name="search_disaster_1_0">진도</string>
     <string name="search_disaster_1_0_0">0.0</string>
@@ -67,18 +62,17 @@
     <string name="search_disaster_2_0">특보 종류</string>
     <string name="search_disaster_2_0_0">경보</string>
     <string name="search_disaster_2_0_1">주의보</string>
-    <string name="search_disaster_2_0_2">저감조치</string>
-    <string name="search_disaster_2_0_3">기타</string>
+    <string name="search_disaster_2_0_9">저감조치</string>
     <!-- Disaster_3 String -->
     <string name="search_disaster_3_0">특보 종류</string>
     <string name="search_disaster_3_0_0">경보</string>
     <string name="search_disaster_3_0_1">주의보</string>
-    <string name="search_disaster_3_0_2">기타</string>
+    <string name="search_disaster_3_0_9">조치알림</string>
     <!-- Disaster_4 String -->
     <string name="search_disaster_4_0">특보 종류</string>
     <string name="search_disaster_4_0_0">경보</string>
     <string name="search_disaster_4_0_1">주의보</string>
-    <string name="search_disaster_4_0_2">기타</string>
+    <string name="search_disaster_4_0_9">조치알림</string>
     <!-- Disaster_5 String -->
     <string name="search_disaster_5_0">재난 종류</string>
     <string name="search_disaster_5_0_0">폭염</string>
@@ -88,21 +82,5 @@
     <!-- Disaster Common String -->
     <string name="search_disaster_text">텍스트 검색 (선택)</string>
     <string name="search_disaster_text_hint">검색할 내용을 입력하세요</string>
-
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-
 
 </resources>

@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:weightSum="2">
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1">
@@ -72,7 +72,7 @@
                         android:layout_margin="@dimen/btn_margin"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1">
@@ -104,20 +104,20 @@
                 android:weightSum="2"
                 android:orientation="horizontal">
                 <Button
-                    android:id="@+id/btn_search_location_0"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btn_search_main_location"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/search_location_0"
+                    android:text="@string/search_main_location"
                     android:background="@drawable/radius"
                     android:textColor="@color/colorPrimary"
                     android:layout_margin="@dimen/btn_margin"/>
                 <Button
-                    android:id="@+id/btn_search_location_1"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btn_search_sub_location"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/search_location_1"
+                    android:text="@string/search_sub_location"
                     android:background="@drawable/radius"
                     android:textColor="@color/colorPrimary"
                     android:layout_margin="@dimen/btn_margin"/>
@@ -134,7 +134,8 @@
                 android:id="@+id/radioGroup_search_disaster_category_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="4">
                 <RadioButton
                     android:id="@+id/radio_disaster_0"
                     android:layout_width="match_parent"
@@ -144,7 +145,7 @@
                     android:button="@color/colorWhite"
                     android:paddingBottom="@dimen/radio_padding"
                     android:paddingTop="@dimen/radio_padding"
-                    android:layout_marginRight="@dimen/radio_padding"
+                    android:layout_margin="@dimen/btn_margin"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="@string/search_disaster_0" />
@@ -157,7 +158,7 @@
                     android:button="@color/colorWhite"
                     android:paddingBottom="@dimen/radio_padding"
                     android:paddingTop="@dimen/radio_padding"
-                    android:layout_marginRight="@dimen/radio_padding"
+                    android:layout_margin="@dimen/btn_margin"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="@string/search_disaster_1"/>
@@ -170,7 +171,7 @@
                     android:button="@color/colorWhite"
                     android:paddingBottom="@dimen/radio_padding"
                     android:paddingTop="@dimen/radio_padding"
-                    android:layout_marginRight="@dimen/radio_padding"
+                    android:layout_margin="@dimen/btn_margin"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="@string/search_disaster_2"/>
@@ -183,14 +184,13 @@
                     android:button="@color/colorWhite"
                     android:paddingBottom="@dimen/radio_padding"
                     android:paddingTop="@dimen/radio_padding"
-                    android:layout_marginRight="@dimen/radio_padding"
+                    android:layout_margin="@dimen/btn_margin"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="@string/search_disaster_3"/>
             </RadioGroup>
             <RadioGroup
                 android:id="@+id/radioGroup_search_disaster_category_2"
-                android:layout_marginTop="@dimen/radio_padding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -204,7 +204,7 @@
                     android:button="@color/colorWhite"
                     android:paddingBottom="@dimen/radio_padding"
                     android:paddingTop="@dimen/radio_padding"
-                    android:layout_marginRight="@dimen/radio_padding"
+                    android:layout_margin="@dimen/btn_margin"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="@string/search_disaster_4"/>
@@ -217,7 +217,7 @@
                     android:button="@color/colorWhite"
                     android:paddingBottom="@dimen/radio_padding"
                     android:paddingTop="@dimen/radio_padding"
-                    android:layout_marginRight="@dimen/radio_padding"
+                    android:layout_margin="@dimen/btn_margin"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="@string/search_disaster_5"/>
@@ -238,12 +238,62 @@
                     android:layout_height="wrap_content"
                     android:text="@string/search_disaster_0_0"
                     android:layout_marginTop="@dimen/content_margin"/>
-                <RadioButton
-                    android:layout_width="wrap_content"
+                <RadioGroup
+                    android:id="@+id/radioGroup_search_disaster_0_0"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:text="@string/search_disaster_0_0_0"/>
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/search_disaster_0_0_0"/>
+                    <CheckBox
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"/>
+                    <CheckBox
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"/>
+                    <CheckBox
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"/>
+                </RadioGroup>
                 <!-- Disaster_0 Layout Row 2 -->
                 <TextView
                     android:layout_width="match_parent"
@@ -256,58 +306,55 @@
                     android:orientation="horizontal"
                     android:weightSum="4">
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/search_disaster_0_1_0"/>
+                        android:text="@string/search_disaster_0_1_0"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"/>
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/search_disaster_0_1_1"/>
+                        android:text="@string/search_disaster_0_1_1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"/>
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/search_disaster_0_1_2"/>
+                        android:text="@string/search_disaster_0_1_2"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"/>
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/search_disaster_0_1_3"/>
+                        android:text="@string/search_disaster_0_1_9"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"/>
                 </LinearLayout>
                 <!-- Disaster_0 Layout Row 3 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/search_disaster_0_2"
-                        android:layout_marginTop="@dimen/content_margin"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="8">
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/search_disaster_0_2_0"/>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_height="match_parent"
-                            android:layout_width="wrap_content"
-                            android:layout_weight="7">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:hint="@string/search_disaster_0_2_1"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-                </LinearLayout>
-                <!-- Disaster_0 Layout Row 4 -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -349,10 +396,30 @@
                     android:layout_height="wrap_content"
                     android:text="@string/search_disaster_1_1"
                     android:layout_marginTop="@dimen/content_margin"/>
-                <Button
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/search_disaster_1_1_0"/>
+                    android:weightSum="2"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/btn_search_disaster_1_1_0_main_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_main_location"
+                        android:background="@drawable/radius"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_margin="@dimen/btn_margin"/>
+                    <Button
+                        android:id="@+id/btn_search_disaster_1_1_0_sub_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/search_sub_location"
+                        android:background="@drawable/radius"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_margin="@dimen/btn_margin"/>
+                </LinearLayout>
                 <!-- Disaster_1 Layout Row 3 -->
                 <TextView
                     android:layout_width="match_parent"
@@ -389,25 +456,53 @@
                     android:orientation="horizontal"
                     android:weightSum="4">
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="@string/search_disaster_2_0_0"/>
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="@string/search_disaster_2_0_1"/>
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/search_disaster_2_0_2"/>
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="@string/search_disaster_2_0_9"/>
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/search_disaster_2_0_3"/>
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"/>
                 </LinearLayout>
                 <!-- Disaster_2 Layout Row 2 -->
                 <TextView
@@ -445,20 +540,53 @@
                     android:orientation="horizontal"
                     android:weightSum="4">
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="@string/search_disaster_3_0_0"/>
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="@string/search_disaster_3_0_1"/>
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/search_disaster_3_0_2"/>
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="@string/search_disaster_3_0_9"/>
+                    <CheckBox
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"/>
                 </LinearLayout>
                 <!-- Disaster_3 Layout Row 2 -->
                 <TextView
@@ -496,20 +624,53 @@
                     android:orientation="horizontal"
                     android:weightSum="4">
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="@string/search_disaster_4_0_0"/>
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="@string/search_disaster_4_0_1"/>
                     <CheckBox
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/search_disaster_4_0_2"/>
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="@string/search_disaster_4_0_9"/>
+                    <CheckBox
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"/>
                 </LinearLayout>
                 <!-- Disaster_4 Layout Row 2 -->
                 <TextView
@@ -552,24 +713,52 @@
                         android:orientation="horizontal"
                         android:weightSum="4">
                         <RadioButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:background="@drawable/radio_button_default"
+                            android:button="@color/colorWhite"
+                            android:paddingBottom="@dimen/radio_padding"
+                            android:paddingTop="@dimen/radio_padding"
+                            android:layout_margin="@dimen/btn_margin"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
                             android:text="@string/search_disaster_5_0_0"/>
                         <RadioButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:background="@drawable/radio_button_default"
+                            android:button="@color/colorWhite"
+                            android:paddingBottom="@dimen/radio_padding"
+                            android:paddingTop="@dimen/radio_padding"
+                            android:layout_margin="@dimen/btn_margin"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
                             android:text="@string/search_disaster_5_0_1"/>
                         <RadioButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:background="@drawable/radio_button_default"
+                            android:button="@color/colorWhite"
+                            android:paddingBottom="@dimen/radio_padding"
+                            android:paddingTop="@dimen/radio_padding"
+                            android:layout_margin="@dimen/btn_margin"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
                             android:text="@string/search_disaster_5_0_2"/>
                         <RadioButton
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:background="@drawable/radio_button_default"
+                            android:button="@color/colorWhite"
+                            android:paddingBottom="@dimen/radio_padding"
+                            android:paddingTop="@dimen/radio_padding"
+                            android:layout_margin="@dimen/btn_margin"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
                             android:text="@string/search_disaster_5_0_3"/>
                     </RadioGroup>
                 </LinearLayout>
