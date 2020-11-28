@@ -37,6 +37,7 @@ public class BackgroundService extends Service {
 
     private GetLocation getLocation;
     private RecordTimeline recordTimeline;
+    private CheckSafetyInfo checkSafetyInfo;
 
     public BackgroundService() {
     }
@@ -57,6 +58,7 @@ public class BackgroundService extends Service {
         Log.e(TAG, "onCreate");
         recordTimeline = new RecordTimeline(this, getApplication());
         getLocation = new GetLocation(this);
+        checkSafetyInfo = new CheckSafetyInfo(this, getApplication());
 
 //        Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
     }
@@ -130,7 +132,12 @@ public class BackgroundService extends Service {
                 counter++;
                 // checkSafetyInfo
                 // TODO : 윤수한테 "추가된 확진자 접촉 의심 지역" 이름 지어달라고 하기
-                CheckSafetyInfo.getDangerInfo();
+
+                try {
+                    checkSafetyInfo.getDangerInfo();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
         };
