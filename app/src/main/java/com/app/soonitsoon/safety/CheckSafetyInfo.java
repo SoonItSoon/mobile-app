@@ -6,6 +6,7 @@ import android.icu.text.Edits;
 import android.location.Location;
 import android.util.Log;
 
+import com.app.soonitsoon.CalDate;
 import com.app.soonitsoon.server.GetServerInfo;
 import com.app.soonitsoon.timeline.CheckLocation;
 
@@ -34,11 +35,10 @@ public class CheckSafetyInfo {
         this.application = application;
         dangerCount = 0;
     }
-    // TODO : getServerInfo
-    // TODO : getTimeline
+
+    // 접촉 위험 지역과 timeline을 비교해 danger값을 바꾸는 모듈
     public void getDangerInfo() throws JSONException {
-        // TODO : getServerInfo.getSafety 로 받아온 값
-//        ArrayList<ArrayList<String>> dangerList = get();
+        // getServerInfo.getSafety 로 받아온 값 (추가된 접촉 안내 data)
         ArrayList<ArrayList<String>> dangerList = GetServerInfo.getSafetyData(application, context);
 
         if (dangerList == null)
@@ -85,10 +85,8 @@ public class CheckSafetyInfo {
 
             while(iterator.hasNext()) {
                 String time = iterator.next();
-                int start = 1;
-                int end = 1;
-
-                // TODO : startTime/endTime 비교하는거 추가해야댐
+                int start = CalDate.isFast(startTime, time);
+                int end = CalDate.isFast(endTime, time);
 
                 if (start == 0 && end == 0) {          // 내가 접촉 의심 시간이야 (접촉 의심 시간이 범위가 아닌 경우)
                     dangerTimeList.add(time);
@@ -107,11 +105,22 @@ public class CheckSafetyInfo {
                 prev = time;
             }
 
-            // TODO : 주소 -> lat/lon 바꾸고
-            String[] strLocRequest = RequestHttpConnection.request(locName);
+            // kakao map rest api를 사용해 상호명에서 좌표값 받아오기
+            // 1. sender가 "중대본" 이면 locName으로만 검색
+            // 2. sender가 "중대본"이 아니면 sender-(마지막글자)+locName으로 검색
+            String[] strLocRequest = {""};
+            if (sender.equals("중대본"))
+                strLocRequest = RequestHttpConnection.request(locName);
+            else {
+                String senderLoc = sender.substring(0, sender.length()-1);
+                String searchLoc = senderLoc + " " + locName;
+                strLocRequest = RequestHttpConnection.request(searchLoc);
+            }
+
             double dangerLat = Double.parseDouble(strLocRequest[1]);
             double dangerLon = Double.parseDouble(strLocRequest[0]);
 
+            // 접촉 의심 장소와 내 timeline을 비교해서 dnager값 바꾸기
             int timelineFlag = 0;
             for (String dangerTime : dangerTimeList) {
                 String strTLUnit = jsonTLList.getString(dangerTime);

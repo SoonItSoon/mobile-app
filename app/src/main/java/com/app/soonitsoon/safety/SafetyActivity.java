@@ -40,39 +40,39 @@ public class SafetyActivity extends AppCompatActivity {
             }
         });
 
-        final String GROUP_KEY_WORK_EMAIL = "com.android.example.WORK_EMAIL";
+//        final String GROUP_KEY_WORK_EMAIL = "com.android.example.WORK_EMAIL";
 
         // 알림 전송
         createNotificationChannel();
         findViewById(R.id.alertButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(getResources(), R.drawable.ic_alert_large);
-
-                PendingIntent mPendingIntent = PendingIntent.getActivity(SafetyActivity.this, 0
-                        , new Intent(getApplicationContext(), SafetyActivity.class)
-                        , PendingIntent.FLAG_CANCEL_CURRENT);
-
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(SafetyActivity.this, "Alert")
-                        .setSmallIcon(R.drawable.ic_alert)
-                        .setContentTitle("확진자 접촉 의심 지역 방문!!")
-                        .setContentText("클릭하여 방문 확인을 해주세요")
-                        .setDefaults(Notification.DEFAULT_VIBRATE)
-                        .setColor(Color.BLACK)
-                        .setLargeIcon(mLargeIconForNoti)
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .setAutoCancel(true)
-                        .setOnlyAlertOnce(true)
-                        .setGroup(GROUP_KEY_WORK_EMAIL)
-                        .setContentIntent(mPendingIntent);
-
-                NotificationManager mNotificationManager =
-                        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                for (int j = 0; j < 5; j++) {
-                    final int i = j;
-                    mNotificationManager.notify(i, mBuilder.build());
-
-                }
+//                Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(getResources(), R.drawable.ic_alert_large);
+//
+//                PendingIntent mPendingIntent = PendingIntent.getActivity(SafetyActivity.this, 0
+//                        , new Intent(getApplicationContext(), SafetyActivity.class)
+//                        , PendingIntent.FLAG_CANCEL_CURRENT);
+//
+//                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(SafetyActivity.this, "Alert")
+//                        .setSmallIcon(R.drawable.ic_alert)
+//                        .setContentTitle("확진자 접촉 의심 지역 방문!!")
+//                        .setContentText("클릭하여 방문 확인을 해주세요")
+//                        .setDefaults(Notification.DEFAULT_VIBRATE)
+//                        .setColor(Color.BLACK)
+//                        .setLargeIcon(mLargeIconForNoti)
+//                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                        .setAutoCancel(true)
+//                        .setOnlyAlertOnce(true)
+//                        .setGroup(GROUP_KEY_WORK_EMAIL)
+//                        .setContentIntent(mPendingIntent);
+//
+//                NotificationManager mNotificationManager =
+//                        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//                for (int j = 0; j < 5; j++) {
+//                    final int i = j;
+//                    mNotificationManager.notify(i, mBuilder.build());
+//
+//                }
             }
         });
     }

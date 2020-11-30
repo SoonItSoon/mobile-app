@@ -49,4 +49,24 @@ public class CalDate {
             return null;
         }
     }
+
+    // 시간 비교하는 함수
+    // time1이 time2보다 느리면 -1, 같으면 0, 빠르면 1
+    public static int isFast(String inputTime1, String inputTime2) {
+        int result = -2;
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+
+            Date time1 = format.parse(inputTime1);
+            Date time2 = format.parse(inputTime2);
+
+            result = time1.compareTo(time2);
+        } catch (ParseException e) {
+            Log.e("isFast", "Parse 오류");
+            return result;
+        }
+
+        return result;
+    }
 }

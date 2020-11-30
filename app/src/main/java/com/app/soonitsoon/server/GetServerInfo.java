@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class GetServerInfo {
-
     public static String getTestData() {
         String str = "";
         try {
@@ -65,6 +64,7 @@ public class GetServerInfo {
         SharedPreferences prevData = context.getSharedPreferences("PrevData", Context.MODE_PRIVATE);
         String safetyPrevDate = prevData.getString("SafetyPrevDate", "");
         String safetyPrevTime = prevData.getString("SafetyPrevTime", "");
+        SharedPreferences.Editor editor = prevData.edit();
 
         // 이전 시간이랑 같다면 (근데 이런 경우가 있나?)
         if (currentDate.equals(safetyPrevDate) && currentTime.equals(safetyPrevTime)) {
@@ -74,6 +74,11 @@ public class GetServerInfo {
             return resultList;
         }
         else {
+            // prev 값 변경
+            editor.putString("SafetyPrevDate", currentDate);
+            editor.putString("SafetyPrevTime", currentTime);
+            editor.apply();
+
             // TODO : 서버 정보 받아오는거 모듈화하자
             String jsonResult = "";
             String strConnectionResult = "";
