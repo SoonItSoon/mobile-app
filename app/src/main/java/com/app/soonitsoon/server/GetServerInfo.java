@@ -25,34 +25,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class GetServerInfo {
-    public static String getTestData() {
-        String str = "";
-        try {
-            URL url = new URL("http://203.253.25.184:8080/");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            InputStream is = conn.getInputStream();
 
-            // Get the stream
-            StringBuilder builder = new StringBuilder();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                builder.append(line);
-            }
-
-            str = builder.toString();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return str;
-    }
-
+    // 위험 동선 확인
     public static ArrayList<ArrayList<String>> getSafetyData(Application application, Context context) {
         ArrayList<ArrayList<String>> resultList = new ArrayList<>();
 
@@ -79,28 +53,10 @@ public class GetServerInfo {
             editor.putString("SafetyPrevTime", currentTime);
             editor.apply();
 
-            // TODO : 서버 정보 받아오는거 모듈화하자
-            String jsonResult = "";
             String strConnectionResult = "";
-            BufferedReader br = null;
-            StringBuffer sb = null;
-
             try {
-                // url Connection
-                URL url = new URL("http://203.253.25.184:8080/search?" +            // url 주소
-                        "start_date=" + safetyPrevDate + " " + safetyPrevTime +           // 검색 시간 (prev ~ 현재)
-                        "&disaster=1&name=COVID-19&level=1");                             // disaster = 전염병, 이름 = 코로나, level = 1(접촉안내)
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-
-                br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
-                sb = new StringBuffer();
-
-                while ((jsonResult = br.readLine()) != null)
-                    sb.append(jsonResult);
-
-                strConnectionResult = sb.toString();                               // connection 전체 결과
+                String startDateTime = safetyPrevDate + " " + safetyPrevTime;
+                strConnectionResult = getServerData(makeConnUrl(startDateTime, 1, "1", "COVID-19"));  // connection 전체 결과
 
                 JSONObject jsonConnectionResult = new JSONObject(strConnectionResult);
                 Iterator<String> iterator = jsonConnectionResult.keys();
@@ -183,14 +139,126 @@ public class GetServerInfo {
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
                 return null;
-            } finally {
-                try {
-                    if (br != null)
-                        br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         }
+    }
+
+    // URL 생성
+    public static URL makeConnUrl(String startDateTime, int disasterIndex, String levels) throws MalformedURLException {
+        return new URL("http://203.253.25.184:8080/search" +
+                "?start_date=" + startDateTime +
+                "&disaster=" + disasterIndex +
+                "&level=" + levels);
+    }
+    public static URL makeConnUrl(String startDateTime, String endDateTime, int disasterIndex, String levels) throws MalformedURLException {
+        return new URL("http://203.253.25.184:8080/search" +
+                "?start_date=" + startDateTime +
+                "&end_date=" + endDateTime +
+                "&disaster=" + disasterIndex +
+                "&level=" + levels);
+    }
+    public static URL makeConnUrl(String startDateTime, int disasterIndex, String levels, String subName) throws MalformedURLException {
+        return new URL("http://203.253.25.184:8080/search" +
+                "?start_date=" + startDateTime +
+                "&disaster=" + disasterIndex +
+                "&level=" + levels +
+                "&name=" + subName);
+    }
+    public static URL makeConnUrl(String startDateTime, String endDateTime, int disasterIndex, String levels, String subName) throws MalformedURLException {
+        return new URL("http://203.253.25.184:8080/search" +
+                "?start_date=" + startDateTime +
+                "&end_date=" + endDateTime +
+                "&disaster=" + disasterIndex +
+                "&level=" + levels +
+                "&name=" + subName);
+    }
+    public static URL makeConnUrl(String startDateTime, String mainLocation, String subLocation, int disasterIndex, String levels) throws MalformedURLException {
+        return new URL("http://203.253.25.184:8080/search" +
+                "?start_date=" + startDateTime +
+                "&main_location=" + mainLocation +
+                "&sub_location=" + subLocation +
+                "&disaster=" + disasterIndex +
+                "&level=" + levels);
+    }
+    public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels) throws MalformedURLException {
+        return new URL("http://203.253.25.184:8080/search" +
+                "?start_date=" + startDateTime +
+                "&end_date=" + endDateTime +
+                "&main_location=" + mainLocation +
+                "&sub_location=" + subLocation +
+                "&disaster=" + disasterIndex +
+                "&level=" + levels);
+    }
+    public static URL makeConnUrl(String startDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String subName) throws MalformedURLException {
+        return new URL("http://203.253.25.184:8080/search" +
+                "?start_date=" + startDateTime +
+                "&main_location=" + mainLocation +
+                "&sub_location=" + subLocation +
+                "&disaster=" + disasterIndex +
+                "&level=" + levels +
+                "&name=" + subName);
+    }
+    public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String subName) throws MalformedURLException {
+        return new URL("http://203.253.25.184:8080/search" +
+                "?start_date=" + startDateTime +
+                "&end_date=" + endDateTime +
+                "&main_location=" + mainLocation +
+                "&sub_location=" + subLocation +
+                "&disaster=" + disasterIndex +
+                "&level=" + levels +
+                "&name=" + subName);
+    }
+    public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, double scaleMin, double scaleMax) throws MalformedURLException {
+        return new URL("http://203.253.25.184:8080/search" +
+                "?start_date=" + startDateTime +
+                "&end_date=" + endDateTime +
+                "&main_location=" + mainLocation +
+                "&sub_location=" + subLocation +
+                "&disaster=" + disasterIndex +
+                "&level=" + levels +
+                "&scale_min=" + scaleMin +
+                "&scale_max=" + scaleMax);
+    }
+    public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String eqMainLocation, String eqSubLocation) throws MalformedURLException {
+        return new URL("http://203.253.25.184:8080/search" +
+                "?start_date=" + startDateTime +
+                "&end_date=" + endDateTime +
+                "&main_location=" + mainLocation +
+                "&sub_location=" + subLocation +
+                "&disaster=" + disasterIndex +
+                "&level=" + levels +
+                "&obs_location=" + eqMainLocation + " " + eqSubLocation);
+    }
+    public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String eqMainLocation, String eqSubLocation, double scaleMin, double scaleMax) throws MalformedURLException {
+        return new URL("http://203.253.25.184:8080/search" +
+                "?start_date=" + startDateTime +
+                "&end_date=" + endDateTime +
+                "&main_location=" + mainLocation +
+                "&sub_location=" + subLocation +
+                "&disaster=" + disasterIndex +
+                "&level=" + levels +
+                "&obs_location=" + eqMainLocation + " " + eqSubLocation +
+                "&scale_min=" + scaleMin +
+                "&scale_max=" + scaleMax);
+    }
+
+    // Url을 받아 서버 데이터를 받음
+    private static String getServerData(URL url) throws IOException {
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.setRequestMethod("GET");
+        urlConnection.connect();
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+        StringBuffer sb = new StringBuffer();
+
+        String line;
+        while ((line = br.readLine()) != null)
+            sb.append(line);
+
+        String strConnectionResult = sb.toString();
+
+        br.close();
+
+        return strConnectionResult;
     }
 }

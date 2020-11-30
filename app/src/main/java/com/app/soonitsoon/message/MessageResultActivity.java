@@ -84,6 +84,7 @@ public class MessageResultActivity extends AppCompatActivity {
 
         // 유효한 값을 잘 넘겨받은 경우
         if (receiveCondition()) {
+            ////////////////////////////////////////////////////////////////////////////////////// 로그 처리
             String logLine1 = "검색 시작 날짜 : " + fromDate;
             Log.e(TAG, logLine1);
             String logLine2 = "검색 종료 날짜 : " + toDate;
@@ -119,7 +120,6 @@ public class MessageResultActivity extends AppCompatActivity {
                 }
             }
             Log.e(TAG, String.valueOf(logLine7));
-
             TextView textView1 = new TextView(this);
             TextView textView2 = new TextView(this);
             TextView textView3 = new TextView(this);
@@ -145,6 +145,9 @@ public class MessageResultActivity extends AppCompatActivity {
             }
             textView7.setText(logLine7);
             resultLayout.addView(textView7);
+            ////////////////////////////////////////////////////////////////////////////////////// 로그 처리
+
+            
         }
         // 값을 받지 못한 경우
         else {
