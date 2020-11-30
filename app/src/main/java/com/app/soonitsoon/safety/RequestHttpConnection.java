@@ -42,6 +42,7 @@ public class RequestHttpConnection {
             String strDocuments = jsonObject.get("documents").toString();   // Documents 에 있는 결과
             JSONArray jsonDocuments = new JSONArray(strDocuments);
 
+            // 검색 결과가 없으면 (0, 0)
             if (jsonDocuments.length() == 0) {
                 result[0] = "0";
                 result[1] = "0";

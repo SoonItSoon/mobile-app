@@ -23,21 +23,8 @@ import com.app.soonitsoon.background.BootReceiver;
 import com.app.soonitsoon.interest.InterestActivity;
 import com.app.soonitsoon.message.MessageActivity;
 import com.app.soonitsoon.safety.CheckSafetyInfo;
+import com.app.soonitsoon.safety.SafetyActivity;
 import com.app.soonitsoon.timeline.TimelineActivity;
-
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 
 
 public class MainActivity extends AppCompatActivity {

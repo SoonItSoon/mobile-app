@@ -1,4 +1,4 @@
-package com.app.soonitsoon;
+package com.app.soonitsoon.safety;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -18,6 +18,8 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+
+import com.app.soonitsoon.R;
 
 public class SafetyActivity extends AppCompatActivity {
     private static Activity activity;
