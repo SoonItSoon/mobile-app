@@ -1,10 +1,14 @@
 package com.app.soonitsoon;
 
+import android.app.Activity;
+import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -12,28 +16,39 @@ import android.os.Build;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
 
 import com.app.soonitsoon.safety.SafetyActivity;
 
-public class Alert extends AppCompatActivity {
-    public void sendSafetyAlert(int dangerNum) {
+import static android.content.Context.NOTIFICATION_SERVICE;
+
+public class Alert{
+    private Context context;
+    private Application application;
+
+    public Alert(Context context, Application application) {
+        this.context = context;
+        this.application = application;
+    }
+
+    public void sendSafetyAlert(int dangerNum, int alertNum) {
         final String GROUP_KEY_WORK_EMAIL = "com.android.example.WORK_EMAIL";
 
         createNotificationChannel();
 
-        Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(getResources(), R.drawable.ic_alert_large);
+        Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(application.getResources(), R.drawable.ic_alert_large);
 
-        PendingIntent mPendingIntent = PendingIntent.getActivity(SafetyActivity.context, 0
-                , new Intent(getApplicationContext(), SafetyActivity.class)
+        PendingIntent mPendingIntent = PendingIntent.getActivity(context, 0
+                , new Intent(application.getApplicationContext(), SafetyActivity.class)
                 , PendingIntent.FLAG_CANCEL_CURRENT);
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(SafetyActivity.this, "Alert")
-                .setSmallIcon(R.drawable.ic_alert)
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "Alert")
+                .setSmallIcon(R.drawable.ic_alert2)
                 .setContentTitle("!!확진자 접촉 의심 지역 총 " + dangerNum + "개 방문!!")
                 .setContentText("클릭하여 방문 확인을 해주세요")
                 .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setColor(Color.BLACK)
+                .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .setLargeIcon(mLargeIconForNoti)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
@@ -42,26 +57,24 @@ public class Alert extends AppCompatActivity {
                 .setContentIntent(mPendingIntent);
 
         NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        for (int j = 0; j < 5; j++) {
-            final int i = j;
-            mNotificationManager.notify(i, mBuilder.build());
+                (NotificationManager) application.getSystemService(NOTIFICATION_SERVICE);
 
-        }
+        mNotificationManager.notify(alertNum, mBuilder.build());
+
     }
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.app_name);
-            String description = getString(R.string.app_name);
+            CharSequence name = "SoonItSoon";
+            String description = "SoonItSoon";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel("Alert", name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            NotificationManager notificationManager = application.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
     }

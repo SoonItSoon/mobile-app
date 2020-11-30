@@ -14,6 +14,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,56 +42,18 @@ public class SafetyActivity extends AppCompatActivity {
             }
         });
 
-//        final String GROUP_KEY_WORK_EMAIL = "com.android.example.WORK_EMAIL";
+        final LinearLayout linearLayout = findViewById(R.id.layout_safety_content);
 
-        // 알림 전송
-        createNotificationChannel();
-        findViewById(R.id.alertButton).setOnClickListener(new View.OnClickListener() {
+        final Button buttonA = findViewById(R.id.alertButton);
+        buttonA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(getResources(), R.drawable.ic_alert_large);
-//
-//                PendingIntent mPendingIntent = PendingIntent.getActivity(SafetyActivity.this, 0
-//                        , new Intent(getApplicationContext(), SafetyActivity.class)
-//                        , PendingIntent.FLAG_CANCEL_CURRENT);
-//
-//                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(SafetyActivity.this, "Alert")
-//                        .setSmallIcon(R.drawable.ic_alert)
-//                        .setContentTitle("확진자 접촉 의심 지역 방문!!")
-//                        .setContentText("클릭하여 방문 확인을 해주세요")
-//                        .setDefaults(Notification.DEFAULT_VIBRATE)
-//                        .setColor(Color.BLACK)
-//                        .setLargeIcon(mLargeIconForNoti)
-//                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-//                        .setAutoCancel(true)
-//                        .setOnlyAlertOnce(true)
-//                        .setGroup(GROUP_KEY_WORK_EMAIL)
-//                        .setContentIntent(mPendingIntent);
-//
-//                NotificationManager mNotificationManager =
-//                        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//                for (int j = 0; j < 5; j++) {
-//                    final int i = j;
-//                    mNotificationManager.notify(i, mBuilder.build());
-//
-//                }
+                buttonA.setText("윤수바보");
+                TextView textView = new TextView(getApplicationContext());
+                textView.setText("겨리바보");
+
+                linearLayout.addView(textView);
             }
         });
-    }
-
-    private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.app_name);
-            String description = getString(R.string.app_name);
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel("Alert", name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 }

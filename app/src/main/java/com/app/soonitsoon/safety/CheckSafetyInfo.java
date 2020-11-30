@@ -6,6 +6,7 @@ import android.icu.text.Edits;
 import android.location.Location;
 import android.util.Log;
 
+import com.app.soonitsoon.Alert;
 import com.app.soonitsoon.CalDate;
 import com.app.soonitsoon.server.GetServerInfo;
 import com.app.soonitsoon.timeline.CheckLocation;
@@ -28,12 +29,14 @@ import java.util.Iterator;
 public class CheckSafetyInfo {
     private Context context;
     private static Application application;
-    private  int dangerCount;
+    private int dangerCount;
+    private int alertNum;
 
     public CheckSafetyInfo(Context context, Application application) {
         this.context = context;
         this.application = application;
         dangerCount = 0;
+        alertNum = 0;
     }
 
     // 접촉 위험 지역과 timeline을 비교해 danger값을 바꾸는 모듈
@@ -145,44 +148,12 @@ public class CheckSafetyInfo {
             }
         }
 
-        // TODO : 알림 보내기 "!!확진자 접촉 위험 알림!!" "총 @개의 장소에서 접촉 위험을 발견했습니다"
+        if (dangerCount != 0) {
+            Alert alert = new Alert(context, application);
+            alert.sendSafetyAlert(dangerCount, alertNum);
+            alertNum++;
+            if (alertNum == 5)
+                alertNum = 0;
+        }
     }
-
-//    private static ArrayList<ArrayList<String>> get () {
-//        ArrayList<ArrayList<String>> dangerList= new ArrayList<>();
-//        ArrayList<String> dangerUnit = new ArrayList<>();
-//        dangerUnit.add("2020-11-20");
-//        dangerUnit.add("22:30:00");
-//        dangerUnit.add("23:59:59");
-//        dangerUnit.add("부산 코아 노래연습장");
-//        dangerUnit.add("금곡대로303번길 80");
-//        dangerList.add(dangerUnit);
-//        dangerUnit = new ArrayList<>();
-//
-//        dangerUnit.add("2020-11-21");
-//        dangerUnit.add("00:00:00");
-//        dangerUnit.add("03:00:00");
-//        dangerUnit.add("부산 코아 노래연습장");
-//        dangerUnit.add("금곡대로303번길 80");
-//        dangerList.add(dangerUnit);
-//        dangerUnit = new ArrayList<>();
-//
-//        dangerUnit.add("2020-11-22");
-//        dangerUnit.add("12:00:00");
-//        dangerUnit.add("14:00:00");
-//        dangerUnit.add("해남 삼산면 매화정");
-//        dangerUnit.add("-");
-//        dangerList.add(dangerUnit);
-//        dangerUnit = new ArrayList<>();
-//
-//        dangerUnit.add("2020-11-23");
-//        dangerUnit.add("11:00:00");
-//        dangerUnit.add("14:00:00");
-//        dangerUnit.add("해남읍 정성한우촌");
-//        dangerUnit.add("-");
-//        dangerList.add(dangerUnit);
-//
-//        return dangerList;
-//    }
-
 }
