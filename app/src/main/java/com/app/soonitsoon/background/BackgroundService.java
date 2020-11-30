@@ -30,7 +30,7 @@ public class BackgroundService extends Service {
     private static final String TAG = "BackgoundService";
 
     private static final int MININUTE = 1;
-    private static final int PERIOD = 1000 * 60 * MININUTE/60 * 5;
+    private static final int PERIOD = 1000 * 60 * MININUTE;
 
     private Context context;
     private static int counter=1;
@@ -88,46 +88,46 @@ public class BackgroundService extends Service {
                 }
 
                 // REST 콜 파싱 테스트
-                if(counter == 1) {
-                    String str = GetServerInfo.getTestData();
-                    Log.e(TAG, "REST 콜을 통해 읽은 Json : " + str);
-
-                    try {
-                        JSONObject jsonObject = new JSONObject(str);
-
-                        // Key Set
-                        Iterator<String> iterator = jsonObject.keys();
-                        while (iterator.hasNext()) {
-                            String time = iterator.next();
-                            String stringTLUnit = "";
-                            JSONObject jsonTLUnit = new JSONObject();
-                            try {
-                                stringTLUnit = jsonObject.getString(time);
-                                jsonTLUnit = new JSONObject(stringTLUnit);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            int lat = 0;
-                            String lon = "";
-                            String danger = "";
-                            try {
-                                lat = jsonTLUnit.getInt("id");
-                                lon = jsonTLUnit.getString("date");
-                                danger = jsonTLUnit.getString("text");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            Log.e(TAG, "파싱된 시간 : " + time);
-                            Log.e(TAG, "파싱된 lon : " + lat);
-                            Log.e(TAG, "파싱된 lat : " + lon);
-                            Log.e(TAG, "파싱된 danger : " + danger);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+//                if(counter == 1) {
+//                    String str = GetServerInfo.getTestData();
+//                    Log.e(TAG, "REST 콜을 통해 읽은 Json : " + str);
+//
+//                    try {
+//                        JSONObject jsonObject = new JSONObject(str);
+//
+//                        // Key Set
+//                        Iterator<String> iterator = jsonObject.keys();
+//                        while (iterator.hasNext()) {
+//                            String time = iterator.next();
+//                            String stringTLUnit = "";
+//                            JSONObject jsonTLUnit = new JSONObject();
+//                            try {
+//                                stringTLUnit = jsonObject.getString(time);
+//                                jsonTLUnit = new JSONObject(stringTLUnit);
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                            int lat = 0;
+//                            String lon = "";
+//                            String danger = "";
+//                            try {
+//                                lat = jsonTLUnit.getInt("id");
+//                                lon = jsonTLUnit.getString("date");
+//                                danger = jsonTLUnit.getString("text");
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                            Log.e(TAG, "파싱된 시간 : " + time);
+//                            Log.e(TAG, "파싱된 lon : " + lat);
+//                            Log.e(TAG, "파싱된 lat : " + lon);
+//                            Log.e(TAG, "파싱된 danger : " + danger);
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
 
                 counter++;
                 // checkSafetyInfo
