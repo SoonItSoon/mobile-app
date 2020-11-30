@@ -79,6 +79,10 @@
     <string name="search_disaster_6_0_1">한파</string>
     <string name="search_disaster_6_0_2">호우</string>
     <string name="search_disaster_6_0_3">대설</string>
+    <string name="search_disaster_6_1">특보 종류</string>
+    <string name="search_disaster_6_1_0">경보</string>
+    <string name="search_disaster_6_1_1">주의보</string>
+    <string name="search_disaster_6_1_9">기타</string>
     <!-- Disaster Common String -->
     <string name="search_disaster_text">텍스트 검색 (선택)</string>
     <string name="search_disaster_text_hint">검색할 내용을 입력하세요</string>

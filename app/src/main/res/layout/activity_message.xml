@@ -768,7 +768,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <!-- Disaster_5 Layout Row 1 -->
+                <!-- Disaster_6 Layout Row 1 -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -840,6 +840,69 @@
                     </RadioGroup>
                 </LinearLayout>
                 <!-- Disaster_6 Layout Row 2 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_disaster_6_1"
+                    android:layout_marginTop="@dimen/content_margin"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+                    <CheckBox
+                        android:id="@+id/chk_disaster_etc_0_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="@string/search_disaster_6_1_0"/>
+                    <CheckBox
+                        android:id="@+id/chk_disaster_etc_0_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="@string/search_disaster_6_1_1"/>
+                    <CheckBox
+                        android:id="@+id/chk_disaster_etc_0_9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:text="@string/search_disaster_6_1_9"/>
+                    <CheckBox
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_button_default"
+                        android:button="@color/colorWhite"
+                        android:paddingBottom="@dimen/radio_padding"
+                        android:paddingTop="@dimen/radio_padding"
+                        android:layout_margin="@dimen/btn_margin"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"/>
+                </LinearLayout>
+                <!-- Disaster_6 Layout Row 3 -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

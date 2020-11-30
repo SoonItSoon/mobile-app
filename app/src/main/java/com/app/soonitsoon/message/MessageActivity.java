@@ -45,10 +45,10 @@ public class MessageActivity extends AppCompatActivity {
     private String toDate;
 
     // 지역 Array
-    private String[] location1;
-    private String[] location2;
-    private int location1Index;
-    private int location2Index;
+    private String[] location1Array;
+    private String[] location2Array;
+    private String mainLocation;
+    private String subLocation;
 
     // 재난 종류
     private final static int NUM_OF_DISASTER = 6;
@@ -62,50 +62,53 @@ public class MessageActivity extends AppCompatActivity {
 
     // 재난 하위 레이아웃 Contents
     // 전염병
-    Button disaster1_nameBtn;   // 전염병 종류 버튼
-    CheckBox disaster1_level1_chk;  // 전염병 등급 체크박스
-    CheckBox disaster1_level2_chk;
-    CheckBox disaster1_level3_chk;
-    CheckBox disaster1_level9_chk;
+    private Button disaster1_nameBtn;   // 전염병 종류 버튼
+    private CheckBox disaster1_level1_chk;  // 전염병 등급 체크박스
+    private CheckBox disaster1_level2_chk;
+    private CheckBox disaster1_level3_chk;
+    private CheckBox disaster1_level9_chk;
     // 지진
-    CheckBox disaster2_level1_chk;  // 지진 알림 종류 체크박스
-    CheckBox disaster2_level9_chk;
-    TextView disaster2_scale_text;  // 규모 선택 레이아웃 제목
-    LinearLayout disaster2_scale_layout;    // 규모 선택 레이아웃
-    TextView disaster2_scale_min_text;   // 규모 최솟값 텍스트 뷰
-    TextView disaster2_scale_max_text;   // 규모 최댓값 텍스트 뷰
-    MultiSlider disaster2_scale_slider; // 규모 선택 슬라이더
-    Button disaster2_mainLocationBtn;   // 지진 관측 지역 시/도 선택 버튼
-    Button disaster2_subLocationBtn;    // 지진 관측 지역 시/군/구 선택 버튼
-    String[] disaster2_mainLocation;    // 지진 관측 지역 시/도 Array
-    String[] disaster2_subLocation;     // 지진 관측 지역 시/군/구 Array
+    private CheckBox disaster2_level1_chk;  // 지진 알림 종류 체크박스
+    private CheckBox disaster2_level9_chk;
+    private TextView disaster2_scale_text;  // 규모 선택 레이아웃 제목
+    private LinearLayout disaster2_scale_layout;    // 규모 선택 레이아웃
+    private TextView disaster2_scale_min_text;   // 규모 최솟값 텍스트 뷰
+    private TextView disaster2_scale_max_text;   // 규모 최댓값 텍스트 뷰
+    private MultiSlider disaster2_scale_slider; // 규모 선택 슬라이더
+    private Button disaster2_mainLocationBtn;   // 지진 관측 지역 시/도 선택 버튼
+    private Button disaster2_subLocationBtn;    // 지진 관측 지역 시/군/구 선택 버튼
+    private String[] disaster2_mainLocation;    // 지진 관측 지역 시/도 Array
+    private String[] disaster2_subLocation;     // 지진 관측 지역 시/군/구 Array
     // 미세먼지
-    CheckBox disaster3_level1_chk;  // 미세먼지 알림 종류 체크박스
-    CheckBox disaster3_level2_chk;
-    CheckBox disaster3_level9_chk;
+    private CheckBox disaster3_level1_chk;  // 미세먼지 알림 종류 체크박스
+    private CheckBox disaster3_level2_chk;
+    private CheckBox disaster3_level9_chk;
     // 태풍
-    Button disaster4_namebtn;   // 태풍 이름 선택 버튼
-    CheckBox disaster4_level1_chk;  // 태풍 알림 종류 체크박스
-    CheckBox disaster4_level2_chk;
-    CheckBox disaster4_level9_chk;
+    private Button disaster4_namebtn;   // 태풍 이름 선택 버튼
+    private CheckBox disaster4_level1_chk;  // 태풍 알림 종류 체크박스
+    private CheckBox disaster4_level2_chk;
+    private CheckBox disaster4_level9_chk;
     // 미세먼지
-    CheckBox disaster5_level1_chk;  // 홍수 알림 종류 체크박스
-    CheckBox disaster5_level2_chk;
-    CheckBox disaster5_level9_chk;
+    private CheckBox disaster5_level1_chk;  // 홍수 알림 종류 체크박스
+    private CheckBox disaster5_level2_chk;
+    private CheckBox disaster5_level9_chk;
     // 그 외
-    RadioGroup disaster_etc_radioGroup; // 그 외 재난 종류 선택 라디오 그룹
-    RadioButton disaster_etc_1; // 폭염
-    RadioButton disaster_etc_2; // 한파
-    RadioButton disaster_etc_3; // 호우
-    RadioButton disaster_etc_4; // 대설
+    private RadioGroup disaster_etc_radioGroup; // 그 외 재난 종류 선택 라디오 그룹
+    private RadioButton disaster_etc_1; // 폭염
+    private RadioButton disaster_etc_2; // 한파
+    private RadioButton disaster_etc_3; // 호우
+    private RadioButton disaster_etc_4; // 대설
+    private CheckBox disaster_etc_level1_chk;   // 그 외 알림 종류 체크박스
+    private CheckBox disaster_etc_level2_chk;
+    private CheckBox disaster_etc_level9_chk;
 
     // 재난 하위 레이아웃 선택 내용
-    String disasterSubName; // 전염병 종류, 태풍 이름
-    Boolean[] disasterSubLevel; // 알림 등급
-    double scale_min;   // 지진 규모 최솟값
-    double scale_max;   // 지진 규모 최댓값
-    String eq_mainLocation;   // 지진 관측 지역 시/도
-    String eq_subLocation;   // 지진 관측 지역 시/군/구
+    private String disasterSubName; // 전염병 종류, 태풍 이름
+    private boolean[] disasterSubLevel; // 알림 등급
+    private double scale_min;   // 지진 규모 최솟값
+    private double scale_max;   // 지진 규모 최댓값
+    private String eq_mainLocation;   // 지진 관측 지역 시/도
+    private String eq_subLocation;   // 지진 관측 지역 시/군/구
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -152,20 +155,20 @@ public class MessageActivity extends AppCompatActivity {
         // 지역 선택 부분
         final Button btnLocation1 = findViewById(R.id.btn_search_main_location);
         final Button btnLocation2 = findViewById(R.id.btn_search_sub_location);
-        location1 = getResources().getStringArray(R.array.location);
+        location1Array = getResources().getStringArray(R.array.location);
         btnLocation1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(context).setTitle("시/도").setItems(location1, new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(context).setTitle("시/도").setItems(location1Array, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        btnLocation1.setText(location1[which]);
-                        location1Index = which;
-                        location2Index = 0;
+                        btnLocation1.setText(location1Array[which]);
+                        mainLocation = location1Array[which];
+                        subLocation = "전체";
                         checkCondition(CHECKED_LOCATION);   // 지역 선택 완료
                         btnLocation2.setText("전체");
-                        int location2ID = getResources().getIdentifier("location_" + location1Index, "array", getPackageName());
-                        location2 = getResources().getStringArray(location2ID);
+                        int location2ID = getResources().getIdentifier("location_" + which, "array", getPackageName());
+                        location2Array = getResources().getStringArray(location2ID);
                         btnLocation2.setEnabled(true);
                     }
                 }).show();
@@ -175,11 +178,11 @@ public class MessageActivity extends AppCompatActivity {
         btnLocation2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(context).setTitle("시/군/구").setItems(location2, new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(context).setTitle("시/군/구").setItems(location2Array, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        btnLocation2.setText(location2[which]);
-                        location2Index = which;
+                        btnLocation2.setText(location2Array[which]);
+                        subLocation = location2Array[which];
                     }
                 }).show();
             }
@@ -287,12 +290,18 @@ public class MessageActivity extends AppCompatActivity {
                 // 모두 다 선택이 된 경우
                 else {
                     final Intent intent = new Intent(getApplicationContext(), MessageResultActivity.class);
-                    intent.putExtra("fromDate", fromDate);
-                    intent.putExtra("toDate", toDate);
-                    intent.putExtra("location1Index", location1Index);
-                    intent.putExtra("location2Index", location2Index);
-                    intent.putExtra("disasterIndex", disasterIndex);
-                    intent.putExtra("subCategory", "subCategory");
+                    // 값 전달
+                    intent.putExtra("fromDate", fromDate);  // 검색 시작 날짜
+                    intent.putExtra("toDate", toDate);      // 검색 종료 날짜
+                    intent.putExtra("mainLocation", mainLocation);  // 시/도
+                    intent.putExtra("subLocation", subLocation);    // 시/군/구
+                    intent.putExtra("disasterIndex", disasterIndex);    // 전염병 종류
+                    intent.putExtra("disasterSubName", disasterSubName);    // 전염병 또는 태풍 이름
+                    intent.putExtra("disasterSubLevel", disasterSubLevel);    // 선택된 알림 등급
+                    intent.putExtra("scale_min", scale_min);    // 지진 최소 규모
+                    intent.putExtra("scale_max", scale_max);    // 지진 최대 규모
+                    intent.putExtra("eq_mainLocation", eq_mainLocation);    // 지진 발생 지역 시/도
+                    intent.putExtra("eq_subLocation", eq_subLocation);      // 지진 발생 지역 시/군/구
                     startActivity(intent);
                 }
             }
@@ -642,7 +651,7 @@ public class MessageActivity extends AppCompatActivity {
                 disaster_etc_4.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 disaster_etc_4.setBackground(getResources().getDrawable(R.drawable.radio_button_unselected));
                 if (checkedId == -1) return;    // clearCheck() 호출로 이벤트가 발생한 경우 처리
-                if(checkedId == R.id.radio_disaster_etc_1) {
+                else if(checkedId == R.id.radio_disaster_etc_1) {
                     disasterIndex = 6;
                 } else if(checkedId == R.id.radio_disaster_etc_2) {
                     disasterIndex = 7;
@@ -659,6 +668,28 @@ public class MessageActivity extends AppCompatActivity {
                 selectedBtn.setBackground(getResources().getDrawable(R.drawable.radio_button_selected));
             }
         });
+        // 알림 종류 선택 체크박스
+        disaster_etc_level1_chk = findViewById(R.id.chk_disaster_etc_0_1);
+        disaster_etc_level2_chk = findViewById(R.id.chk_disaster_etc_0_2);
+        disaster_etc_level9_chk = findViewById(R.id.chk_disaster_etc_0_9);
+        disaster_etc_level1_chk.setOnClickListener(new CheckBox.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkBoxClickListener(disaster_etc_level1_chk, 1);
+            }
+        }) ;
+        disaster_etc_level2_chk.setOnClickListener(new CheckBox.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkBoxClickListener(disaster_etc_level2_chk, 2);
+            }
+        }) ;
+        disaster_etc_level9_chk.setOnClickListener(new CheckBox.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkBoxClickListener(disaster_etc_level9_chk, 9);
+            }
+        }) ;
     }
 
     // 하위 카테고리 선택된 조건들 초기화
@@ -673,8 +704,8 @@ public class MessageActivity extends AppCompatActivity {
 
         // 알림 등급
         // 공통
-        disasterSubLevel = new Boolean[10];
-        Arrays.fill(disasterSubLevel, Boolean.FALSE);
+        disasterSubLevel = new boolean[10];
+        Arrays.fill(disasterSubLevel, false);
         // 전염병
         disaster1_level1_chk.setChecked(false);
         disaster1_level1_chk.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -710,6 +741,13 @@ public class MessageActivity extends AppCompatActivity {
         disaster5_level2_chk.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         disaster5_level9_chk.setChecked(false);
         disaster5_level9_chk.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        // 그 외
+        disaster_etc_level1_chk.setChecked(false);
+        disaster_etc_level1_chk.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        disaster_etc_level2_chk.setChecked(false);
+        disaster_etc_level2_chk.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        disaster_etc_level9_chk.setChecked(false);
+        disaster_etc_level9_chk.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
 
         // 지진 규모 선택
         scale_min = 1.0;
