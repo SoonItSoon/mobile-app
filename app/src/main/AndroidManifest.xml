@@ -61,8 +61,8 @@
             android:value="8e2fb23596dd9821f09a4820560c91be" />
 
         <activity android:name=".timeline.TimelineActivity"/>
-        <activity android:name=".SafetyActivity"/>
-        <activity android:name=".BriefingActivity"/>
+        <activity android:name=".safety.SafetyActivity"/>
+        <activity android:name=".briefing.BriefingActivity"/>
         <activity android:name=".interest.InterestActivity"/>
         <activity android:name=".interest.InterestSettingActivity"/>
         <activity android:name=".interest.InterestAddActivity"/>

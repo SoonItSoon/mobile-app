@@ -1,4 +1,4 @@
-package com.app.soonitsoon;
+package com.app.soonitsoon.briefing;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.app.soonitsoon.R;
 
 public class BriefingActivity extends AppCompatActivity {
     private static Activity activity;

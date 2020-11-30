@@ -6,6 +6,9 @@ import android.icu.text.Edits;
 import android.location.Location;
 import android.util.Log;
 
+import com.app.soonitsoon.Alert;
+import com.app.soonitsoon.CalDate;
+import com.app.soonitsoon.server.GetServerInfo;
 import com.app.soonitsoon.timeline.CheckLocation;
 
 import org.json.JSONException;
@@ -26,30 +29,33 @@ import java.util.Iterator;
 public class CheckSafetyInfo {
     private Context context;
     private static Application application;
-    private  int dangerCount;
+    private int dangerCount;
+    private int alertNum;
 
     public CheckSafetyInfo(Context context, Application application) {
         this.context = context;
         this.application = application;
         dangerCount = 0;
+        alertNum = 0;
     }
-    // TODO : getServerInfo
-    // TODO : getTimeline
+
+    // 접촉 위험 지역과 timeline을 비교해 danger값을 바꾸는 모듈
     public void getDangerInfo() throws JSONException {
-        // TODO : getServerInfo.getSafety 로 받아온 값
-        ArrayList<ArrayList<String>> dangerList = get();
+        // getServerInfo.getSafety 로 받아온 값 (추가된 접촉 안내 data)
+        ArrayList<ArrayList<String>> dangerList = GetServerInfo.getSafetyData(application, context);
 
         if (dangerList == null)
             return;
 
-        // TODO : Timeline 받아오기
         for (ArrayList<String> dangerUnit : dangerList){
-            String date = dangerUnit.get(0);
-            String startTime = dangerUnit.get(1);
-            String endTime = dangerUnit.get(2);
-            String locName = dangerUnit.get(3);
-            String locAddr = dangerUnit.get(4);
+            String msg = dangerUnit.get(0);
+            String sender = dangerUnit.get(1);
+            String date = dangerUnit.get(2);
+            String startTime = dangerUnit.get(3);
+            String endTime = dangerUnit.get(4);
+            String locName = dangerUnit.get(5);
 
+            // Timeline 받아오기
             InputStream inputStreamTimeline;
             String stringTLList = "";
             try {
@@ -82,8 +88,8 @@ public class CheckSafetyInfo {
 
             while(iterator.hasNext()) {
                 String time = iterator.next();
-                int start = 1;
-                int end = 1;
+                int start = CalDate.isFast(startTime, time);
+                int end = CalDate.isFast(endTime, time);
 
                 if (start == 0 && end == 0) {          // 내가 접촉 의심 시간이야 (접촉 의심 시간이 범위가 아닌 경우)
                     dangerTimeList.add(time);
@@ -102,11 +108,22 @@ public class CheckSafetyInfo {
                 prev = time;
             }
 
-            // TODO : 주소 -> lat/lon 바꾸고
-            String[] strLocRequest = RequestHttpConnection.request(locName);
+            // kakao map rest api를 사용해 상호명에서 좌표값 받아오기
+            // 1. sender가 "중대본" 이면 locName으로만 검색
+            // 2. sender가 "중대본"이 아니면 sender-(마지막글자)+locName으로 검색
+            String[] strLocRequest = {""};
+            if (sender.equals("중대본"))
+                strLocRequest = RequestHttpConnection.request(locName);
+            else {
+                String senderLoc = sender.substring(0, sender.length()-1);
+                String searchLoc = senderLoc + " " + locName;
+                strLocRequest = RequestHttpConnection.request(searchLoc);
+            }
+
             double dangerLat = Double.parseDouble(strLocRequest[1]);
             double dangerLon = Double.parseDouble(strLocRequest[0]);
 
+            // 접촉 의심 장소와 내 timeline을 비교해서 dnager값 바꾸기
             int timelineFlag = 0;
             for (String dangerTime : dangerTimeList) {
                 String strTLUnit = jsonTLList.getString(dangerTime);
@@ -131,44 +148,12 @@ public class CheckSafetyInfo {
             }
         }
 
-        // TODO : 알림 보내기 "!!확진자 접촉 위험 알림!!" "총 @개의 장소에서 접촉 위험을 발견했습니다"
+        if (dangerCount != 0) {
+            Alert alert = new Alert(context, application);
+            alert.sendSafetyAlert(dangerCount, alertNum);
+            alertNum++;
+            if (alertNum == 5)
+                alertNum = 0;
+        }
     }
-
-    private static ArrayList<ArrayList<String>> get () {
-        ArrayList<ArrayList<String>> dangerList= new ArrayList<>();
-        ArrayList<String> dangerUnit = new ArrayList<>();
-        dangerUnit.add("2020-11-20");
-        dangerUnit.add("22:30:00");
-        dangerUnit.add("23:59:59");
-        dangerUnit.add("부산 코아 노래연습장");
-        dangerUnit.add("금곡대로303번길 80");
-        dangerList.add(dangerUnit);
-        dangerUnit = new ArrayList<>();
-
-        dangerUnit.add("2020-11-21");
-        dangerUnit.add("00:00:00");
-        dangerUnit.add("03:00:00");
-        dangerUnit.add("부산 코아 노래연습장");
-        dangerUnit.add("금곡대로303번길 80");
-        dangerList.add(dangerUnit);
-        dangerUnit = new ArrayList<>();
-
-        dangerUnit.add("2020-11-22");
-        dangerUnit.add("12:00:00");
-        dangerUnit.add("14:00:00");
-        dangerUnit.add("해남 삼산면 매화정");
-        dangerUnit.add("-");
-        dangerList.add(dangerUnit);
-        dangerUnit = new ArrayList<>();
-
-        dangerUnit.add("2020-11-23");
-        dangerUnit.add("11:00:00");
-        dangerUnit.add("14:00:00");
-        dangerUnit.add("해남읍 정성한우촌");
-        dangerUnit.add("-");
-        dangerList.add(dangerUnit);
-
-        return dangerList;
-    }
-
 }
