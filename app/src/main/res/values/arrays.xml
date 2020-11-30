@@ -346,44 +346,140 @@
     <!-- 관심분야 Array -->
     <!-- 재난 종류 -->
     <string-array name="disaster">
-        <item>재난1</item>
-        <item>재난2</item>
-        <item>재난3</item>
-        <item>재난4</item>
+        <item>N/A</item>
+        <item>전염병</item>
+        <item>지진</item>
+        <item>미세먼지</item>
+        <item>태풍</item>
+        <item>홍수</item>
+        <item>폭염</item>
+        <item>한파</item>
+        <item>호우</item>
+        <item>대설</item>
     </string-array>
-
-    <string-array name="disaster_0">
-        <item>재난1_키워드1</item>
-        <item>재난1_키워드2</item>
-        <item>재난1_키워드3</item>
-        <item>재난1_키워드4</item>
-    </string-array>
-
+    <!-- 전염병 -->
     <string-array name="disaster_1">
-        <item>재난2_키워드1</item>
-        <item>재난2_키워드2</item>
-        <item>재난2_키워드3</item>
-        <item>재난2_키워드4</item>
-        <item>재난2_키워드5</item>
+        <item>N/A</item>
+        <item>접촉안내</item>
+        <item>동선공개</item>
+        <item>발생안내</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>캠페인</item>
     </string-array>
-
+    <string-array name="disaster_1_0">
+        <item>전체</item>
+        <item>코로나-19</item>
+    </string-array>
+    <!-- 지진 -->
     <string-array name="disaster_2">
-        <item>재난3_키워드1</item>
-        <item>재난3_키워드2</item>
-        <item>재난3_키워드3</item>
-        <item>재난3_키워드4</item>
-        <item>재난3_키워드5</item>
-        <item>재난3_키워드6</item>
+        <item>N/A</item>
+        <item>지진</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>기타</item>
     </string-array>
-
+    <!-- 미세먼지 -->
     <string-array name="disaster_3">
-        <item>재난4_키워드1</item>
-        <item>재난4_키워드2</item>
-        <item>재난4_키워드3</item>
-        <item>재난4_키워드4</item>
-        <item>재난4_키워드5</item>
-        <item>재난4_키워드6</item>
-        <item>재난4_키워드7</item>
+        <item>N/A</item>
+        <item>경보</item>
+        <item>주의보</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>저감조치</item>
     </string-array>
-
+    <!-- 태풍 -->
+    <string-array name="disaster_4">
+        <item>N/A</item>
+        <item>경보</item>
+        <item>주의보</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>조치알림</item>
+    </string-array>
+    <string-array name="disaster_4_0">
+        <item>전체</item>
+        <item>마이삭</item>
+    </string-array>
+    <!-- 홍수 -->
+    <string-array name="disaster_5">
+        <item>N/A</item>
+        <item>경보</item>
+        <item>주의보</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>조치알림</item>
+    </string-array>
+    <!-- 폭염 -->
+    <string-array name="disaster_6">
+        <item>N/A</item>
+        <item>경보</item>
+        <item>주의보</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>기타</item>
+    </string-array>
+    <!-- 한파 -->
+    <string-array name="disaster_7">
+        <item>N/A</item>
+        <item>경보</item>
+        <item>주의보</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>기타</item>
+    </string-array>
+    <!-- 호우 -->
+    <string-array name="disaster_8">
+        <item>N/A</item>
+        <item>경보</item>
+        <item>주의보</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>기타</item>
+    </string-array>
+    <!-- 대설 -->
+    <string-array name="disaster_9">
+        <item>N/A</item>
+        <item>경보</item>
+        <item>주의보</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>N/A</item>
+        <item>기타</item>
+    </string-array>
 </resources>

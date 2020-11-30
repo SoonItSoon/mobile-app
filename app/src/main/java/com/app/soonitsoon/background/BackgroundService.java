@@ -26,7 +26,7 @@ public class BackgroundService extends Service {
     private static final String TAG = "BackgoundService";
 
     private static final int MININUTE = 1;
-    private static final int PERIOD = 1000 * 60 * MININUTE/60 * 5;
+    private static final int PERIOD = 1000 * 60 * MININUTE;
 
     private Context context;
     private static int counter=1;
