@@ -3,6 +3,7 @@ package com.app.soonitsoon.server;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.renderscript.Sampler;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import com.app.soonitsoon.timeline.DateNTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,8 +24,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GetServerInfo {
 
@@ -168,107 +173,21 @@ public class GetServerInfo {
         if (!eqMainLocation.isEmpty() && !eqMainLocation.equals("전체")) {
             strUrl.append("&obs_location=").append(eqMainLocation).append(" ").append(eqSubLocation);
         }
-        if (scaleMin != -1 && scaleMax != -1) {
+        if (disasterIndex == 2 && scaleMin != -1 && scaleMax != -1) {
             strUrl.append("&scale_min=").append(scaleMin);
             strUrl.append("&scale_max=").append(scaleMax);
         }
 
+        Log.e("Created URL", String.valueOf(strUrl));
+
         return new URL(String.valueOf(strUrl));
-    }
-    public static URL makeConnUrl(String startDateTime, String endDateTime, int disasterIndex, String levels) throws MalformedURLException {
-        return new URL("http://203.253.25.184:8080/search" +
-                "?start_date=" + startDateTime +
-                "&end_date=" + endDateTime +
-                "&disaster=" + disasterIndex +
-                "&level=" + levels);
-    }
-    public static URL makeConnUrl(String startDateTime, int disasterIndex, String levels, String subName) throws MalformedURLException {
-        return new URL("http://203.253.25.184:8080/search" +
-                "?start_date=" + startDateTime +
-                "&disaster=" + disasterIndex +
-                "&level=" + levels +
-                "&name=" + subName);
-    }
-    public static URL makeConnUrl(String startDateTime, String endDateTime, int disasterIndex, String levels, String subName) throws MalformedURLException {
-        return new URL("http://203.253.25.184:8080/search" +
-                "?start_date=" + startDateTime +
-                "&end_date=" + endDateTime +
-                "&disaster=" + disasterIndex +
-                "&level=" + levels +
-                "&name=" + subName);
-    }
-    public static URL makeConnUrl(String startDateTime, String mainLocation, String subLocation, int disasterIndex, String levels) throws MalformedURLException {
-        return new URL("http://203.253.25.184:8080/search" +
-                "?start_date=" + startDateTime +
-                "&main_location=" + mainLocation +
-                "&sub_location=" + subLocation +
-                "&disaster=" + disasterIndex +
-                "&level=" + levels);
-    }
-    public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels) throws MalformedURLException {
-        return new URL("http://203.253.25.184:8080/search" +
-                "?start_date=" + startDateTime +
-                "&end_date=" + endDateTime +
-                "&main_location=" + mainLocation +
-                "&sub_location=" + subLocation +
-                "&disaster=" + disasterIndex +
-                "&level=" + levels);
-    }
-    public static URL makeConnUrl(String startDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String subName) throws MalformedURLException {
-        return new URL("http://203.253.25.184:8080/search" +
-                "?start_date=" + startDateTime +
-                "&main_location=" + mainLocation +
-                "&sub_location=" + subLocation +
-                "&disaster=" + disasterIndex +
-                "&level=" + levels +
-                "&name=" + subName);
-    }
-    public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String subName) throws MalformedURLException {
-        return new URL("http://203.253.25.184:8080/search" +
-                "?start_date=" + startDateTime +
-                "&end_date=" + endDateTime +
-                "&main_location=" + mainLocation +
-                "&sub_location=" + subLocation +
-                "&disaster=" + disasterIndex +
-                "&level=" + levels +
-                "&name=" + subName);
-    }
-    public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, double scaleMin, double scaleMax) throws MalformedURLException {
-        return new URL("http://203.253.25.184:8080/search" +
-                "?start_date=" + startDateTime +
-                "&end_date=" + endDateTime +
-                "&main_location=" + mainLocation +
-                "&sub_location=" + subLocation +
-                "&disaster=" + disasterIndex +
-                "&level=" + levels +
-                "&scale_min=" + scaleMin +
-                "&scale_max=" + scaleMax);
-    }
-    public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String eqMainLocation, String eqSubLocation) throws MalformedURLException {
-        return new URL("http://203.253.25.184:8080/search" +
-                "?start_date=" + startDateTime +
-                "&end_date=" + endDateTime +
-                "&main_location=" + mainLocation +
-                "&sub_location=" + subLocation +
-                "&disaster=" + disasterIndex +
-                "&level=" + levels +
-                "&obs_location=" + eqMainLocation + " " + eqSubLocation);
-    }
-    public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String eqMainLocation, String eqSubLocation, double scaleMin, double scaleMax) throws MalformedURLException {
-        return new URL("http://203.253.25.184:8080/search" +
-                "?start_date=" + startDateTime +
-                "&end_date=" + endDateTime +
-                "&main_location=" + mainLocation +
-                "&sub_location=" + subLocation +
-                "&disaster=" + disasterIndex +
-                "&level=" + levels +
-                "&obs_location=" + eqMainLocation + " " + eqSubLocation +
-                "&scale_min=" + scaleMin +
-                "&scale_max=" + scaleMax);
     }
 
     // Url을 받아 서버 데이터를 받음
-    private static String getServerData(URL url) throws IOException {
+    public static String getServerData(URL url) throws IOException {
+        String strConnectionResult = "";
+
+
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         urlConnection.setRequestMethod("GET");
         urlConnection.connect();
@@ -280,9 +199,10 @@ public class GetServerInfo {
         while ((line = br.readLine()) != null)
             sb.append(line);
 
-        String strConnectionResult = sb.toString();
+        strConnectionResult = sb.toString();
 
         br.close();
+
 
         return strConnectionResult;
     }

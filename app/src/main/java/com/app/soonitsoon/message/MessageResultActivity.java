@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.app.soonitsoon.R;
 import com.app.soonitsoon.server.GetServerInfo;
 import com.app.soonitsoon.timeline.DateNTime;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -55,11 +57,14 @@ public class MessageResultActivity extends AppCompatActivity {
     private String[] disasterArray; // 재난 종류 Array
     private ArrayList<String[]> disasterLevelArray; // 재난별 등급 Array
 
+    private String serverResult;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_result);
         activity = this;
+        serverResult = "";
 
         // 뒤로가기 버튼
         Button homeBtn = findViewById(R.id.btn_message_result_back);
@@ -166,12 +171,25 @@ public class MessageResultActivity extends AppCompatActivity {
             }
 
             // REST Call Url 생성
-            URL connUrl;
+            String strServerData = "";
+//            try {
+//                strServerData = GetServerInfo.getServerData(GetServerInfo.makeConnUrl(startDateTime, endDateTime, mainLocation, subLocation, disasterIndex, levels, disasterSubName, eq_mainLocation, eq_subLocation, scale_min, scale_max));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+
             try {
-                connUrl = GetServerInfo.makeConnUrl(startDateTime, endDateTime, mainLocation, subLocation, disasterIndex, levels, disasterSubName, eq_mainLocation, eq_subLocation, scale_min, scale_max);
+                ServerConnect serverConnect = new ServerConnect(GetServerInfo.makeConnUrl(startDateTime, endDateTime, mainLocation, subLocation, disasterIndex, levels, disasterSubName, eq_mainLocation, eq_subLocation, scale_min, scale_max));
+                serverConnect.execute();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
+
+            strServerData = serverResult;
+
+            TextView textView = new TextView(this);
+            textView.setText(strServerData);
+            resultLayout.addView(textView);
 
 
         }
@@ -260,5 +278,32 @@ public class MessageResultActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    public class ServerConnect extends AsyncTask<Void, Void, String> {
+        private URL url;
+        public ServerConnect(URL url) {
+            this.url = url;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            String result = "";
+            try {
+                result = GetServerInfo.getServerData(url);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            serverResult = s;
+        }
     }
 }
