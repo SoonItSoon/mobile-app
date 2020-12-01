@@ -23,8 +23,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
 import com.app.soonitsoon.R;
+import com.app.soonitsoon.server.GetServerInfo;
 import com.app.soonitsoon.timeline.DateNTime;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -84,6 +87,7 @@ public class MessageResultActivity extends AppCompatActivity {
 
         // 유효한 값을 잘 넘겨받은 경우
         if (receiveCondition()) {
+
             ////////////////////////////////////////////////////////////////////////////////////// 로그 처리
             String logLine1 = "검색 시작 날짜 : " + fromDate;
             Log.e(TAG, logLine1);
@@ -147,7 +151,29 @@ public class MessageResultActivity extends AppCompatActivity {
             resultLayout.addView(textView7);
             ////////////////////////////////////////////////////////////////////////////////////// 로그 처리
 
-            
+            // getServerInfo로 전달할 생성이 필요한 값 생성
+            String startDateTime = fromDate + " 00:00:00";
+            String endDateTime = toDate + " 23:59:59";
+            String levels = "";
+            for (int i = 1; i <= NUM_OF_DISASTER_LEVELS; i++ ) {
+                if (disasterSubLevel[i]) {
+                    if (levels.isEmpty()) {
+                        levels += i;
+                    } else {
+                        levels += ("," + i);
+                    }
+                }
+            }
+
+            // REST Call Url 생성
+            URL connUrl;
+            try {
+                connUrl = GetServerInfo.makeConnUrl(startDateTime, endDateTime, mainLocation, subLocation, disasterIndex, levels, disasterSubName, eq_mainLocation, eq_subLocation, scale_min, scale_max);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+
         }
         // 값을 받지 못한 경우
         else {

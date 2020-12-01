@@ -3,6 +3,7 @@ package com.app.soonitsoon.server;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.renderscript.Sampler;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -56,7 +57,8 @@ public class GetServerInfo {
             String strConnectionResult = "";
             try {
                 String startDateTime = safetyPrevDate + " " + safetyPrevTime;
-                strConnectionResult = getServerData(makeConnUrl(startDateTime, 1, "1", "COVID-19"));  // connection 전체 결과
+                // connection 전체 결과
+                strConnectionResult = getServerData(makeConnUrl(startDateTime, "", "", "", 1, "1", "COVID-19", "", "", -1, -1));
 
                 JSONObject jsonConnectionResult = new JSONObject(strConnectionResult);
                 Iterator<String> iterator = jsonConnectionResult.keys();
@@ -143,12 +145,35 @@ public class GetServerInfo {
         }
     }
 
+    // 문자 검색 결과 반환
+    public static ArrayList<JSONObject> getSearchData(URL url) {
+
+        return new ArrayList<>();
+    }
+
     // URL 생성
-    public static URL makeConnUrl(String startDateTime, int disasterIndex, String levels) throws MalformedURLException {
-        return new URL("http://203.253.25.184:8080/search" +
-                "?start_date=" + startDateTime +
-                "&disaster=" + disasterIndex +
-                "&level=" + levels);
+    public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String subName, String eqMainLocation, String eqSubLocation, double scaleMin, double scaleMax) throws MalformedURLException {
+        StringBuilder strUrl = new StringBuilder("http://203.253.25.184:8080/search");
+        strUrl.append("?start_date=").append(startDateTime);
+        if (!endDateTime.isEmpty())
+            strUrl.append("&end_date=").append(endDateTime);
+        if (!mainLocation.isEmpty() && !mainLocation.equals("전체")) {
+            strUrl.append("&main_location=").append(mainLocation).append("&sub_location=").append(subLocation);
+        }
+        strUrl.append("&disaster=").append(disasterIndex);
+        strUrl.append("&level=").append(levels);
+        if (!subName.isEmpty()) {
+            strUrl.append("&name=").append(subName);
+        }
+        if (!eqMainLocation.isEmpty() && !eqMainLocation.equals("전체")) {
+            strUrl.append("&obs_location=").append(eqMainLocation).append(" ").append(eqSubLocation);
+        }
+        if (scaleMin != -1 && scaleMax != -1) {
+            strUrl.append("&scale_min=").append(scaleMin);
+            strUrl.append("&scale_max=").append(scaleMax);
+        }
+
+        return new URL(String.valueOf(strUrl));
     }
     public static URL makeConnUrl(String startDateTime, String endDateTime, int disasterIndex, String levels) throws MalformedURLException {
         return new URL("http://203.253.25.184:8080/search" +
