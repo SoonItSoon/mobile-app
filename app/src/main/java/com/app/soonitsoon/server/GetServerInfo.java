@@ -167,7 +167,7 @@ public class GetServerInfo {
         }
         strUrl.append("&disaster=").append(disasterIndex);
         strUrl.append("&level=").append(levels);
-        if (!subName.isEmpty()) {
+        if (!subName.isEmpty() && !subName.equals("전체")) {
             strUrl.append("&name=").append(subName);
         }
         if (!eqMainLocation.isEmpty() && !eqMainLocation.equals("전체")) {

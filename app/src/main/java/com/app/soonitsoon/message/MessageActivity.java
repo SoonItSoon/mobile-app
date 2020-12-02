@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.method.KeyListener;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,6 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -23,9 +27,11 @@ import androidx.fragment.app.DialogFragment;
 import com.app.soonitsoon.DatePickFragment;
 import com.app.soonitsoon.R;
 import com.app.soonitsoon.timeline.DateNTime;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import io.apptik.widget.MultiSlider;
 
@@ -53,6 +59,9 @@ public class MessageActivity extends AppCompatActivity {
     // 재난 종류
     private final static int NUM_OF_DISASTER = 6;
     private int disasterIndex;
+
+    // 텍스트 검색 내용
+    private String innerText;
 
     // 재난 종류 선택 라디오 버튼
     private ArrayList<RadioButton> disasterRadios;
@@ -109,6 +118,9 @@ public class MessageActivity extends AppCompatActivity {
     private double scale_max;   // 지진 규모 최댓값
     private String eq_mainLocation;   // 지진 관측 지역 시/도
     private String eq_subLocation;   // 지진 관측 지역 시/군/구
+
+    // 텍스트 검색 TextField
+    private TextInputLayout textSearchField;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -256,6 +268,41 @@ public class MessageActivity extends AppCompatActivity {
                     clearSubConditions();    // 하위 값들 초기화
                     checkCondition(CHECKED_CATEGORY);   // 재난 종류 선택 완료
                 }
+            }
+        });
+
+        // 텍스트 검색
+        innerText = "";
+        textSearchField = findViewById(R.id.textField_search_text);
+        textSearchField.getEditText().setKeyListener(new KeyListener() {
+            @Override
+            public int getInputType() {
+                return 0;
+            }
+
+            @Override
+            public boolean onKeyDown(View view, Editable text, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    textSearchField.clearFocus();
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onKeyUp(View view, Editable text, int keyCode, KeyEvent event) {
+                innerText = text.toString();
+
+                return true;
+            }
+
+            @Override
+            public boolean onKeyOther(View view, Editable text, KeyEvent event) {
+                return false;
+            }
+
+            @Override
+            public void clearMetaKeyState(View view, Editable content, int states) {
+
             }
         });
 
@@ -766,6 +813,10 @@ public class MessageActivity extends AppCompatActivity {
 
         // 그 외 카테고리
         disaster_etc_radioGroup.clearCheck();
+
+        // 텍스트 검색
+        innerText = "";
+        textSearchField.getEditText().setText("");
     }
 
     private boolean isCheckedSubConditions() {

@@ -310,20 +310,6 @@
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryDark"/>
                 </LinearLayout>
-                <!-- Disaster_1 Layout Row 3 -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/search_disaster_text"
-                    android:layout_marginTop="@dimen/content_margin"/>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/search_disaster_text_hint"/>
-                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
             <!-- Disaster_1 Layout (end) -->
 
@@ -468,20 +454,6 @@
                         android:textColor="@color/colorPrimary"
                         android:layout_margin="@dimen/btn_margin"/>
                 </LinearLayout>
-                <!-- Disaster_2 Layout Row 4 -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/search_disaster_text"
-                    android:layout_marginTop="@dimen/content_margin"/>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/search_disaster_text_hint"/>
-                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
             <!-- Disaster_2 Layout (end) -->
 
@@ -555,20 +527,6 @@
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryDark"/>
                 </LinearLayout>
-                <!-- Disaster_3 Layout Row 2 -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/search_disaster_text"
-                    android:layout_marginTop="@dimen/content_margin"/>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/search_disaster_text_hint"/>
-                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
             <!-- Disaster_3 Layout (end) -->
 
@@ -657,20 +615,6 @@
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryDark"/>
                 </LinearLayout>
-                <!-- Disaster_4 Layout Row 3 -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/search_disaster_text"
-                    android:layout_marginTop="@dimen/content_margin"/>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/search_disaster_text_hint"/>
-                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
             <!-- Disaster_4 Layout (end) -->
 
@@ -744,20 +688,6 @@
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryDark"/>
                 </LinearLayout>
-                <!-- Disaster_5 Layout Row 2 -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/search_disaster_text"
-                    android:layout_marginTop="@dimen/content_margin"/>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/search_disaster_text_hint"/>
-                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
             <!-- Disaster_5 Layout (end) -->
 
@@ -902,22 +832,22 @@
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryDark"/>
                 </LinearLayout>
-                <!-- Disaster_6 Layout Row 3 -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/search_disaster_text"
-                    android:layout_marginTop="@dimen/content_margin"/>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="@string/search_disaster_text_hint"/>
-                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
             <!-- Disaster_6 Layout (end) -->
+
+            <!-- Text Search -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textField_search_text"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:hint="@string/search_disaster_text"
+                android:layout_marginTop="@dimen/content_margin"
+                app:startIconDrawable="@drawable/ic_search"
+                app:endIconMode="clear_text">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
         <!-- Contents Layout (end) -->
