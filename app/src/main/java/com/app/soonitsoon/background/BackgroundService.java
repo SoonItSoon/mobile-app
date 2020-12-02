@@ -14,6 +14,7 @@ import com.app.soonitsoon.server.GetServerInfo;
 import com.app.soonitsoon.safety.CheckSafetyInfo;
 import com.app.soonitsoon.timeline.GetLocation;
 import com.app.soonitsoon.timeline.RecordTimeline;
+import com.app.soonitsoon.timeline.UpdateTimeline;
 
 import org.json.JSONException;
 import org.json.JSONObject;
