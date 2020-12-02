@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -27,6 +28,7 @@ import androidx.fragment.app.DialogFragment;
 import com.app.soonitsoon.DatePickFragment;
 import com.app.soonitsoon.R;
 import com.app.soonitsoon.timeline.DateNTime;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -120,7 +122,8 @@ public class MessageActivity extends AppCompatActivity {
     private String eq_subLocation;   // 지진 관측 지역 시/군/구
 
     // 텍스트 검색 TextField
-    private TextInputLayout textSearchField;
+    private TextInputLayout textSearchInput;
+    private TextInputEditText textSearchEdit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -271,40 +274,41 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-        // 텍스트 검색
-        innerText = "";
-        textSearchField = findViewById(R.id.textField_search_text);
-        textSearchField.getEditText().setKeyListener(new KeyListener() {
-            @Override
-            public int getInputType() {
-                return 0;
-            }
+//        // 텍스트 검색
+//        TextWatcher watcher = new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        };
+//
+//        innerText = "";
+//        textSearchInput = findViewById(R.id.textInput_search_text);
+//        textSearchEdit = findViewById(R.id.textEdit_search_text);
+//        textSearchEdit.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                Log.e("눌린 키", textSearchEdit.getText().toString());
+//                Log.e("눌린 키", event.toString());
+//                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+//                    innerText = textSearchEdit.getText().toString();
+//
+//                    Toast.makeText(getApplicationContext(), innerText, Toast.LENGTH_SHORT).show();
+//                }
+//                return false;
+//            }
+//        });
 
-            @Override
-            public boolean onKeyDown(View view, Editable text, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    textSearchField.clearFocus();
-                }
-                return true;
-            }
-
-            @Override
-            public boolean onKeyUp(View view, Editable text, int keyCode, KeyEvent event) {
-                innerText = text.toString();
-
-                return true;
-            }
-
-            @Override
-            public boolean onKeyOther(View view, Editable text, KeyEvent event) {
-                return false;
-            }
-
-            @Override
-            public void clearMetaKeyState(View view, Editable content, int states) {
-
-            }
-        });
 
         // 검색 버튼
         Button searchBtn = findViewById(R.id.btn_message_search);
@@ -816,7 +820,7 @@ public class MessageActivity extends AppCompatActivity {
 
         // 텍스트 검색
         innerText = "";
-        textSearchField.getEditText().setText("");
+        textSearchEdit.setText("");
     }
 
     private boolean isCheckedSubConditions() {
