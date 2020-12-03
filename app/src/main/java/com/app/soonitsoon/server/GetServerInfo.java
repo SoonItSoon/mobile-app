@@ -62,8 +62,10 @@ public class GetServerInfo {
             String strConnectionResult = "";
             try {
                 String startDateTime = safetyPrevDate + " " + safetyPrevTime;
+                String endDateTime = currentDate + " " + currentTime;
+
                 // connection 전체 결과
-                strConnectionResult = getServerData(makeConnUrl(startDateTime, "", "", "", 1, "1", "COVID-19", "", "", -1, -1));
+                strConnectionResult = getServerData(makeConnUrl("2020-12-02 00:00:00", endDateTime, "", "", 1, "1", "COVID-19", "", "", -1, -1));
 
                 JSONObject jsonConnectionResult = new JSONObject(strConnectionResult);
                 Iterator<String> iterator = jsonConnectionResult.keys();

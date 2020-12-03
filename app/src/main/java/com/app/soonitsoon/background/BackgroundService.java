@@ -128,11 +128,11 @@ public class BackgroundService extends Service {
 
                 // checkSafetyInfo 실행
                 // TODO : 윤수한테 "추가된 확진자 접촉 의심 지역" 이름 지어달라고 하기
-//                try {
-//                    checkSafetyInfo.getDangerInfo();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    checkSafetyInfo.getDangerInfo();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 counter++;
 
