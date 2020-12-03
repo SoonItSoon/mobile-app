@@ -72,79 +72,12 @@
 
 
         <LinearLayout
+            android:id="@+id/layout_interest_setting_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorWhite"
             android:layout_margin="@dimen/content_margin"
             android:orientation="vertical">
-
-            <androidx.cardview.widget.CardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                card_view:cardCornerRadius="8dp"
-                android:layout_marginBottom="@dimen/content_margin"
-                card_view:cardBackgroundColor="@color/colorPrimaryDark">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="@dimen/content_margin">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="관심분야1"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="24dp"
-                        android:layout_marginBottom="@dimen/content_margin"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="서울 성북구 재난1 재난1_키워드1"
-                        android:textSize="18dp"
-                        android:textColor="@color/colorWhite"/>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                card_view:cardCornerRadius="8dp"
-                android:layout_marginBottom="@dimen/content_margin"
-                card_view:cardBackgroundColor="@color/colorPrimaryDark">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="@dimen/content_margin">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="관심분야2"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="24dp"
-                        android:layout_marginBottom="@dimen/content_margin"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="경기도 수원시 재난2 재난2_키워드2"
-                        android:textSize="18dp"
-                        android:textColor="@color/colorWhite"/>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
