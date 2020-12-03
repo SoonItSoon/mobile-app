@@ -104,8 +104,10 @@ public class TimelineActivity extends AppCompatActivity {
     // DatePick을 통해 선택된 날짜 처리
     public void processDatePickerResult(int year, int month, int day, MapView mapView, ShowTimeline showTimeline) {
         String year_string = Integer.toString(year);
-        String month_string = Integer.toString(month+1);
-        String day_string = Integer.toString(day);
+//        String month_string = Integer.toString(month+1);
+        String month_string = String.format("%02d", month+1);
+//        String day_string = Integer.toString(day);
+        String day_string = String.format("%02d", day);
         String date_msg = year_string+"-"+month_string+"-"+day_string;
 
         Button datePickBtn = findViewById(R.id.btn_timeline_datepick);

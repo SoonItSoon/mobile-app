@@ -140,6 +140,24 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+        // 텍스트 검색
+        innerText = "";
+        textSearchInput = findViewById(R.id.textInput_search_text);
+        textSearchEdit = findViewById(R.id.textEdit_search_text);
+        textSearchEdit.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.e("눌린 키", textSearchEdit.getText().toString());
+                Log.e("눌린 키", event.toString());
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER) {
+//                    innerText = textSearchEdit.getText().toString();
+                    Toast.makeText(getApplicationContext(), textSearchEdit.getText().toString(), Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         // 체크 변수 초기화
         isChecked = 0;
 
@@ -291,24 +309,6 @@ public class MessageActivity extends AppCompatActivity {
 //
 //            }
 //        };
-//
-//        innerText = "";
-//        textSearchInput = findViewById(R.id.textInput_search_text);
-//        textSearchEdit = findViewById(R.id.textEdit_search_text);
-//        textSearchEdit.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                Log.e("눌린 키", textSearchEdit.getText().toString());
-//                Log.e("눌린 키", event.toString());
-//                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-//                    innerText = textSearchEdit.getText().toString();
-//
-//                    Toast.makeText(getApplicationContext(), innerText, Toast.LENGTH_SHORT).show();
-//                }
-//                return false;
-//            }
-//        });
-
 
         // 검색 버튼
         Button searchBtn = findViewById(R.id.btn_message_search);
@@ -331,7 +331,7 @@ public class MessageActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "지역이 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
                 }
                 // 재난 종류 선택이 되어있지 않은 경우
-                else if ((isChecked & CHECKED_CATEGORY) == 0) {
+                else if ((isChecked & CHECKED_CATEGORY) == 0 || disasterIndex == 0) {
                     Toast.makeText(getApplicationContext(), "재난 종류가 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
                 }
                 // 하위 카테고리가 되어있지 않은 경우
@@ -341,6 +341,7 @@ public class MessageActivity extends AppCompatActivity {
                 // 모두 다 선택이 된 경우
                 else {
                     final Intent intent = new Intent(getApplicationContext(), MessageResultActivity.class);
+                    innerText = textSearchEdit.getText().toString();
                     // 값 전달
                     intent.putExtra("fromDate", fromDate);  // 검색 시작 날짜
                     intent.putExtra("toDate", toDate);      // 검색 종료 날짜
@@ -353,6 +354,7 @@ public class MessageActivity extends AppCompatActivity {
                     intent.putExtra("scale_max", scale_max);    // 지진 최대 규모
                     intent.putExtra("eq_mainLocation", eq_mainLocation);    // 지진 발생 지역 시/도
                     intent.putExtra("eq_subLocation", eq_subLocation);      // 지진 발생 지역 시/군/구
+                    intent.putExtra("innerText", innerText);      // 텍스트 검색
                     startActivity(intent);
                 }
             }
@@ -380,8 +382,10 @@ public class MessageActivity extends AppCompatActivity {
     // DatePick을 통해 선택된 날짜 처리
     public void processDatePickerResult(int year, int month, int day, int flag) {
         String year_string = Integer.toString(year);
-        String month_string = Integer.toString(month+1);
-        String day_string = Integer.toString(day);
+//        String month_string = Integer.toString(month+1);
+//        String day_string = Integer.toString(day);
+        String month_string = String.format("%02d", month+1);
+        String day_string = String.format("%02d", day);
         String date_msg = year_string+"-"+month_string+"-"+day_string;
 
         if (flag == 0) {
