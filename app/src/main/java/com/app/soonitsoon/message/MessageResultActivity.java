@@ -414,8 +414,11 @@ public class MessageResultActivity extends AppCompatActivity {
                     textView5.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + link));
-//                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://google.com/"));
+                            Intent intent;
+                            if (link.contains("http://") || link.contains("https://"))
+                                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                            else
+                                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + link));
                             startActivity(intent);
                         }
                     });
