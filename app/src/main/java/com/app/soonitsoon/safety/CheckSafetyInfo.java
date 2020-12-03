@@ -139,6 +139,8 @@ public class CheckSafetyInfo {
                     JSONObject jsonUpdateUnit = new JSONObject();
                     jsonUpdateUnit.put("time", dangerTime);
                     jsonUpdateUnit.put("locName", locName);         // UpdateUnit = {time : "time", locName : "locName"}
+                    jsonUpdateUnit.put("lat", dangerLat);
+                    jsonUpdateUnit.put("lon", dangerLon);
                     String strUpdateUnit = jsonUpdateUnit.toString();
 
                     if (jsonUpdateObject.has(date)) {
