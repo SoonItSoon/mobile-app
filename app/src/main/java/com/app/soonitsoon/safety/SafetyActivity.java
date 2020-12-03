@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,20 +64,24 @@ public class SafetyActivity extends AppCompatActivity {
         SharedPreferences spref = context.getSharedPreferences("PrevData", Context.MODE_PRIVATE);
         String strUpdateList = spref.getString("UpdateList", "");
         try {
-            JSONObject jsonUpdateList = new JSONObject(strUpdateList);
-            Iterator<String> iterator = jsonUpdateList.keys();
+            if (!strUpdateList.isEmpty()) {
+                JSONObject jsonUpdateList = new JSONObject(strUpdateList);
+                Iterator<String> iteratorDate = jsonUpdateList.keys();
 
-            while (iterator.hasNext()) {
-                String date = iterator.next();
-                String strTimeList = jsonUpdateList.getString(date);
-                String[] timeList = strTimeList.split("/");
+                while (iteratorDate.hasNext()) {
+                    String date = iteratorDate.next();
+                    String strTimeList = jsonUpdateList.getString(date);
+                    JSONObject jsonTimeList = new JSONObject(strTimeList);
 
-                // timeline 받아오기
-                JSONObject timelineList = getTimeline.excute(date);
+                    Iterator<String> iteratorIndex = jsonTimeList.keys();
+                    while (iteratorIndex.hasNext()) {
+                        String index = iteratorIndex.next();
+                        String strTimeUnit = jsonTimeList.getString(index);
+                        JSONObject jsonTimeUnit = new JSONObject(strTimeUnit);
+                        String time = jsonTimeUnit.getString("time");
 
-                for (String time : timeList) {
-                    String strTimelineUnit = timelineList.getString(time);
-                    JSONObject jsonTimelineUnit = new JSONObject(strTimelineUnit);
+                        Toast.makeText(context, date + "" + time, Toast.LENGTH_LONG).show();
+                    }
 
                 }
             }
@@ -89,9 +94,6 @@ public class SafetyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 buttonA.setText("윤수바보");
-//                TextView textView = new TextView(getApplicationContext());
-//                textView.setText("겨리바보");
-//                linearLayout.addView(textView);
                 // TODO : YES 버튼을 누르면 Danger 값 2 (UpdateTimeline)
                 // TODO : NO 버튼을 누르면 Danger 값 0 (UpdateTimeline)
             }

@@ -32,6 +32,7 @@ import java.util.Iterator;
 public class CheckSafetyInfo {
     private Context context;
     private static Application application;
+    private UpdateTimeline updateTimeline;
     private int dangerCount;
     private int alertNum;
 
@@ -39,6 +40,7 @@ public class CheckSafetyInfo {
     public CheckSafetyInfo(Context context, Application application) {
         this.context = context;
         this.application = application;
+        updateTimeline = new UpdateTimeline(context, application);
         dangerCount = 0;
         alertNum = 0;
     }
@@ -108,7 +110,13 @@ public class CheckSafetyInfo {
             // updateList = {date : {index : {time : "time", locName : "locName"}}}
             SharedPreferences spref = context.getSharedPreferences("PrevData", Context.MODE_PRIVATE);
             String strUpdateObject = spref.getString("UpdateList", "");
-            JSONObject jsonUpdateObject = new JSONObject(strUpdateObject);
+            JSONObject jsonUpdateObject;
+            if (strUpdateObject.isEmpty()) {
+                jsonUpdateObject = new JSONObject();
+            }
+            else {
+                jsonUpdateObject = new JSONObject(strUpdateObject);
+            }
 
             int timelineFlag = 0;
 
@@ -120,11 +128,12 @@ public class CheckSafetyInfo {
                 double timelineLon = jsonTLUnit.getDouble("longitude");
 
                 // M단위
-                boolean distance = CheckLocation.check(dangerLat, timelineLat, dangerLon, timelineLon);
+                boolean distance = CheckLocation.check(dangerLat, dangerLon, timelineLat, timelineLon);
 
                 // true : 거리가 멀다  / false : 거리가 가깝다 -> 위험하다 -> DANGER값 2로 바꾼다 + UpdateList에 추가한다
                 if (distance == false) {
-                    // TODO : Danger값을 바꾸는 모듈을 만들고 넣자
+                    // Danger값을 1로 바꾼다
+                    updateTimeline.excute(date, dangerTime, 1);
 
                     // updateList에 update할 시간이랑 위험한 장소를 넣자
                     JSONObject jsonUpdateUnit = new JSONObject();
@@ -176,6 +185,7 @@ public class CheckSafetyInfo {
             alertNum++;
             if (alertNum == 5)
                 alertNum = 0;
+            dangerCount = 0;
         }
     }
 }
