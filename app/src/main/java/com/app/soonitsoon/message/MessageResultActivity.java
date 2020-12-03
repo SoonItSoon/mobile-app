@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -340,7 +341,7 @@ public class MessageResultActivity extends AppCompatActivity {
                 // 전염병 확진자 수
                 int confirmNum = jsonResultUnit.optInt("confirm_num", -1);
                 // 전염병 링크
-                String link = jsonResultUnit.optString("link", "");
+                final String link = jsonResultUnit.optString("link", "");
                 // 지진 관측위치
                 String obsLocation = jsonResultUnit.optString("obs_location", "");
                 // 지진 진앙지
@@ -364,34 +365,34 @@ public class MessageResultActivity extends AppCompatActivity {
                 // 추가 라인이 있는 경우
                 String line4 = "";
                 if (confirmNum != -1) line4 = "확진자 수 : " + confirmNum;
-                if (!center.isEmpty() && scale != -1) line4 = center + "에서 발생한 규모 " + scale + " 지진";
-                if (!flLocation.isEmpty()) line4 = flLocation + "에서 발생";
+                else if (!center.isEmpty() && !center.equals("null") && scale != -1) line4 = center + "에서 발생한 규모 " + scale + " 지진";
+                else if (!flLocation.isEmpty() && !flLocation.equals("null")) line4 = flLocation + "에서 발생";
                 // 추가 라인이 있는 경우
                 String line5 = "";
-                if (!link.isEmpty()) line5 = link;
+                if (!link.isEmpty() && !link.equals("null")) line5 = link;
 
                 // 문자 하나에 대한 View 생성
                 // 레이아웃 생성
                 LinearLayout subLayout = new LinearLayout(this);
                 subLayout.setLayoutParams(unitParams);
-                subLayout.setPadding(16,16, 16, 16);
+                subLayout.setPadding(24,24, 24, 24);
                 subLayout.setOrientation(LinearLayout.VERTICAL);
                 subLayout.setBackground(getResources().getDrawable(R.drawable.radius));
 
                 // Text Line 1
                 TextView textView1 = new TextView(this);
                 textView1.setText(line1);
-                textView1.setTextSize(Dimension.DP, 24);
+                textView1.setTextSize(Dimension.DP, 36);
                 textView1.setTextColor(getResources().getColor(R.color.colorPrimary));
                 // Text Line 2
                 TextView textView2 = new TextView(this);
                 textView2.setText(line2);
-                textView2.setTextSize(Dimension.DP, 24);
+                textView2.setTextSize(Dimension.DP, 36);
                 textView2.setTextColor(getResources().getColor(R.color.colorPrimary));
                 // Text Line 3
                 TextView textView3 = new TextView(this);
                 textView3.setText(line3);
-                textView3.setTextSize(Dimension.DP, 24);
+                textView3.setTextSize(Dimension.DP, 36);
                 textView3.setTextColor(getResources().getColor(R.color.colorPrimary));
                 // 레이아웃에 추가
                 subLayout.addView(textView1);
@@ -401,21 +402,29 @@ public class MessageResultActivity extends AppCompatActivity {
                 if (!line4.isEmpty()) {
                     TextView textView4 = new TextView(this);
                     textView4.setText(line4);
-                    textView4.setTextSize(Dimension.DP, 24);
+                    textView4.setTextSize(Dimension.DP, 36);
                     textView4.setTextColor(getResources().getColor(R.color.colorPrimary));
                     subLayout.addView(textView4);
                 }
                 if (!line5.isEmpty()) {
                     TextView textView5 = new TextView(this);
                     textView5.setText(line5);
-                    textView5.setTextSize(Dimension.DP, 24);
+                    textView5.setTextSize(Dimension.DP, 36);
                     textView5.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    textView5.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + link));
+//                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://google.com/"));
+                            startActivity(intent);
+                        }
+                    });
                     subLayout.addView(textView5);
                 }
                 // 문자 원본 추가
                 TextView textMsg = new TextView(this);
                 textMsg.setText(msg);
-                textMsg.setTextSize(Dimension.DP, 40);
+                textMsg.setTextSize(Dimension.DP, 64);
                 textMsg.setTextColor(getResources().getColor(R.color.colorWhite));
                 subLayout.addView(textMsg);
 
