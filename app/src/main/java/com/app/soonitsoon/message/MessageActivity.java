@@ -830,9 +830,6 @@ public class MessageActivity extends AppCompatActivity {
     private boolean isCheckedSubConditions() {
         boolean ret = false;
 
-        // 전염병 종류 또는 태풍 이름이 선택되었는지 확인 (Default 값으로 전체를 넘김, 걸리면 안됨)
-        ret = ret || !disasterSubName.isEmpty();
-
         // 알림 등급이 하나라도 선택되었는지 확인
         for (boolean isCheckedLevel : disasterSubLevel) {
             ret = ret || isCheckedLevel;
