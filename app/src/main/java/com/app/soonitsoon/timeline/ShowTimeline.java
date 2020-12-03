@@ -34,31 +34,8 @@ public class ShowTimeline {
 
     public void show(String date) {
         // Json 파일 읽기
-        InputStream inputStream;
-        String stringTLList = "";
-        try {
-            inputStream = application.openFileInput(date+".json");
-
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                stringTLList = bufferedReader.readLine();
-                inputStream.close();
-            }
-            Log.e(TAG, "stringTL = " + stringTLList);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //Json 파일(String) -> JsonObject
-        JSONObject jsonTLList = new JSONObject();
-        try {
-            jsonTLList = new JSONObject(stringTLList);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        GetTimeline getTimeline = new GetTimeline(application);
+        JSONObject jsonTLList = getTimeline.excute(date);
 
         // Key Set
         Iterator<String> iterator = jsonTLList.keys();

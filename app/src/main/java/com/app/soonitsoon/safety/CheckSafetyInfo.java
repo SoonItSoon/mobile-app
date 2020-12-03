@@ -2,6 +2,7 @@ package com.app.soonitsoon.safety;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.icu.text.Edits;
 import android.location.Location;
 import android.util.Log;
@@ -10,6 +11,8 @@ import com.app.soonitsoon.Alert;
 import com.app.soonitsoon.CalDate;
 import com.app.soonitsoon.server.GetServerInfo;
 import com.app.soonitsoon.timeline.CheckLocation;
+import com.app.soonitsoon.timeline.GetTimeline;
+import com.app.soonitsoon.timeline.UpdateTimeline;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +35,7 @@ public class CheckSafetyInfo {
     private int dangerCount;
     private int alertNum;
 
+
     public CheckSafetyInfo(Context context, Application application) {
         this.context = context;
         this.application = application;
@@ -47,7 +51,7 @@ public class CheckSafetyInfo {
         if (dangerList == null)
             return;
 
-        for (ArrayList<String> dangerUnit : dangerList){
+        for (ArrayList<String> dangerUnit : dangerList) {
             String msg = dangerUnit.get(0);
             String sender = dangerUnit.get(1);
             String date = dangerUnit.get(2);
@@ -56,37 +60,15 @@ public class CheckSafetyInfo {
             String locName = dangerUnit.get(5);
 
             // Timeline 받아오기
-            InputStream inputStreamTimeline;
-            String stringTLList = "";
-            try {
-                inputStreamTimeline = application.openFileInput(date+".json");
-
-                if (inputStreamTimeline != null) {
-                    InputStreamReader inputStreamReader = new InputStreamReader(inputStreamTimeline);
-                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                    stringTLList = bufferedReader.readLine();
-                    inputStreamTimeline.close();
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            //Json 파일(String) -> JsonObject
-            JSONObject jsonTLList = new JSONObject();
-            try {
-                jsonTLList = new JSONObject(stringTLList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            GetTimeline getTimeline = new GetTimeline(application);
+            JSONObject jsonTLList = getTimeline.excute(date);
 
             // 접촉 의심 시간 내 타임라인을 받아오기 위한 시간 저장
             Iterator<String> iterator = jsonTLList.keys();
             String prev = "";
             ArrayList<String> dangerTimeList = new ArrayList<>();
 
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 String time = iterator.next();
                 int start = CalDate.isFast(startTime, time);
                 int end = CalDate.isFast(endTime, time);
@@ -94,12 +76,10 @@ public class CheckSafetyInfo {
                 if (start == 0 && end == 0) {          // 내가 접촉 의심 시간이야 (접촉 의심 시간이 범위가 아닌 경우)
                     dangerTimeList.add(time);
                     break;
-                }
-                else if (start == -1 && end == 1) {    // 내가 접촉 의심 시간 안에 있어
-                    if(!prev.isEmpty())
+                } else if (start == -1 && end == 1) {    // 내가 접촉 의심 시간 안에 있어
+                    if (!prev.isEmpty())
                         dangerTimeList.add(prev);
-                }
-                else if ((start == -1 && end == -1) || (start == -1 && end == 0)) {    // 내가 접촉 의심 시간보다 빨라 또는 엔드타임과 같아
+                } else if ((start == -1 && end == -1) || (start == -1 && end == 0)) {    // 내가 접촉 의심 시간보다 빨라 또는 엔드타임과 같아
                     if (!prev.isEmpty())
                         dangerTimeList.add(prev);
                     dangerTimeList.add(time);
@@ -115,7 +95,7 @@ public class CheckSafetyInfo {
             if (sender.equals("중대본"))
                 strLocRequest = RequestHttpConnection.request(locName);
             else {
-                String senderLoc = sender.substring(0, sender.length()-1);
+                String senderLoc = sender.substring(0, sender.length() - 1);
                 String searchLoc = senderLoc + " " + locName;
                 strLocRequest = RequestHttpConnection.request(searchLoc);
             }
@@ -123,8 +103,15 @@ public class CheckSafetyInfo {
             double dangerLat = Double.parseDouble(strLocRequest[1]);
             double dangerLon = Double.parseDouble(strLocRequest[0]);
 
-            // 접촉 의심 장소와 내 timeline을 비교해서 dnager값 바꾸기
+            // 접촉 의심 장소와 내 timeline을 비교해서 danger값 바꾸기
+            // updateList에 update할 시간이랑 위험한 장소를 넣자
+            // updateList = {date : {index : {time : "time", locName : "locName"}}}
+            SharedPreferences spref = context.getSharedPreferences("PrevData", Context.MODE_PRIVATE);
+            String strUpdateObject = spref.getString("UpdateList", "");
+            JSONObject jsonUpdateObject = new JSONObject(strUpdateObject);
+
             int timelineFlag = 0;
+
             for (String dangerTime : dangerTimeList) {
                 String strTLUnit = jsonTLList.getString(dangerTime);
                 JSONObject jsonTLUnit = new JSONObject(strTLUnit);
@@ -135,9 +122,16 @@ public class CheckSafetyInfo {
                 // M단위
                 boolean distance = CheckLocation.check(dangerLat, timelineLat, dangerLon, timelineLon);
 
-                // true : 거리가 멀다  / false : 거리가 가깝다 -> 위험하다 -> DANGER값 1로 바꾼다
+                // true : 거리가 멀다  / false : 거리가 가깝다 -> 위험하다 -> DANGER값 2로 바꾼다
                 if (distance == false) {
                     // TODO : Danger값을 바꾸는 모듈을 만들고 넣자
+
+                    // sharedpreference의 updatelist에 추가
+                    if (jsonUpdateObject.has(date)) {
+                        String strUpdateList = jsonUpdateObject.getString(date);
+                    }
+                    else
+
 
                     // dangerCount 설정해주는 곳
                     if (timelineFlag == 0) {
@@ -146,8 +140,20 @@ public class CheckSafetyInfo {
                     timelineFlag++;
                 }
             }
-        }
 
+            if (jsonUpdateObject.has(date)) {
+                String strUpdateList = jsonUpdateObject.getString(date);
+
+
+                SharedPreferences.Editor editor = spref.edit();
+                editor.putString("UpdateList", jsonUpdateObject.toString());
+            } else {
+
+
+                SharedPreferences.Editor editor = spref.edit();
+                editor.putString("UpdateList", jsonUpdateObject.toString());
+            }
+        }
         if (dangerCount != 0) {
             Alert alert = new Alert(context, application);
             alert.sendSafetyAlert(dangerCount, alertNum);
