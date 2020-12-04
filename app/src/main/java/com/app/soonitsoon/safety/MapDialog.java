@@ -3,8 +3,12 @@ package com.app.soonitsoon.safety;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.app.soonitsoon.R;
 
@@ -26,13 +30,29 @@ public class MapDialog {
 
     public void callFunction(String locName, double lat, double lon ) {
         final Dialog dialog = new Dialog(context);
-
         dialog.setContentView(R.layout.map_dialog);
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+
+        TextView title = dialog.findViewById(R.id.dialog_title);
+        title.setText(locName);
+
         dialog.show();
 
         MapView mapView = new MapView(context);
         ViewGroup mapViewContainer = (ViewGroup) dialog.findViewById(R.id.dialog_map);
         mapViewContainer.addView(mapView);
+
+        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(lat, lon), 2, true);
+
+        MapPOIItem marker = new MapPOIItem();
+        marker.setItemName(locName);
+        marker.setTag(0);
+        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(lat, lon));
+        marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+        mapView.addPOIItem(marker);
     }
 
 

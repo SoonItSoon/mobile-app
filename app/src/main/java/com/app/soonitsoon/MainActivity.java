@@ -8,23 +8,31 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.app.soonitsoon.background.BackgroundService;
 import com.app.soonitsoon.background.BootReceiver;
+import com.app.soonitsoon.briefing.BriefingActivity;
 import com.app.soonitsoon.interest.InterestActivity;
 import com.app.soonitsoon.message.MessageActivity;
 import com.app.soonitsoon.safety.CheckSafetyInfo;
 import com.app.soonitsoon.safety.SafetyActivity;
 import com.app.soonitsoon.timeline.TimelineActivity;
+import com.kakao.util.maps.helper.Utility;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -97,64 +105,8 @@ public class MainActivity extends AppCompatActivity {
         mainBtnBriefing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), BriefingActivity.class);
-//                startActivity(intent);
-/*
-                // Unit
-                JSONObject jsondangerUnit11 = new JSONObject();
-                JSONObject jsondangerUnit12 = new JSONObject();
-                JSONObject jsondangerUnit21 = new JSONObject();
-                try {
-                    jsondangerUnit11.put("startTime", "12:00:00");
-                    jsondangerUnit11.put("endTime", "14:00:00");
-                    jsondangerUnit11.put("place", "해남읍 정성한우촌");
-
-                    jsondangerUnit12.put("startTime", "11:00:00");
-                    jsondangerUnit12.put("endTime", "14:00:00");
-                    jsondangerUnit12.put("place", "해남 삼산면 매화정");
-
-                    jsondangerUnit21.put("startTime", "21:51:00");
-                    jsondangerUnit21.put("endTime", "22:37:00");
-                    jsondangerUnit21.put("place", "우리동네오락실");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String stringdangerUnit11 = jsondangerUnit11.toString();
-                String stringdangerUnit12 = jsondangerUnit12.toString();
-                String stringdangerUnit21 = jsondangerUnit21.toString();
-
-                // List
-                JSONObject jsondangerList1 = new JSONObject();
-                JSONObject jsondangerList2 = new JSONObject();
-
-                try {
-                    jsondangerList1.put("1", stringdangerUnit11);
-                    jsondangerList1.put("2", stringdangerUnit12);
-                    jsondangerList2.put("1", stringdangerUnit21);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String stringdangerList1 = jsondangerList1.toString();
-                String stringdangerList2 = jsondangerList2.toString();
-
-                JSONObject jsonDangerObject = new JSONObject();
-                try {
-                    jsonDangerObject.put("2020-11-22", stringdangerList1);
-                    jsonDangerObject.put("2020-11-21", stringdangerList2);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String stringDangerObject = jsonDangerObject.toString();
-                // File
-                FileOutputStream outputStream;
-                try {
-                    outputStream = getApplication().openFileOutput("test.json", Context.MODE_PRIVATE);
-                    outputStream.write(stringDangerObject.getBytes());
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-*/
+                Intent intent = new Intent(getApplicationContext(), BriefingActivity.class);
+                startActivity(intent);
             }
         });
         Button mainBtnInterest = findViewById(R.id.btn_home_interest);
@@ -190,4 +142,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
