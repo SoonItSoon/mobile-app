@@ -28,7 +28,7 @@ public class MapDialog {
         this.context = context;
     }
 
-    public void callFunction(String locName, Double lat, Double lon) {
+    public void callFunction(String locName, double lat, double lon ) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.map_dialog);
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
