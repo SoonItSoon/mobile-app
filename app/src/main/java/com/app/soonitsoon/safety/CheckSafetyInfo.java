@@ -79,7 +79,9 @@ public class CheckSafetyInfo {
                     dangerTimeList.add(time);
                     break;
                 } else if (start == -1 && end == 1) {    // 내가 접촉 의심 시간 안에 있어
-                    if (!prev.isEmpty())
+                    if (!iterator.hasNext())
+                        dangerTimeList.add(time);
+                    else if (!prev.isEmpty())
                         dangerTimeList.add(prev);
                 } else if ((start == -1 && end == -1) || (start == -1 && end == 0)) {    // 내가 접촉 의심 시간보다 빨라 또는 엔드타임과 같아
                     if (!prev.isEmpty())

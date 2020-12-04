@@ -39,15 +39,15 @@ public class GetServerInfo {
         // 현재 날짜, 시간 받아오기
         String currentDate = DateNTime.getDate();
         String currentTime = DateNTime.getTime();
+        String currentDateTime = currentDate + " " + currentTime;
 
         // SharedPreference에 저장된 prev 날짜, 시간 받아오기
         SharedPreferences prevData = context.getSharedPreferences("PrevData", Context.MODE_PRIVATE);
-        String safetyPrevDate = prevData.getString("SafetyPrevDate", "");
-        String safetyPrevTime = prevData.getString("SafetyPrevTime", "");
+        String safetyPrevDateTime = prevData.getString("SafetyPrevDateTime", "");
         SharedPreferences.Editor editor = prevData.edit();
 
         // 이전 시간이랑 같다면 (근데 이런 경우가 있나?)
-        if (currentDate.equals(safetyPrevDate) && currentTime.equals(safetyPrevTime)) {
+        if (currentDateTime.equals(safetyPrevDateTime)) {
             Log.e("getSafetyData", "이전 시간이랑 같음");
             resultList = null;
 
@@ -56,18 +56,15 @@ public class GetServerInfo {
         else {
             String strConnectionResult = "";
             try {
-                String startDateTime = safetyPrevDate + " " + safetyPrevTime;
-                String endDateTime = currentDate + " " + currentTime;
+                String startDateTime = safetyPrevDateTime;
+                String endDateTime = CalDate.addtime(currentDate, currentTime, -1);
+
+                editor.putString("SafetyPrevDateTime", endDateTime);
+                editor.apply();
 
                 // connection 전체 결과
                 strConnectionResult = getServerData(makeConnUrl(startDateTime, endDateTime, "", "", 1, "1", "COVID-19", "", "", -1, -1, ""));
 
-                // prev 값 변경
-                if (!strConnectionResult.equals("{}")) {
-                    editor.putString("SafetyPrevDate", currentDate);
-                    editor.putString("SafetyPrevTime", currentTime);
-                    editor.apply();
-                }
                 JSONObject jsonConnectionResult = new JSONObject(strConnectionResult);
                 Iterator<String> iterator = jsonConnectionResult.keys();
 

@@ -69,4 +69,25 @@ public class CalDate {
 
         return result;
     }
+
+    // 시간 더하는 함수
+    public static String addtime(String inputDate, String inputTime, int min) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar cal = Calendar.getInstance();
+            String input = inputDate + " " + inputTime;
+            Date date = format.parse(input);
+            cal.setTime(date);
+
+            // day만큼 더하기
+            cal.add(Calendar.MINUTE, min);
+
+            String result = format.format(cal.getTime());
+            return result;
+
+        } catch(ParseException e) {
+            Log.e("CalDate", "Parse 오류");
+            return null;
+        }
+    }
 }
