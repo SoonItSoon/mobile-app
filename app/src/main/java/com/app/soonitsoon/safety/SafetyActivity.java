@@ -274,7 +274,7 @@ public class SafetyActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 MapDialog mapDialog = new MapDialog(context);
-                mapDialog.callFunction();
+                mapDialog.callFunction(locName, Double.parseDouble(latitude), Double.parseDouble(longitude));
 
 //                Dialog dialog = new Dialog(activity);
 //                dialog.setTitle(locName);

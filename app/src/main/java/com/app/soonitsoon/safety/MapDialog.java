@@ -24,7 +24,7 @@ public class MapDialog {
         this.context = context;
     }
 
-    public void callFunction(String locName, String ) {
+    public void callFunction(String locName, double lat, double lon ) {
         final Dialog dialog = new Dialog(context);
 
         dialog.setContentView(R.layout.map_dialog);
