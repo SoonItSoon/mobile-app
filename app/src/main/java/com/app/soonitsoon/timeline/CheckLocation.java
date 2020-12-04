@@ -9,6 +9,9 @@ public class CheckLocation {
     public static boolean check(double lat1, double lon1, double lat2, double lon2){
         return calDistance(lat1, lon1, lat2, lon2) >= ALLOW_DISTANCE;
     }
+    public static boolean check(double lat1, double lon1, double lat2, double lon2, double dist){
+        return calDistance(lat1, lon1, lat2, lon2) >= dist;
+    }
 
     // 좌표 사이에 거리 계산
     // @return : m단위 거리

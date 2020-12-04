@@ -32,6 +32,7 @@ import java.util.Iterator;
 public class CheckSafetyInfo {
     private Context context;
     private static Application application;
+    private UpdateTimeline updateTimeline;
     private int dangerCount;
     private int alertNum;
 
@@ -39,6 +40,7 @@ public class CheckSafetyInfo {
     public CheckSafetyInfo(Context context, Application application) {
         this.context = context;
         this.application = application;
+        updateTimeline = new UpdateTimeline(context, application);
         dangerCount = 0;
         alertNum = 0;
     }
@@ -104,11 +106,17 @@ public class CheckSafetyInfo {
             double dangerLon = Double.parseDouble(strLocRequest[0]);
 
             // 접촉 의심 장소와 내 timeline을 비교해서 danger값 바꾸기
-            // updateList에 update할 시간이랑 위험한 장소를 넣자
+            // sharedpreference의 updatelist에 추가
             // updateList = {date : {index : {time : "time", locName : "locName"}}}
             SharedPreferences spref = context.getSharedPreferences("PrevData", Context.MODE_PRIVATE);
             String strUpdateObject = spref.getString("UpdateList", "");
-            JSONObject jsonUpdateObject = new JSONObject(strUpdateObject);
+            JSONObject jsonUpdateObject;
+            if (strUpdateObject.isEmpty()) {
+                jsonUpdateObject = new JSONObject();
+            }
+            else {
+                jsonUpdateObject = new JSONObject(strUpdateObject);
+            }
 
             int timelineFlag = 0;
 
@@ -120,18 +128,50 @@ public class CheckSafetyInfo {
                 double timelineLon = jsonTLUnit.getDouble("longitude");
 
                 // M단위
-                boolean distance = CheckLocation.check(dangerLat, timelineLat, dangerLon, timelineLon);
+                boolean distance = CheckLocation.check(dangerLat, dangerLon, timelineLat, timelineLon);
 
-                // true : 거리가 멀다  / false : 거리가 가깝다 -> 위험하다 -> DANGER값 2로 바꾼다
+                // true : 거리가 멀다  / false : 거리가 가깝다 -> 위험하다 -> DANGER값 2로 바꾼다 + UpdateList에 추가한다
                 if (distance == false) {
-                    // TODO : Danger값을 바꾸는 모듈을 만들고 넣자
+                    // Danger값을 1로 바꾼다
+                    updateTimeline.excute(date, dangerTime, 1);
 
-                    // sharedpreference의 updatelist에 추가
+                    // updateList에 update할 시간이랑 위험한 장소를 넣자
+                    JSONObject jsonUpdateUnit = new JSONObject();
+                    jsonUpdateUnit.put("time", dangerTime);
+                    jsonUpdateUnit.put("locName", locName);         // UpdateUnit = {time : "time", locName : "locName"}
+                    jsonUpdateUnit.put("lat", dangerLat);
+                    jsonUpdateUnit.put("lon", dangerLon);
+                    String strUpdateUnit = jsonUpdateUnit.toString();
+
                     if (jsonUpdateObject.has(date)) {
                         String strUpdateList = jsonUpdateObject.getString(date);
-                    }
-                    else
+                        JSONObject jsonUpdateList = new JSONObject(strUpdateList);  //UpdateList = {index : {updateUnit}}
 
+                        // 비어있는 index에 updateUnit 추가
+                        int index = 0;
+                        while (jsonUpdateList.has(Integer.toString(index))) {
+                            index++;
+                        }
+                        jsonUpdateList.put(Integer.toString(index), strUpdateUnit);
+                        strUpdateList = jsonUpdateList.toString();
+
+                        //updateObject의 date에 대한 value 수정
+                        jsonUpdateObject.remove(date);
+                        jsonUpdateObject.put(date, strUpdateList);
+                    }
+                    else {
+                        JSONObject jsonUpdateList = new JSONObject();
+                        jsonUpdateList.put("1", strUpdateUnit);
+                        String strUpdateList = jsonUpdateList.toString();
+
+                        jsonUpdateObject.put(date, strUpdateList);
+                    }
+                    strUpdateObject = jsonUpdateObject.toString();
+
+                    // SharedPreference에 수정된 updateList 넣기
+                    SharedPreferences.Editor editor = spref.edit();
+                    editor.putString("UpdateList", strUpdateObject);
+                    editor.apply();
 
                     // dangerCount 설정해주는 곳
                     if (timelineFlag == 0) {
@@ -140,19 +180,6 @@ public class CheckSafetyInfo {
                     timelineFlag++;
                 }
             }
-
-            if (jsonUpdateObject.has(date)) {
-                String strUpdateList = jsonUpdateObject.getString(date);
-
-
-                SharedPreferences.Editor editor = spref.edit();
-                editor.putString("UpdateList", jsonUpdateObject.toString());
-            } else {
-
-
-                SharedPreferences.Editor editor = spref.edit();
-                editor.putString("UpdateList", jsonUpdateObject.toString());
-            }
         }
         if (dangerCount != 0) {
             Alert alert = new Alert(context, application);
@@ -160,6 +187,7 @@ public class CheckSafetyInfo {
             alertNum++;
             if (alertNum == 5)
                 alertNum = 0;
+            dangerCount = 0;
         }
     }
 }

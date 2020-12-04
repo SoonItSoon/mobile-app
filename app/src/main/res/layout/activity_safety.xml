@@ -6,17 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:background="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <View
-            android:id="@+id/view_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorAccent"
-            android:layout_below="@+id/toolbar"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -49,29 +43,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/toolbar"
+            android:layout_margin="@dimen/content_margin"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/alertButton"
+            <TextView
+                android:id="@+id/text_loading"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="알림을 띄워보자" />
+                android:layout_height="match_parent"
+                android:text="로딩중..."
+                android:textAlignment="center"/>
+
+
         </LinearLayout>
-        <!--        <LinearLayout-->
-<!--            -->
-<!--        </LinearLayout>-->
 
-    </RelativeLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/navi_header"
-        app:menu="@menu/navi_menu" >
-
-    </com.google.android.material.navigation.NavigationView>
+    </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

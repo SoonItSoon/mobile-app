@@ -78,7 +78,7 @@ public class RecordTimeline {
             JSONObject jsonTLUnit = new JSONObject();
             jsonTLUnit.put("latitude", latitude);
             jsonTLUnit.put("longitude", longitude);
-            jsonTLUnit.put("danger", 1);
+            jsonTLUnit.put("danger", 0);
             String stringTLUnit = jsonTLUnit.toString();
 
             // 타임라인 List
