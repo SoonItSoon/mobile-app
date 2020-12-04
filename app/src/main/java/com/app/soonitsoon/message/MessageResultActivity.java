@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -65,6 +66,7 @@ public class MessageResultActivity extends AppCompatActivity {
     private double scale_max;   // 지진 규모 최댓값
     private String eq_mainLocation;   // 지진 관측 지역 시/도
     private String eq_subLocation;   // 지진 관측 지역 시/군/구
+    private String innerText;   // 텍스트 검색
 
     // Arrays
     private String[] disasterArray; // 재난 종류 Array
@@ -140,6 +142,7 @@ public class MessageResultActivity extends AppCompatActivity {
                 }
             }
             Log.e(TAG, String.valueOf(logLine7));
+            String logLine8 = "텍스트 검색 : " + innerText;
             TextView textView1 = new TextView(this);
             TextView textView2 = new TextView(this);
             TextView textView3 = new TextView(this);
@@ -147,6 +150,7 @@ public class MessageResultActivity extends AppCompatActivity {
             TextView textView5 = new TextView(this);
             TextView textView6 = new TextView(this);
             TextView textView7 = new TextView(this);
+            TextView textView8 = new TextView(this);
             textView1.setText(logLine1);
             textView2.setText(logLine2);
             textView3.setText(logLine3);
@@ -165,6 +169,8 @@ public class MessageResultActivity extends AppCompatActivity {
             }
             textView7.setText(logLine7);
             resultLayout.addView(textView7);
+            textView8.setText(logLine8);
+            resultLayout.addView(textView8);
             ////////////////////////////////////////////////////////////////////////////////////// 로그 처리
 
             // getServerInfo로 전달할 생성이 필요한 값 생성
@@ -183,7 +189,7 @@ public class MessageResultActivity extends AppCompatActivity {
 
             // Rest Call 이용 서버 연결
             try {
-                ServerConnect serverConnect = new ServerConnect(GetServerInfo.makeConnUrl(startDateTime, endDateTime, mainLocation, subLocation, disasterIndex, levels, disasterSubName, eq_mainLocation, eq_subLocation, scale_min, scale_max));
+                ServerConnect serverConnect = new ServerConnect(GetServerInfo.makeConnUrl(startDateTime, endDateTime, mainLocation, subLocation, disasterIndex, levels, disasterSubName, eq_mainLocation, eq_subLocation, scale_min, scale_max, innerText));
                 serverConnect.execute();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -207,44 +213,44 @@ public class MessageResultActivity extends AppCompatActivity {
         fromDate = intent.getStringExtra("fromDate");
         if (fromDate == null || fromDate.isEmpty()) {
             Log.e(TAG, "유효성 검사 Failed (fromDate)");
-            Log.e(TAG, "fromDate : " + fromDate);
             return false;
         }
+        Log.e(TAG, "fromDate : " + fromDate);
 
         toDate = intent.getStringExtra("toDate");
         if (toDate == null || toDate.isEmpty()) {
             Log.e(TAG, "유효성 검사 Failed (toDate)");
-            Log.e(TAG, "toDate : " + toDate);
             return false;
         }
+        Log.e(TAG, "toDate : " + toDate);
 
         mainLocation = intent.getStringExtra("mainLocation");
         if (mainLocation == null || mainLocation.isEmpty()) {
             Log.e(TAG, "유효성 검사 Failed (mainLocation)");
-            Log.e(TAG, "mainLocation : " + mainLocation);
             return false;
         }
+        Log.e(TAG, "mainLocation : " + mainLocation);
 
         subLocation = intent.getStringExtra("subLocation");
         if (subLocation == null || subLocation.isEmpty()) {
             Log.e(TAG, "유효성 검사 Failed (subLocation)");
-            Log.e(TAG, "subLocation : " + subLocation);
             return false;
         }
+        Log.e(TAG, "subLocation : " + subLocation);
 
         disasterIndex = intent.getIntExtra("disasterIndex", -1);
         if (disasterIndex == -1) {
             Log.e(TAG, "유효성 검사 Failed (disasterIndex)");
-            Log.e(TAG, "disasterIndex : " + disasterIndex);
             return false;
         }
+        Log.e(TAG, "disasterIndex : " + disasterIndex);
 
         disasterSubName = intent.getStringExtra("disasterSubName");
         if (disasterSubName == null) {
             Log.e(TAG, "유효성 검사 Failed (disasterSubName)");
-            Log.e(TAG, "disasterSubName : " + disasterSubName);
             return false;
         }
+        Log.e(TAG, "disasterSubName : " + disasterSubName);
 
         disasterSubLevel = intent.getBooleanArrayExtra("disasterSubLevel");
         boolean check = false;
@@ -253,9 +259,9 @@ public class MessageResultActivity extends AppCompatActivity {
         }
         if (disasterSubLevel == null || !check) {
             Log.e(TAG, "유효성 검사 Failed (disasterSubLevel)");
-            Log.e(TAG, "disasterSubLevel : " + Arrays.toString(disasterSubLevel));
             return false;
         }
+        Log.e(TAG, "disasterSubLevel : " + Arrays.toString(disasterSubLevel));
 
         scale_min = intent.getDoubleExtra("scale_min", -1);
         scale_max = intent.getDoubleExtra("scale_max", -1);
@@ -263,17 +269,23 @@ public class MessageResultActivity extends AppCompatActivity {
         eq_mainLocation = intent.getStringExtra("eq_mainLocation");
         if (eq_mainLocation == null) {
             Log.e(TAG, "유효성 검사 Failed (eq_mainLocation)");
-            Log.e(TAG, "eq_mainLocation : " + eq_mainLocation);
             return false;
         }
+        Log.e(TAG, "eq_mainLocation : " + eq_mainLocation);
 
         eq_subLocation = intent.getStringExtra("eq_subLocation");
         if (eq_subLocation == null) {
             Log.e(TAG, "유효성 검사 Failed (eq_subLocation)");
-            Log.e(TAG, "eq_subLocation : " + eq_subLocation);
             return false;
         }
+        Log.e(TAG, "eq_subLocation : " + eq_subLocation);
 
+        innerText = intent.getStringExtra("innerText");
+        if (eq_subLocation == null) {
+            Log.e(TAG, "유효성 검사 Failed (innerText)");
+            return false;
+        }
+        Log.e(TAG, "innerText : " + innerText);
         return true;
     }
 
@@ -329,7 +341,7 @@ public class MessageResultActivity extends AppCompatActivity {
                 // 전염병 확진자 수
                 int confirmNum = jsonResultUnit.optInt("confirm_num", -1);
                 // 전염병 링크
-                String link = jsonResultUnit.optString("link", "");
+                final String link = jsonResultUnit.optString("link", "");
                 // 지진 관측위치
                 String obsLocation = jsonResultUnit.optString("obs_location", "");
                 // 지진 진앙지
@@ -353,34 +365,34 @@ public class MessageResultActivity extends AppCompatActivity {
                 // 추가 라인이 있는 경우
                 String line4 = "";
                 if (confirmNum != -1) line4 = "확진자 수 : " + confirmNum;
-                if (!center.isEmpty() && scale != -1) line4 = center + "에서 발생한 규모 " + scale + " 지진";
-                if (!flLocation.isEmpty()) line4 = flLocation + "에서 발생";
+                else if (!center.isEmpty() && !center.equals("null") && scale != -1) line4 = center + "에서 발생한 규모 " + scale + " 지진";
+                else if (!flLocation.isEmpty() && !flLocation.equals("null")) line4 = flLocation + "에서 발생";
                 // 추가 라인이 있는 경우
                 String line5 = "";
-                if (!link.isEmpty()) line5 = link;
+                if (!link.isEmpty() && !link.equals("null")) line5 = link;
 
                 // 문자 하나에 대한 View 생성
                 // 레이아웃 생성
                 LinearLayout subLayout = new LinearLayout(this);
                 subLayout.setLayoutParams(unitParams);
-                subLayout.setPadding(16,16, 16, 16);
+                subLayout.setPadding(24,24, 24, 24);
                 subLayout.setOrientation(LinearLayout.VERTICAL);
                 subLayout.setBackground(getResources().getDrawable(R.drawable.radius));
 
                 // Text Line 1
                 TextView textView1 = new TextView(this);
                 textView1.setText(line1);
-                textView1.setTextSize(Dimension.DP, 24);
+                textView1.setTextSize(Dimension.DP, 36);
                 textView1.setTextColor(getResources().getColor(R.color.colorPrimary));
                 // Text Line 2
                 TextView textView2 = new TextView(this);
                 textView2.setText(line2);
-                textView2.setTextSize(Dimension.DP, 24);
+                textView2.setTextSize(Dimension.DP, 36);
                 textView2.setTextColor(getResources().getColor(R.color.colorPrimary));
                 // Text Line 3
                 TextView textView3 = new TextView(this);
                 textView3.setText(line3);
-                textView3.setTextSize(Dimension.DP, 24);
+                textView3.setTextSize(Dimension.DP, 36);
                 textView3.setTextColor(getResources().getColor(R.color.colorPrimary));
                 // 레이아웃에 추가
                 subLayout.addView(textView1);
@@ -390,21 +402,32 @@ public class MessageResultActivity extends AppCompatActivity {
                 if (!line4.isEmpty()) {
                     TextView textView4 = new TextView(this);
                     textView4.setText(line4);
-                    textView4.setTextSize(Dimension.DP, 24);
+                    textView4.setTextSize(Dimension.DP, 36);
                     textView4.setTextColor(getResources().getColor(R.color.colorPrimary));
                     subLayout.addView(textView4);
                 }
                 if (!line5.isEmpty()) {
                     TextView textView5 = new TextView(this);
                     textView5.setText(line5);
-                    textView5.setTextSize(Dimension.DP, 24);
+                    textView5.setTextSize(Dimension.DP, 36);
                     textView5.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    textView5.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent;
+                            if (link.contains("http://") || link.contains("https://"))
+                                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                            else
+                                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + link));
+                            startActivity(intent);
+                        }
+                    });
                     subLayout.addView(textView5);
                 }
                 // 문자 원본 추가
                 TextView textMsg = new TextView(this);
                 textMsg.setText(msg);
-                textMsg.setTextSize(Dimension.DP, 40);
+                textMsg.setTextSize(Dimension.DP, 64);
                 textMsg.setTextColor(getResources().getColor(R.color.colorWhite));
                 subLayout.addView(textMsg);
 

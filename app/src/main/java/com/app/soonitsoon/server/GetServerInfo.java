@@ -65,7 +65,7 @@ public class GetServerInfo {
                 String endDateTime = currentDate + " " + currentTime;
 
                 // connection 전체 결과
-                strConnectionResult = getServerData(makeConnUrl(startDateTime, endDateTime, "", "", 1, "1", "COVID-19", "", "", -1, -1));
+                strConnectionResult = getServerData(makeConnUrl(startDateTime, endDateTime, "", "", 1, "1", "COVID-19", "", "", -1, -1, ""));
 
                 JSONObject jsonConnectionResult = new JSONObject(strConnectionResult);
                 Iterator<String> iterator = jsonConnectionResult.keys();
@@ -159,7 +159,7 @@ public class GetServerInfo {
     }
 
     // URL 생성
-    public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String subName, String eqMainLocation, String eqSubLocation, double scaleMin, double scaleMax) throws MalformedURLException {
+    public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String subName, String eqMainLocation, String eqSubLocation, double scaleMin, double scaleMax, String innerText) throws MalformedURLException {
         StringBuilder strUrl = new StringBuilder("http://203.253.25.184:8080/search");
         strUrl.append("?start_date=").append(startDateTime);
         if (!endDateTime.isEmpty())
@@ -178,6 +178,9 @@ public class GetServerInfo {
         if (disasterIndex == 2 && scaleMin != -1 && scaleMax != -1) {
             strUrl.append("&scale_min=").append(scaleMin);
             strUrl.append("&scale_max=").append(scaleMax);
+        }
+        if (!innerText.isEmpty()) {
+            strUrl.append("&inner_text=").append(innerText);
         }
 
         Log.e("Created URL", String.valueOf(strUrl));
