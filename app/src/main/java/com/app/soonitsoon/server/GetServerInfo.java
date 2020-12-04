@@ -54,11 +54,6 @@ public class GetServerInfo {
             return resultList;
         }
         else {
-            // prev 값 변경
-            editor.putString("SafetyPrevDate", currentDate);
-            editor.putString("SafetyPrevTime", currentTime);
-            editor.apply();
-
             String strConnectionResult = "";
             try {
                 String startDateTime = safetyPrevDate + " " + safetyPrevTime;
@@ -67,6 +62,12 @@ public class GetServerInfo {
                 // connection 전체 결과
                 strConnectionResult = getServerData(makeConnUrl(startDateTime, endDateTime, "", "", 1, "1", "COVID-19", "", "", -1, -1, ""));
 
+                // prev 값 변경
+                if (!strConnectionResult.equals("{}")) {
+                    editor.putString("SafetyPrevDate", currentDate);
+                    editor.putString("SafetyPrevTime", currentTime);
+                    editor.apply();
+                }
                 JSONObject jsonConnectionResult = new JSONObject(strConnectionResult);
                 Iterator<String> iterator = jsonConnectionResult.keys();
 
