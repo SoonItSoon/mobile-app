@@ -349,20 +349,20 @@ public class MessageResultActivity extends AppCompatActivity {
                 String flLocation = jsonResultUnit.optString("location", "");
 
                 // 정보 제공을 위한 String 생성
-                // 2020년 1월 1일 기상청에서
-                String line1 = sendDateTime + " " + sender + "에서";
-                // 서울특별시 동작구, 경기도 수원시로 발송한 문자입니다.
-                String line2 = sendLocation + "로 발송한 문자입니다.";
+
+                String line1 = sendDateTime;
+
+                String line2 = sender + " 발송";
                 // 전염병 (코로나-19) 발생안내에 대한 문자입니다.
                 String line3 = disasterArray[disaster];
                 if (!name.isEmpty()) {  // 전염병 또는 태풍의 이름이 있는 경우
                     line3 += (" (" + name + ")");
                 }
-                line3 += (" " + disasterLevelArray.get(disaster)[level] + "에 대한 문자입니다.");
+                line3 += (" - " + disasterLevelArray.get(disaster)[level]);
                 // 추가 라인이 있는 경우
                 String line4 = "";
-                if (confirmNum != -1) line4 = "확진자 수 : " + confirmNum;
-                else if (!center.isEmpty() && !center.equals("null") && scale != -1) line4 = obsLocation + "에서 관측된 규모 " + scale + " 지진";
+                //if (confirmNum != -1) line4 = "확진자 수 : " + confirmNum;
+                if (!center.isEmpty() && !center.equals("null") && scale != -1) line4 = obsLocation + "에서 관측된 규모 " + scale;
                 else if (!flLocation.isEmpty() && !flLocation.equals("null")) line4 = flLocation + "에서 발생";
                 // 추가 라인이 있는 경우
                 String line5 = "";
@@ -426,6 +426,7 @@ public class MessageResultActivity extends AppCompatActivity {
                 textMsg.setText(msg);
                 textMsg.setTextSize(Dimension.DP, 64);
                 textMsg.setTextColor(getResources().getColor(R.color.colorWhite));
+                textMsg.setPadding(0, 16, 0, 0);
                 subLayout.addView(textMsg);
 
                 // 생성된 레이아웃 병합
