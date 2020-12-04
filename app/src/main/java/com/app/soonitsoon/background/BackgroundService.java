@@ -127,11 +127,11 @@ public class BackgroundService extends Service {
 //                }
 
                 // checkSafetyInfo 실행
-                try {
-                    checkSafetyInfo.getDangerInfo();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    checkSafetyInfo.getDangerInfo();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
 
                 counter++;
 

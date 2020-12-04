@@ -274,28 +274,7 @@ public class SafetyActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 MapDialog mapDialog = new MapDialog(context);
-                mapDialog.callFunction();
-
-//                Dialog dialog = new Dialog(activity);
-//                dialog.setTitle(locName);
-//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                dialog.setContentView(R.layout.map_dialog);
-//                dialog.show();
-//
-//                // map
-//                mapView = new MapView(dialog);
-//                mapViewContainer = dialog.findViewById(R.id.map_view_dialog);
-//                mapViewContainer.addView(mapView);
-//
-//                MapPOIItem marker = new MapPOIItem();
-//                marker.setItemName(locName);
-//                marker.setTag(0);
-//                marker.setMapPoint(MapPoint.mapPointWithGeoCoord(Double.parseDouble(latitude), Double.parseDouble(longitude)));
-//                marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-//                marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
-//                mapView.addPOIItem(marker);
-//                // 화면 이동
-//                mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(Double.parseDouble(latitude), Double.parseDouble(longitude)), 2, true);
+                mapDialog.callFunction(locName, Double.parseDouble(latitude), Double.parseDouble(longitude));
             }
         });
 
