@@ -472,8 +472,6 @@ public class MessageResultActivity extends AppCompatActivity {
             super.onPostExecute(s);
 
             showSearchResult(s);
-
-            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
         }
     }
 }

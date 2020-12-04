@@ -50,7 +50,7 @@ public class InterestSettingActivity extends AppCompatActivity {
     // Arrays
     private String[] disasterArray; // 재난 종류 Array
     private ArrayList<String[]> disasterLevelArray; // 재난별 등급 Array
-    private String[] nicknames;
+    private String[] nicknames; // 별명 Array
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

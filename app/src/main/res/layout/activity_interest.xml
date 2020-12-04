@@ -49,18 +49,14 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <ExpandableListView
+        <Button
+            android:id="@+id/btn_interest_select_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="asdf">
-                
-            </TextView>
-
-        </ExpandableListView>
+            android:layout_height="wrap_content"
+            android:text="관심분야"
+            android:layout_margin="@dimen/content_margin"
+            android:background="@drawable/radius"
+            android:textColor="@color/colorPrimary"/>
 
         <LinearLayout
             android:id="@+id/layout_interest_content"
