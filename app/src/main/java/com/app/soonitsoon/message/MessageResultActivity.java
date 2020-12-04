@@ -302,9 +302,6 @@ public class MessageResultActivity extends AppCompatActivity {
             textView.setVisibility(View.GONE);
         }
 
-        // HTML Code로 오는 특수기호 변환
-        String parsedHtmlStr = strResultData.replace("&#34;", "\"");
-
         // 검색 내용을 띄워줄 View 생성
         ScrollView scrollView = new ScrollView(this);
         LinearLayout.LayoutParams unitParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -314,7 +311,7 @@ public class MessageResultActivity extends AppCompatActivity {
 
         // 서버에서 받은 String을 Json으로 파싱
         try {
-            JSONObject jsonResultData = new JSONObject(parsedHtmlStr);
+            JSONObject jsonResultData = new JSONObject(strResultData);
 
             // 데이터 하나씩 접근
             Iterator<String> iterator = jsonResultData.keys();
@@ -365,7 +362,7 @@ public class MessageResultActivity extends AppCompatActivity {
                 // 추가 라인이 있는 경우
                 String line4 = "";
                 if (confirmNum != -1) line4 = "확진자 수 : " + confirmNum;
-                else if (!center.isEmpty() && !center.equals("null") && scale != -1) line4 = center + "에서 발생한 규모 " + scale + " 지진";
+                else if (!center.isEmpty() && !center.equals("null") && scale != -1) line4 = obsLocation + "에서 관측된 규모 " + scale + " 지진";
                 else if (!flLocation.isEmpty() && !flLocation.equals("null")) line4 = flLocation + "에서 발생";
                 // 추가 라인이 있는 경우
                 String line5 = "";
@@ -475,8 +472,6 @@ public class MessageResultActivity extends AppCompatActivity {
             super.onPostExecute(s);
 
             showSearchResult(s);
-
-            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
         }
     }
 }

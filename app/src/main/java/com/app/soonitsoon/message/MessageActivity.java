@@ -6,9 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,7 +17,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -33,7 +29,6 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
 import io.apptik.widget.MultiSlider;
 
