@@ -33,7 +33,7 @@ public class CalDate {
     // 날짜 더하기
     public static String addDay(String inputDate, int day) {
         try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Calendar cal = Calendar.getInstance();
             Date date = format.parse(inputDate);
             cal.setTime(date);
