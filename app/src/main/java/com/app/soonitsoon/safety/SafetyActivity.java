@@ -215,6 +215,7 @@ public class SafetyActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+
                 linearLayout.removeView(mainLayout);
 
             }

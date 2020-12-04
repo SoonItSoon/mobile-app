@@ -3,10 +3,12 @@ package com.app.soonitsoon.safety;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.app.soonitsoon.R;
 
@@ -31,8 +33,10 @@ public class MapDialog {
         dialog.setContentView(R.layout.map_dialog);
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+
+        TextView title = dialog.findViewById(R.id.dialog_title);
+        title.setText(locName);
 
         dialog.show();
 
