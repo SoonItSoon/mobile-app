@@ -50,7 +50,7 @@
                 android:id="@+id/text_loading"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="로딩중..."
+                android:text="안전했어요!"
                 android:textAlignment="center"/>
 
 

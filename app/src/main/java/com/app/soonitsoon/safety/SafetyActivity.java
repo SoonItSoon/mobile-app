@@ -90,12 +90,8 @@ public class SafetyActivity extends AppCompatActivity {
     }
 
     private void showDangerList (String strUpdateList) {
-        TextView textView = findViewById(R.id.text_loading);
-
         // 위험지역 방문한 기록이 있으면
         try {
-            textView.setVisibility(View.GONE);
-
             // 체크해야할 timeline List를 보여줄 scrollView
             ScrollView scrollView = new ScrollView(this);
             LinearLayout.LayoutParams unitParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -130,7 +126,6 @@ public class SafetyActivity extends AppCompatActivity {
         // 위험지역 방문한 기록이 없다 (updateList = null)
         catch (JSONException e) {
             e.printStackTrace();
-            textView.setText("당신은 안전했어요!");
         }
     }
 

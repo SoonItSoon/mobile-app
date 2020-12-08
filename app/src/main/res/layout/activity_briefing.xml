@@ -2,21 +2,15 @@
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout_safety"
+    android:id="@+id/layout_briefing"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:background="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <View
-            android:id="@+id/view_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorAccent"
-            android:layout_below="@+id/toolbar"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -26,7 +20,7 @@
 
             <TextView
                 android:id="@+id/toolbar_title"
-                android:text="@string/nav_menu_briefing"
+                android:text="일일 브리핑 정보 확인"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
@@ -44,24 +38,30 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+        <Button
+            android:id = "@+id/btn_briefing_isSafety"
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:background="#88FF0000"
+            android:gravity="center"
+            android:text="00개의 장소에서 확진자와 접촉했을 가능성이 있습니다."
+            android:textSize="15dp"
+            android:fontFamily="@font/nanum_square"
+            android:drawableLeft="@drawable/ic_bell"
+            android:paddingLeft="10dp"
+            />
+
         <LinearLayout
+            android:id="@+id/layout_briefing_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar">
+            android:layout_below="@+id/toolbar"
+            android:layout_margin="@dimen/content_margin"
+            android:orientation="vertical">
 
 
         </LinearLayout>
-    </RelativeLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/navi_header"
-        app:menu="@menu/navi_menu" >
-
-    </com.google.android.material.navigation.NavigationView>
+    </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>
