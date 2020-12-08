@@ -50,7 +50,7 @@ public class CheckSafetyInfo {
         // getServerInfo.getSafety 로 받아온 값 (추가된 접촉 안내 data)
         ArrayList<ArrayList<String>> dangerList = GetServerInfo.getSafetyData(application, context);
 
-        if (dangerList == null)
+        if (dangerList.isEmpty())
             return;
 
         for (ArrayList<String> dangerUnit : dangerList) {
