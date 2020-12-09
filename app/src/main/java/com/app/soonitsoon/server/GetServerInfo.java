@@ -57,6 +57,9 @@ public class GetServerInfo {
             String strConnectionResult = "";
             try {
                 String startDateTime = safetyPrevDateTime;
+                if (startDateTime.isEmpty()) {
+                    startDateTime = currentDate + " " + "00:00:00";
+                }
                 String endDateTime = CalDate.addtime(currentDate, currentTime, -1);
 
                 editor.putString("SafetyPrevDateTime", endDateTime);
