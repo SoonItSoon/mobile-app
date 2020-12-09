@@ -8,18 +8,14 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import com.app.soonitsoon.background.BackgroundService;
 import com.app.soonitsoon.background.BootReceiver;
@@ -29,11 +25,6 @@ import com.app.soonitsoon.message.MessageActivity;
 import com.app.soonitsoon.safety.CheckSafetyInfo;
 import com.app.soonitsoon.safety.SafetyActivity;
 import com.app.soonitsoon.timeline.TimelineActivity;
-import com.kakao.util.maps.helper.Utility;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";

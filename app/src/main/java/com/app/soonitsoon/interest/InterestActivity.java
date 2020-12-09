@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Dimension;
 import androidx.annotation.Nullable;
@@ -23,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.soonitsoon.CalDate;
 import com.app.soonitsoon.R;
-import com.app.soonitsoon.message.MessageResultActivity;
 import com.app.soonitsoon.server.GetServerInfo;
 import com.app.soonitsoon.timeline.DateNTime;
 

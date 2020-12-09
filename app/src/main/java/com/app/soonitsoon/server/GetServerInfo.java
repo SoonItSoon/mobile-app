@@ -3,32 +3,22 @@ package com.app.soonitsoon.server;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.location.Location;
-import android.renderscript.Sampler;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.app.soonitsoon.CalDate;
-import com.app.soonitsoon.safety.RequestHttpConnection;
 import com.app.soonitsoon.timeline.DateNTime;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class GetServerInfo {
 

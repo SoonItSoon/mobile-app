@@ -3,11 +3,8 @@ package com.app.soonitsoon.safety;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.util.TypedValue;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.soonitsoon.R;

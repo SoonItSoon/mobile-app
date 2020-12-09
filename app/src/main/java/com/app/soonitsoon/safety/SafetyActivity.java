@@ -1,48 +1,28 @@
 package com.app.soonitsoon.safety;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Dimension;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 
 import com.app.soonitsoon.R;
 import com.app.soonitsoon.timeline.DateNTime;
-import com.app.soonitsoon.timeline.GetLocation;
 import com.app.soonitsoon.timeline.GetTimeline;
 import com.app.soonitsoon.timeline.UpdateTimeline;
-
-import net.daum.mf.map.api.MapPOIItem;
-import net.daum.mf.map.api.MapPoint;
-import net.daum.mf.map.api.MapView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class SafetyActivity extends AppCompatActivity {

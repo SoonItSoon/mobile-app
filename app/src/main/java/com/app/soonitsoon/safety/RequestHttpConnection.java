@@ -1,7 +1,5 @@
 package com.app.soonitsoon.safety;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.StringTokenizer;
 
 public class RequestHttpConnection {
     public static String[] request(String address){

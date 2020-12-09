@@ -3,9 +3,6 @@ package com.app.soonitsoon.safety;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.icu.text.Edits;
-import android.location.Location;
-import android.util.Log;
 
 import com.app.soonitsoon.Alert;
 import com.app.soonitsoon.CalDate;
@@ -17,14 +14,6 @@ import com.app.soonitsoon.timeline.UpdateTimeline;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 

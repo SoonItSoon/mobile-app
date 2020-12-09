@@ -11,16 +11,12 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.app.soonitsoon.interest.CheckInterestInfo;
-import com.app.soonitsoon.server.GetServerInfo;
 import com.app.soonitsoon.safety.CheckSafetyInfo;
 import com.app.soonitsoon.timeline.GetLocation;
 import com.app.soonitsoon.timeline.RecordTimeline;
-import com.app.soonitsoon.timeline.UpdateTimeline;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -87,11 +83,11 @@ public class BackgroundService extends Service {
                 }
 
                 // checkSafetyInfo 실행
-//                try {
-//                    checkSafetyInfo.getDangerInfo();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    checkSafetyInfo.getDangerInfo();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 // CheckInterestInfo 실행
                 checkInterestInfo.checkInterest();

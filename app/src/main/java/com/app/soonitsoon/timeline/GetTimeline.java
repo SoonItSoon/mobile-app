@@ -1,7 +1,6 @@
 package com.app.soonitsoon.timeline;
 
 import android.app.Application;
-import android.content.Context;
 
 import org.json.JSONException;
 import org.json.JSONObject;
