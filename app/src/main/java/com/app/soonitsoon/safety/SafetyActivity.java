@@ -30,6 +30,7 @@ public class SafetyActivity extends AppCompatActivity {
     private Context context = this;
 
     LinearLayout resultLayout;
+    View textView;
 
     SharedPreferences spref;
     String strUpdateList;
@@ -47,6 +48,9 @@ public class SafetyActivity extends AppCompatActivity {
         activity = this;
 
         resultLayout = findViewById(R.id.layout_safety_content);
+        textView = findViewById(R.id.text_safety);
+        // TODO :
+        textView.setVisibility(View.VISIBLE);
 
         // 홈 버튼
         Button homeBtn = findViewById(R.id.btn_safety_goHome);
@@ -71,7 +75,6 @@ public class SafetyActivity extends AppCompatActivity {
         // 위험지역 방문한 기록이 있으면
         try {
             // 체크해야할 timeline List를 보여줄 scrollView
-            View textView = findViewById(R.id.text_safety);
             textView.setVisibility(View.GONE);
             ScrollView scrollView = new ScrollView(this);
             LinearLayout.LayoutParams unitParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -105,6 +108,7 @@ public class SafetyActivity extends AppCompatActivity {
 
         // 위험지역 방문한 기록이 없다 (updateList = null)
         catch (JSONException e) {
+            textView.setVisibility(View.VISIBLE);
             e.printStackTrace();
         }
     }
