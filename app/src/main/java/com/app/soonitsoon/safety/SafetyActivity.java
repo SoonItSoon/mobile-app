@@ -72,10 +72,14 @@ public class SafetyActivity extends AppCompatActivity {
     }
 
     private void showDangerList (String strUpdateList) {
-        // 위험지역 방문한 기록이 있으면
+        // 위험지역 방문한 기록이 없으면
+        if (strUpdateList.equals("{}")) {
+            textView.setVisibility(View.VISIBLE);
+            return;
+        }
         try {
-            // 체크해야할 timeline List를 보여줄 scrollView
             textView.setVisibility(View.GONE);
+            // 체크해야할 timeline List를 보여줄 scrollView
             ScrollView scrollView = new ScrollView(this);
             LinearLayout.LayoutParams unitParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             unitParams.setMargins(4, 16, 4, 16);
@@ -106,9 +110,7 @@ public class SafetyActivity extends AppCompatActivity {
             resultLayout.addView(scrollView);
         }
 
-        // 위험지역 방문한 기록이 없다 (updateList = null)
         catch (JSONException e) {
-            textView.setVisibility(View.VISIBLE);
             e.printStackTrace();
         }
     }
@@ -176,15 +178,18 @@ public class SafetyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 updateTimeline.excute(date, time, 2);
 
+                // SharedPreference 수정
                 JSONObject jsonUpdateList = null;
                 try {
                     jsonUpdateList = new JSONObject(strUpdateList);
                     String strUpdateUnit = jsonUpdateList.getString(date);
                     JSONObject jsonUpdateUnit = new JSONObject(strUpdateUnit);
                     jsonUpdateUnit.remove(index);
-                    strUpdateUnit = jsonUpdateUnit.toString();
                     jsonUpdateList.remove(date);
-                    jsonUpdateList.put(date, strUpdateUnit);
+                    if (jsonUpdateUnit.length() != 0) {
+                        strUpdateUnit = jsonUpdateUnit.toString();
+                        jsonUpdateList.put(date, strUpdateUnit);
+                    }
                     strUpdateList = jsonUpdateList.toString();
 
                     SharedPreferences.Editor editor = spref.edit();
@@ -194,9 +199,10 @@ public class SafetyActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-
                 linearLayout.removeView(mainLayout);
 
+                if (linearLayout.getChildCount() == 0)
+                    textView.setVisibility(View.VISIBLE);
             }
         });
 
@@ -218,9 +224,11 @@ public class SafetyActivity extends AppCompatActivity {
                     String strUpdateUnit = jsonUpdateList.getString(date);
                     JSONObject jsonUpdateUnit = new JSONObject(strUpdateUnit);
                     jsonUpdateUnit.remove(index);
-                    strUpdateUnit = jsonUpdateUnit.toString();
                     jsonUpdateList.remove(date);
-                    jsonUpdateList.put(date, strUpdateUnit);
+                    if (jsonUpdateUnit.length() != 0) {
+                        strUpdateUnit = jsonUpdateUnit.toString();
+                        jsonUpdateList.put(date, strUpdateUnit);
+                    }
                     strUpdateList = jsonUpdateList.toString();
 
                     SharedPreferences.Editor editor = spref.edit();
@@ -231,6 +239,9 @@ public class SafetyActivity extends AppCompatActivity {
                 }
 
                 linearLayout.removeView(mainLayout);
+
+                if (linearLayout.getChildCount() == 0)
+                    textView.setVisibility(View.VISIBLE);
             }
         });
 
