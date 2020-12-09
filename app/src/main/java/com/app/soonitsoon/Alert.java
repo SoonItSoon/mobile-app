@@ -19,6 +19,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 
+import com.app.soonitsoon.interest.InterestActivity;
 import com.app.soonitsoon.safety.SafetyActivity;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -61,6 +62,39 @@ public class Alert{
 
         mNotificationManager.notify(alertNum, mBuilder.build());
 
+    }
+
+    public void sendInterestAlert(String nickname) {
+        final String GROUP_KEY_INTEREST = "soonitsoon.interest";
+
+        createNotificationChannel();
+
+        Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(application.getResources(), R.drawable.ic_alert_large);
+
+        Intent intent = new Intent(application, InterestActivity.class);
+        intent.putExtra("nickname", nickname);
+
+        PendingIntent mPendingIntent = PendingIntent.getActivity(context, 0
+                , intent
+                , PendingIntent.FLAG_CANCEL_CURRENT);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "Alert")
+                .setSmallIcon(R.drawable.ic_alert2)
+                .setContentTitle("설정된 " + nickname + " 관심분야에 대한 새로운 재난문자가 있습니다.")
+                .setContentText("클릭하여 확인을 해주세요")
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                .setLargeIcon(mLargeIconForNoti)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .setOnlyAlertOnce(true)
+                .setGroup(GROUP_KEY_INTEREST)
+                .setContentIntent(mPendingIntent);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) application.getSystemService(NOTIFICATION_SERVICE);
+
+        mNotificationManager.notify(6, mBuilder.build());
     }
 
     private void createNotificationChannel() {

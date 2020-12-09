@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.app.soonitsoon.interest.CheckInterestInfo;
 import com.app.soonitsoon.server.GetServerInfo;
 import com.app.soonitsoon.safety.CheckSafetyInfo;
 import com.app.soonitsoon.timeline.GetLocation;
@@ -35,6 +36,7 @@ public class BackgroundService extends Service {
     private GetLocation getLocation;
     private RecordTimeline recordTimeline;
     private CheckSafetyInfo checkSafetyInfo;
+    private CheckInterestInfo checkInterestInfo;
 
     public BackgroundService() {
     }
@@ -56,6 +58,7 @@ public class BackgroundService extends Service {
         recordTimeline = new RecordTimeline(this, getApplication());
         getLocation = new GetLocation(this);
         checkSafetyInfo = new CheckSafetyInfo(this, getApplication());
+        checkInterestInfo = new CheckInterestInfo(this, getApplication());
 
 //        Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
     }
@@ -89,6 +92,9 @@ public class BackgroundService extends Service {
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
 //                }
+
+                // CheckInterestInfo 실행
+                checkInterestInfo.checkInterest();
 
                 counter++;
 
