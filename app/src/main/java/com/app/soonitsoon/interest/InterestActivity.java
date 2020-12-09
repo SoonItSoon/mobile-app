@@ -100,7 +100,6 @@ public class InterestActivity extends AppCompatActivity {
         selectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearInterestContents();
                 new AlertDialog.Builder(context).setTitle("관심분야 선택").setItems(nicknames, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -110,7 +109,6 @@ public class InterestActivity extends AppCompatActivity {
                 }).show();
             }
         });
-
     }
 
     @Override
@@ -183,54 +181,6 @@ public class InterestActivity extends AppCompatActivity {
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-
-
-
-
-
-//            // 뷰 생성
-//            LinearLayout subLayout = new LinearLayout(this);
-//            subLayout.setLayoutParams(unitParams);
-//            subLayout.setPadding(24,24, 24, 24);
-//            subLayout.setOrientation(LinearLayout.VERTICAL);
-//            subLayout.setBackground(getResources().getDrawable(R.drawable.radius));
-//
-//            TextView nicknameText = new TextView(this);
-//            nicknameText.setText(nickname);
-//            nicknameText.setTextSize(Dimension.DP, 64);
-//            nicknameText.setTextColor(getResources().getColor(R.color.colorPrimary));
-//            subLayout.addView(nicknameText);
-//
-//            TextView locationText = new TextView(this);
-//            locationText.setText("지역 : " + location);
-//            locationText.setTextSize(Dimension.DP, 48);
-//            locationText.setTextColor(getResources().getColor(R.color.colorWhite));
-//            subLayout.addView(locationText);
-//
-//            TextView disasterText = new TextView(this);
-//            if (disasterSubName.isEmpty())
-//                disasterText.setText("재난 : " + disaster);
-//            else
-//                disasterText.setText("재난 : " + disaster + " (" + disasterSubName + ")");
-//            disasterText.setTextSize(Dimension.DP, 48);
-//            disasterText.setTextColor(getResources().getColor(R.color.colorWhite));
-//            subLayout.addView(disasterText);
-//
-//            TextView levelText = new TextView(this);
-//            levelText.setText("키워드 : " + disasterLevel);
-//            levelText.setTextSize(Dimension.DP, 48);
-//            levelText.setTextColor(getResources().getColor(R.color.colorWhite));
-//            subLayout.addView(levelText);
-//
-//            if (disaster.equals("지진")) {
-//                TextView eqText = new TextView(this);
-//                eqText.setText(eqLocation + "에서 발생한, 규모 " + scale_range + "의 지진");
-//                eqText.setTextSize(Dimension.DP, 48);
-//                eqText.setTextColor(getResources().getColor(R.color.colorWhite));
-//                subLayout.addView(eqText);
-//            }
-//
-//            linearLayout.addView(subLayout);
         }
 
     }
@@ -284,15 +234,19 @@ public class InterestActivity extends AppCompatActivity {
 
     private void showInterestResult(String strResultData) {
         // 로딩중 글자
-        TextView textView = findViewById(R.id.text_loading);
-        // 서버에 연결 실패한 경우
-//        if (strResultData.isEmpty()) {
-//            textView.setText("서버와의 연결이 실패하였습니다.");
-//        } else if (strResultData.equals("{}")) {    // 서버에서 빈 String을 전달 받은 경우
-//            textView.setText("검색 결과가 없습니다.");
-//        } else {    // 서버에서 전달받은 String이 있는 경우
-//            textView.setVisibility(View.GONE);
-//        }
+        TextView resultText = findViewById(R.id.text_interest_result);
+
+        if (resultText != null) {
+            // 서버에 연결 실패한 경우
+            if (strResultData.isEmpty()) {
+                resultText.setText("서버와의 연결이 실패하였습니다.");
+            } else if (strResultData.equals("{}")) {    // 서버에서 빈 String을 전달 받은 경우
+                resultText.setText("검색 결과가 없습니다.");
+            } else {    // 서버에서 전달받은 String이 있는 경우
+                resultText.setVisibility(View.GONE);
+                clearInterestContents();
+            }
+        }
 
         // 검색 내용을 띄워줄 View 생성
         ScrollView scrollView = new ScrollView(this);
@@ -341,20 +295,20 @@ public class InterestActivity extends AppCompatActivity {
                 String flLocation = jsonResultUnit.optString("location", "");
 
                 // 정보 제공을 위한 String 생성
-                // 2020년 1월 1일 기상청에서
-                String line1 = sendDateTime + " " + sender + "에서";
-                // 서울특별시 동작구, 경기도 수원시로 발송한 문자입니다.
-                String line2 = sendLocation + "로 발송한 문자입니다.";
+
+                String line1 = sendDateTime;
+
+                String line2 = sender + " 발송";
                 // 전염병 (코로나-19) 발생안내에 대한 문자입니다.
                 String line3 = disasterArray[disaster];
                 if (!name.isEmpty()) {  // 전염병 또는 태풍의 이름이 있는 경우
                     line3 += (" (" + name + ")");
                 }
-                line3 += (" " + disasterLevelArray.get(disaster)[level] + "에 대한 문자입니다.");
+                line3 += (" - " + disasterLevelArray.get(disaster)[level]);
                 // 추가 라인이 있는 경우
                 String line4 = "";
-                if (confirmNum != -1) line4 = "확진자 수 : " + confirmNum;
-                else if (!center.isEmpty() && !center.equals("null") && scale != -1) line4 = obsLocation + "에서 관측된 규모 " + scale + " 지진";
+                //if (confirmNum != -1) line4 = "확진자 수 : " + confirmNum;
+                if (!center.isEmpty() && !center.equals("null") && scale != -1) line4 = obsLocation + "에서 관측된 규모 " + scale;
                 else if (!flLocation.isEmpty() && !flLocation.equals("null")) line4 = flLocation + "에서 발생";
                 // 추가 라인이 있는 경우
                 String line5 = "";
@@ -418,6 +372,7 @@ public class InterestActivity extends AppCompatActivity {
                 textMsg.setText(msg);
                 textMsg.setTextSize(Dimension.DP, 64);
                 textMsg.setTextColor(getResources().getColor(R.color.colorWhite));
+                textMsg.setPadding(0, 16, 0, 0);
                 subLayout.addView(textMsg);
 
                 // 생성된 레이아웃 병합
