@@ -57,8 +57,6 @@ public class SafetyActivity extends AppCompatActivity {
             }
         });
 
-
-
         GetTimeline getTimeline = new GetTimeline(getApplication());
 
         // SharedPreference에서 updateList를 받아오자
@@ -73,6 +71,8 @@ public class SafetyActivity extends AppCompatActivity {
         // 위험지역 방문한 기록이 있으면
         try {
             // 체크해야할 timeline List를 보여줄 scrollView
+            View textView = findViewById(R.id.text_safety);
+            textView.setVisibility(View.GONE);
             ScrollView scrollView = new ScrollView(this);
             LinearLayout.LayoutParams unitParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             unitParams.setMargins(4, 16, 4, 16);
