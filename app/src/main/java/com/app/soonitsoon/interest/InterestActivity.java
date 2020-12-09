@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Dimension;
 import androidx.annotation.Nullable;
@@ -114,6 +115,7 @@ public class InterestActivity extends AppCompatActivity {
                         selectBtn.setText(nicknames[which]);
                         clearInterestContents();
                         showInterestContents(nicknames[which]);
+                        Toast.makeText(context, "최근 일주일 동안의 재난문자 내용입니다.", Toast.LENGTH_SHORT).show();
                     }
                 }).show();
             }
@@ -131,6 +133,7 @@ public class InterestActivity extends AppCompatActivity {
         if (alertValue != null) {
             selectBtn.setText(alertValue);
             showInterestContents(alertValue);
+            Toast.makeText(context, "최근 일주일 동안의 재난문자 내용입니다.", Toast.LENGTH_SHORT).show();
         }
 
         // SP 및 별명 array 불러오기
