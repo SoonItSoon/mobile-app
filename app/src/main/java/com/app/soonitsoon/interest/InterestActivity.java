@@ -53,6 +53,9 @@ public class InterestActivity extends AppCompatActivity {
     // 관심분야 레이아웃
     public LinearLayout interestLayout;
 
+    // 관심분야 선택 버튼
+    private Button selectBtn;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +99,7 @@ public class InterestActivity extends AppCompatActivity {
         });
 
         // 관심분야 선택 버튼
-        final Button selectBtn = findViewById(R.id.btn_interest_select_view);
+        selectBtn = findViewById(R.id.btn_interest_select_view);
         selectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +107,7 @@ public class InterestActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         selectBtn.setText(nicknames[which]);
+                        clearInterestContents();
                         showInterestContents(nicknames[which]);
                     }
                 }).show();
@@ -114,6 +118,8 @@ public class InterestActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        clearInterestContents();
+        selectBtn.setText("관심분야 선택");
 
         // SP 및 별명 array 불러오기
         spref = context.getSharedPreferences("InterestData", Context.MODE_PRIVATE);
@@ -197,7 +203,7 @@ public class InterestActivity extends AppCompatActivity {
         Set<String> set = spref.getAll().keySet();
         Iterator<String> iterator = set.iterator();
         int i = 0;
-        while (iterator.hasNext()) {
+        while (iterator.hasNext() && interestSize > 0) {
             String nickname = iterator.next();
             if (!nickname.equals("size")) {
                 nicknames[i++] = nickname;

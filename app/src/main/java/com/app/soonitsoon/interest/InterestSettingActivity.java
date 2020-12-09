@@ -250,7 +250,7 @@ public class InterestSettingActivity extends AppCompatActivity {
         int i = 0;
         while (iterator.hasNext()) {
             String nickname = iterator.next();
-            if (!nickname.equals("size")) {
+            if (!nickname.equals("size") && interestSize > 0) {
                 nicknames[i++] = nickname;
             }
         }
