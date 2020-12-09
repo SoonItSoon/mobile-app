@@ -45,6 +45,14 @@ public class BriefingActivity extends AppCompatActivity {
         showInterestList();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // safety 버튼
+        showSafetyBtn();
+    }
+
     private void showSafetyBtn () {
         Button safetyBtn = findViewById(R.id.btn_briefing_isSafety);
         safetyBtn.setOnClickListener(new View.OnClickListener() {
