@@ -18,12 +18,30 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorBackgroundDark"
+            android:weightSum="9">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="7"
+                android:src="@drawable/ic_logo_short"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/btn_margin"
+                android:layout_marginLeft="@dimen/logo_margin"
+                android:layout_marginRight="@dimen/logo_margin"/>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Title"/>
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:text="@string/home_title_desc"
+                android:textColor="@color/colorSubTitle"
+                android:gravity="center_horizontal"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/btn_margin"/>
 
         </LinearLayout>
 
@@ -31,17 +49,47 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorBackgroundDark">
 
-            <Button
+            <LinearLayout
                 android:id="@+id/btn_home_briefing"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:weightSum="4"
                 android:background="@drawable/radius"
-                android:textColor="@color/colorYellow"
-                android:layout_margin="@dimen/btn_margin"
-                android:text="@string/home_btn_briefing">
-            </Button>
+                android:layout_marginLeft="@dimen/btn_margin"
+                android:layout_marginRight="@dimen/btn_margin"
+                android:orientation="vertical"
+                android:clickable="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:src="@drawable/ic_calendar"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/btn_side_margin" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/home_btn_briefing"
+                    android:textColor="@color/colorYellow"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/home_btn_briefing_desc"
+                    android:textColor="@color/colorWhite"
+                    android:gravity="center_horizontal"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -49,7 +97,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorBackgroundDark">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,25 +106,92 @@
                 android:weightSum="2"
                 android:orientation="horizontal">
 
-                <Button
+                <LinearLayout
                     android:id="@+id/btn_home_interest"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:orientation="vertical"
                     android:background="@drawable/radius"
-                    android:textColor="@color/colorYellow"
-                    android:layout_margin="@dimen/btn_margin"
-                    android:text="@string/home_btn_interest" />
+                    android:layout_marginTop="@dimen/btn_margin"
+                    android:layout_marginLeft="@dimen/btn_margin"
+                    android:layout_marginRight="@dimen/btn_side_margin"
+                    android:layout_marginBottom="@dimen/btn_side_margin"
+                    android:weightSum="4"
+                    android:clickable="true">
 
-                <Button
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:src="@drawable/ic_user"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/btn_side_margin"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/home_btn_interest"
+                        android:textColor="@color/colorYellow"
+                        android:gravity="center"
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/home_btn_interest_desc"
+                        android:textSize="15dp"
+                        android:textColor="@color/colorWhite"
+                        android:gravity="center_horizontal"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/btn_home_safety"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:orientation="vertical"
                     android:background="@drawable/radius"
-                    android:textColor="@color/colorYellow"
-                    android:layout_margin="@dimen/btn_margin"
-                    android:text="@string/home_btn_safety" />
+                    android:layout_marginTop="@dimen/btn_margin"
+                    android:layout_marginLeft="@dimen/btn_side_margin"
+                    android:layout_marginRight="@dimen/btn_margin"
+                    android:layout_marginBottom="@dimen/btn_side_margin"
+                    android:weightSum="4"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:src="@drawable/ic_danger"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/btn_side_margin"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/home_btn_safety"
+                        android:textColor="@color/colorYellow"
+                        android:gravity="center"
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/home_btn_safety_desc"
+                        android:textSize="15dp"
+                        android:textColor="@color/colorWhite"
+                        android:gravity="center_horizontal"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -85,7 +201,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorBackgroundDark">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,30 +210,96 @@
                 android:weightSum="2"
                 android:orientation="horizontal">
 
-                <Button
+                <LinearLayout
                     android:id="@+id/btn_home_timeline"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:orientation="vertical"
                     android:background="@drawable/radius"
-                    android:textColor="@color/colorYellow"
-                    android:layout_margin="@dimen/btn_margin"
-                    android:text="@string/home_btn_timeline" />
+                    android:layout_marginTop="@dimen/btn_side_margin"
+                    android:layout_marginLeft="@dimen/btn_margin"
+                    android:layout_marginRight="@dimen/btn_side_margin"
+                    android:layout_marginBottom="@dimen/btn_margin"
+                    android:weightSum="4"
+                    android:clickable="true">
 
-                <Button
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:src="@drawable/ic_timeline"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/btn_side_margin"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/home_btn_timeline"
+                        android:textColor="@color/colorYellow"
+                        android:gravity="center"
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/home_btn_timeline_desc"
+                        android:textSize="15dp"
+                        android:textColor="@color/colorWhite"
+                        android:gravity="center_horizontal"/>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/btn_home_message"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:orientation="vertical"
                     android:background="@drawable/radius"
-                    android:textColor="@color/colorYellow"
-                    android:layout_margin="@dimen/btn_margin"
-                    android:text="@string/home_btn_search" />
+                    android:layout_marginTop="@dimen/btn_side_margin"
+                    android:layout_marginLeft="@dimen/btn_side_margin"
+                    android:layout_marginRight="@dimen/btn_margin"
+                    android:layout_marginBottom="@dimen/btn_margin"
+                    android:weightSum="4"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:src="@drawable/ic_magnifying_glass"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/btn_side_margin"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/home_btn_search"
+                        android:textColor="@color/colorYellow"
+                        android:gravity="center"
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/home_btn_search_desc"
+                        android:textSize="15dp"
+                        android:textColor="@color/colorWhite"
+                        android:gravity="center_horizontal"/>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
-
 
     </LinearLayout>
 

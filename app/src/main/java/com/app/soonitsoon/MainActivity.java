@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 화면 전환 버튼들
-        Button mainBtnBriefing = findViewById(R.id.btn_home_briefing);
+        View mainBtnBriefing = findViewById(R.id.btn_home_briefing);
         mainBtnBriefing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button mainBtnInterest = findViewById(R.id.btn_home_interest);
+        View mainBtnInterest = findViewById(R.id.btn_home_interest);
         mainBtnInterest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button mainBtnTimeline = findViewById(R.id.btn_home_timeline);
+        View mainBtnTimeline = findViewById(R.id.btn_home_timeline);
         mainBtnTimeline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button mainBtnSafety = findViewById(R.id.btn_home_safety);
+        View mainBtnSafety = findViewById(R.id.btn_home_safety);
         mainBtnSafety.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button mainBtnMsg = findViewById(R.id.btn_home_message);
+        View mainBtnMsg = findViewById(R.id.btn_home_message);
         mainBtnMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

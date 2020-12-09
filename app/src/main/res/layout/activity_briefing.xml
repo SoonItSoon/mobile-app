@@ -20,7 +20,7 @@
 
             <TextView
                 android:id="@+id/toolbar_title"
-                android:text="일일 브리핑 정보 확인"
+                android:text="일일 브리핑 정보"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
