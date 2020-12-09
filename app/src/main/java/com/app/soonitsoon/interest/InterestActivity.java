@@ -100,6 +100,13 @@ public class InterestActivity extends AppCompatActivity {
 
         // 관심분야 선택 버튼
         selectBtn = findViewById(R.id.btn_interest_select_view);
+        // 알림을 통해서 들어온 경우
+        String alertValue = getIntent().getStringExtra("nickname");
+        if (alertValue != null) {
+            selectBtn.setText(alertValue);
+            showInterestContents(alertValue);
+        }
+        // 기본
         selectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +127,13 @@ public class InterestActivity extends AppCompatActivity {
         super.onResume();
         clearInterestContents();
         selectBtn.setText("관심분야 선택");
+
+        // 알림을 통해서 들어온 경우
+        String alertValue = getIntent().getStringExtra("nickname");
+        if (alertValue != null) {
+            selectBtn.setText(alertValue);
+            showInterestContents(alertValue);
+        }
 
         // SP 및 별명 array 불러오기
         spref = context.getSharedPreferences("InterestData", Context.MODE_PRIVATE);
@@ -188,7 +202,6 @@ public class InterestActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
     }
 
     // 콘텐츠 지우는 기능
