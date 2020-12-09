@@ -64,7 +64,7 @@ public class Alert{
 
     }
 
-    public void sendInterestAlert(String nickname) {
+    public void sendInterestAlert(int index, String nickname, int numOfNew) {
         final String GROUP_KEY_INTEREST = "soonitsoon.interest";
 
         createNotificationChannel();
@@ -80,7 +80,7 @@ public class Alert{
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "Alert")
                 .setSmallIcon(R.drawable.ic_alert2)
-                .setContentTitle("설정된 " + nickname + " 관심분야에 대한 새로운 재난문자가 있습니다.")
+                .setContentTitle(nickname + "에 대한 새로운 " + numOfNew+"개의 알림!!")
                 .setContentText("클릭하여 확인을 해주세요")
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
@@ -94,7 +94,7 @@ public class Alert{
         NotificationManager mNotificationManager =
                 (NotificationManager) application.getSystemService(NOTIFICATION_SERVICE);
 
-        mNotificationManager.notify(6, mBuilder.build());
+        mNotificationManager.notify(index, mBuilder.build());
     }
 
     private void createNotificationChannel() {

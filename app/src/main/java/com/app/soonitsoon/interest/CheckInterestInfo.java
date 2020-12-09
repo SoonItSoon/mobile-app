@@ -44,10 +44,10 @@ public class CheckInterestInfo {
             return;
         }
         initNicknameArray();
-
+        int nicknameIndex = 5;
         for (String nickname : nicknames) {
             // URL 생성
-            URL url = showInterestContents(nickname);
+            URL url = makeInterestUrl(nickname);
             // 서버 데이터 받기
             String serverResult = "";
             try {
@@ -55,13 +55,21 @@ public class CheckInterestInfo {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            JSONObject jsonResult = null;
+            try {
+                jsonResult = new JSONObject(serverResult);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            int numOfNew = jsonResult.length();
             if (serverResult.isEmpty()) {
                 Log.e(TAG, "서버연결 실패");
             } else if (serverResult.equals("{}")) {
                 Log.e(TAG, "새로운 데이터 없음");
             } else {
+                Log.e(TAG, "새로운 데이터 있음, 알림 전송");
                 Alert alert = new Alert(context, application);
-                alert.sendInterestAlert(nickname);
+                alert.sendInterestAlert(nicknameIndex++, nickname, numOfNew);
             }
         }
     }
@@ -81,11 +89,23 @@ public class CheckInterestInfo {
     }
 
     // 관심분야 URL 생성
-    private URL showInterestContents(String nickname) {
+    private URL makeInterestUrl(String nickname) {
         URL retUrl = null;
+
+        // 이전 시간 값 불러오기 및 저장
+        SharedPreferences sp = context.getSharedPreferences("PrevData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        String interestPrevDateTime = sp.getString("InterestPrevDateTime", "");
+        if (interestPrevDateTime.isEmpty()) {
+            interestPrevDateTime = CalDate.addtime(DateNTime.getDate(), DateNTime.getTime(), -5);
+        }
+
+
         // 불러온 검색 조건들
-        String startDateTime = CalDate.addDay(DateNTime.getDate(), -7) + " " + DateNTime.getTime();    // 검색 시작 날짜
-        String endDateTime = "";
+        String startDateTime = interestPrevDateTime;
+        String endDateTime = CalDate.addtime(DateNTime.getDate(), DateNTime.getTime(), -1);
+        editor.putString("InterestPrevDateTime", endDateTime);
+        editor.apply();
         String mainLocation;    // 시/도
         String subLocation;     // 시/군/구
         int disasterIndex;
