@@ -42,7 +42,6 @@
             android:id="@+id/layout_safety_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar"
             android:layout_margin="@dimen/content_margin"
             android:orientation="vertical">
 
@@ -51,7 +50,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="안전했어요!"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textSize="50dp"
+                android:fontFamily="@font/nanum_square"/>
 
 
         </LinearLayout>
