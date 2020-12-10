@@ -42,18 +42,31 @@
         </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
+            android:id="@+id/layout_search_condition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorBackgroundDark"/>
+
+        <LinearLayout
             android:id="@+id/layout_message_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/content_margin"
-            android:orientation="vertical">
+            android:paddingRight="@dimen/content_margin"
+            android:paddingLeft="@dimen/content_margin"
+            android:paddingBottom="@dimen/content_margin"
+            android:orientation="vertical"
+            android:background="@color/colorBackgroundDark">
 
             <TextView
                 android:id="@+id/text_loading"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="로딩중..."
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:paddingTop="@dimen/content_margin"
+                android:textSize="24dp"
+                android:textColor="@color/colorSubTitleBtn"/>
 
             <ScrollView
                 android:layout_width="match_parent"

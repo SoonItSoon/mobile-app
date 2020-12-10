@@ -9,7 +9,8 @@
         android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:backgroundTint="@color/colorBackgroundDark">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -64,8 +65,9 @@
         <TextView
             android:id="@+id/text_interest_setting_count"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
+            android:layout_height="48dp"
+            android:textColor="@color/colorSubTitleBtn"
+            android:gravity="center"
             android:textSize="24dp"
             android:textAlignment="center"
             android:text="설정된 관심분야 수"/>
@@ -75,8 +77,10 @@
             android:id="@+id/layout_interest_setting_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorWhite"
-            android:layout_margin="@dimen/content_margin"
+            android:background="@color/colorBackgroundDark"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginRight="@dimen/content_margin"
+            android:layout_marginBottom="@dimen/content_margin"
             android:orientation="vertical">
 
         </LinearLayout>

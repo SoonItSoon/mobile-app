@@ -48,20 +48,16 @@ public class MainActivity extends AppCompatActivity {
         // 위치 권한 허용 받기
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                Log.e(TAG, "GPS OFF!");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
             }
         }
         else {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 0);
+                Log.e(TAG, "GPS OFF!");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 0);
             }
         }
-
-        // 배터리 최적화 제외 권한 받기
-        // TODO
-//        if (ContextCompat.checkSelfPermission(this, android.settings.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) != PackageManager.PERMISSION_GRANTED) {
-//
-//        }
 
         // 배터리 예외 권한이 있는지 확인
         if (PackageManager.PERMISSION_GRANTED != getApplication().getPackageManager()
