@@ -10,7 +10,8 @@
         android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:backgroundTint="@color/colorBackgroundDark">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -67,7 +68,8 @@
             android:layout_marginLeft="@dimen/content_margin"
             android:layout_marginRight="@dimen/content_margin"
             android:layout_marginTop="@dimen/btn_margin"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:backgroundTint="@color/colorBackgroundDark">
 
             <TextView
                 android:id="@+id/text_interest_result"
@@ -75,7 +77,9 @@
                 android:layout_height="match_parent"
                 android:textAlignment="center"
                 android:visibility="visible"
-                android:text="관심분야를 선택해주세요"/>
+                android:text="관심분야를 선택해주세요!"
+                android:textSize="24dp"
+                android:textColor="@color/colorSubTitleBtn"/>
 
         </LinearLayout>
 

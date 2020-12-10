@@ -10,7 +10,8 @@
         android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:backgroundTint="@color/colorBackgroundDark">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -41,8 +42,8 @@
         <Button
             android:id = "@+id/btn_briefing_isSafety"
             android:layout_width="match_parent"
-            android:layout_height="30sp"
-            android:background="#88FF0000"
+            android:layout_height="48dp"
+            android:background="@color/colorRed"
             android:gravity="center"
             android:text="00개의 장소에서 확진자와 접촉했을 가능성이 있습니다."
             android:textSize="15dp"
@@ -57,6 +58,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/toolbar"
             android:layout_margin="@dimen/content_margin"
+            android:background="@color/colorBackgroundDark"
             android:orientation="vertical">
 
 

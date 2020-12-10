@@ -409,7 +409,7 @@ public class MessageActivity extends AppCompatActivity {
     private void uncheckDisasterRadios() {
         if (disasterRadios != null) {
             for(RadioButton radioButton : disasterRadios) {
-                radioButton.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+                radioButton.setTextColor(getResources().getColor(R.color.colorWhite));
                 radioButton.setBackground(getResources().getDrawable(R.drawable.radio_button_unselected));
             }
         }
@@ -692,13 +692,13 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // 모든 하위 라디오 버튼 체크 해제
-                disaster_etc_1.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+                disaster_etc_1.setTextColor(getResources().getColor(R.color.colorWhite));
                 disaster_etc_1.setBackground(getResources().getDrawable(R.drawable.radio_button_unselected));
-                disaster_etc_2.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+                disaster_etc_2.setTextColor(getResources().getColor(R.color.colorWhite));
                 disaster_etc_2.setBackground(getResources().getDrawable(R.drawable.radio_button_unselected));
-                disaster_etc_3.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+                disaster_etc_3.setTextColor(getResources().getColor(R.color.colorWhite));
                 disaster_etc_3.setBackground(getResources().getDrawable(R.drawable.radio_button_unselected));
-                disaster_etc_4.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+                disaster_etc_4.setTextColor(getResources().getColor(R.color.colorWhite));
                 disaster_etc_4.setBackground(getResources().getDrawable(R.drawable.radio_button_unselected));
                 if (checkedId == -1) return;    // clearCheck() 호출로 이벤트가 발생한 경우 처리
                 else if(checkedId == R.id.radio_disaster_etc_1) {
@@ -758,46 +758,46 @@ public class MessageActivity extends AppCompatActivity {
         Arrays.fill(disasterSubLevel, false);
         // 전염병
         disaster1_level1_chk.setChecked(false);
-        disaster1_level1_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster1_level1_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         disaster1_level2_chk.setChecked(false);
-        disaster1_level2_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster1_level2_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         disaster1_level3_chk.setChecked(false);
-        disaster1_level3_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster1_level3_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         disaster1_level9_chk.setChecked(false);
-        disaster1_level9_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster1_level9_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         // 지진
         disaster2_level1_chk.setChecked(false);
-        disaster2_level1_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster2_level1_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         disaster2_level9_chk.setChecked(false);
-        disaster2_level9_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster2_level9_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         // 미세먼지
         disaster3_level1_chk.setChecked(false);
-        disaster3_level1_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster3_level1_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         disaster3_level2_chk.setChecked(false);
-        disaster3_level2_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster3_level2_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         disaster3_level9_chk.setChecked(false);
-        disaster3_level9_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster3_level9_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         // 태풍
         disaster4_level1_chk.setChecked(false);
-        disaster4_level1_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster4_level1_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         disaster4_level2_chk.setChecked(false);
-        disaster4_level2_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster4_level2_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         disaster4_level9_chk.setChecked(false);
-        disaster4_level9_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster4_level9_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         // 홍수
         disaster5_level1_chk.setChecked(false);
-        disaster5_level1_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster5_level1_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         disaster5_level2_chk.setChecked(false);
-        disaster5_level2_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster5_level2_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         disaster5_level9_chk.setChecked(false);
-        disaster5_level9_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster5_level9_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         // 그 외
         disaster_etc_level1_chk.setChecked(false);
-        disaster_etc_level1_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster_etc_level1_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         disaster_etc_level2_chk.setChecked(false);
-        disaster_etc_level2_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster_etc_level2_chk.setTextColor(getResources().getColor(R.color.colorWhite));
         disaster_etc_level9_chk.setChecked(false);
-        disaster_etc_level9_chk.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+        disaster_etc_level9_chk.setTextColor(getResources().getColor(R.color.colorWhite));
 
         // 지진 규모 선택
         scale_min = 1.0;
@@ -847,7 +847,7 @@ public class MessageActivity extends AppCompatActivity {
             checkBox.setTextColor(getResources().getColor(R.color.colorPrimary));
             disasterSubLevel[num] = true;
         } else {
-            checkBox.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+            checkBox.setTextColor(getResources().getColor(R.color.colorWhite));
             disasterSubLevel[num] = false;
         }
     }
