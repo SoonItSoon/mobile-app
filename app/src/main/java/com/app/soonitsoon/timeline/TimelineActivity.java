@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -110,18 +111,30 @@ public class TimelineActivity extends AppCompatActivity {
         String day_string = String.format("%02d", day);
         String date_msg = year_string+"-"+month_string+"-"+day_string;
 
-        Button datePickBtn = findViewById(R.id.btn_timeline_datepick);
-        selectedDate = date_msg;
-        datePickBtn.setText(DateNTime.toKoreanDate(selectedDate));
+        if (isContainsTimeline(date_msg)) {
+
+            Button datePickBtn = findViewById(R.id.btn_timeline_datepick);
+            selectedDate = date_msg;
+            datePickBtn.setText(DateNTime.toKoreanDate(selectedDate));
 
 
 //        String toastStr = selectedDate + " Timeline 입니다.";
 //        Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_LONG).show();
 
-        // Clear MapView
-        mapView.removeAllPOIItems();
-        mapView.removeAllPolylines();
-        // Show Timeline
-        showTimeline.show(selectedDate);
+            // Clear MapView
+            mapView.removeAllPOIItems();
+            mapView.removeAllPolylines();
+            // Show Timeline
+            showTimeline.show(selectedDate);
+        } else {
+            Toast.makeText(context, "해당 날짜에 저장된 타임라인이 없습니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean isContainsTimeline(String date) {
+        String path = context.getFilesDir() + "/" + date + ".json";
+        File file = new File(path);
+        if (file.exists()) return true;
+        else return false;
     }
 }
