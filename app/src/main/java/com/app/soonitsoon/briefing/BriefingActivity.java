@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,11 +22,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.soonitsoon.CalDate;
 import com.app.soonitsoon.R;
-import com.app.soonitsoon.interest.InterestActivity;
 import com.app.soonitsoon.safety.SafetyActivity;
 import com.app.soonitsoon.server.GetServerInfo;
 import com.app.soonitsoon.timeline.DateNTime;
 
+import org.eazegraph.lib.charts.BarChart;
+import org.eazegraph.lib.charts.PieChart;
+import org.eazegraph.lib.models.BarModel;
+import org.eazegraph.lib.models.PieModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,6 +60,11 @@ public class BriefingActivity extends AppCompatActivity {
     private String[] disasterArray; // 재난 종류 Array
     private ArrayList<String[]> disasterLevelArray; // 재난별 등급 Array
     private String[] nicknames; // 별명 Array
+
+    PieChart chart1;
+    BarChart chart2;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,12 +105,36 @@ public class BriefingActivity extends AppCompatActivity {
             disasterLevelArray.add(levelArray);
         }
 
+        chart1 = findViewById(R.id.tab1_chart_1);
+        chart2 = findViewById(R.id.tab1_chart_2);
+
+        chart1.clearChart();
+
+        chart1.addPieSlice(new PieModel("TYPE 1", 60, Color.parseColor("#CDA67F")));
+        chart1.addPieSlice(new PieModel("TYPE 2", 40, Color.parseColor("#00BFFF")));
+
+        chart1.startAnimation();
+
+        chart2.clearChart();
+
+        chart2.addBar(new BarModel("12", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("13", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("14", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("15", 20f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("16", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("17", 10f, 0xFF56B7F1));
+
+        chart2.startAnimation();
+
+
+
+
+
         // safety 버튼
         showSafetyBtn();
 
         // 오늘 하루 관심분야에 해당하는 재난문자 리스트
         showInterestList();
-        Log.e("TEST", "TEST");
     }
 
     @Override
@@ -178,12 +211,7 @@ public class BriefingActivity extends AppCompatActivity {
     }
 
     private void showInterestList() {
-        if (interestSize == 0) return;
-        for (int i = 0; i < interestSize; i++) {
-            String nickname = nicknames[i];
 
-            showInterestContents(nickname, i+1);
-        }
     }
 
     private void showInterestContents(String nickname, int index) {
@@ -272,11 +300,9 @@ public class BriefingActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
             showInterestResult(s, index);
             if (index == interestSize) {
                 mergeLayouts();
-                Log.e("ASET", "ASET");
             }
         }
     }
