@@ -1,5 +1,6 @@
 package com.app.soonitsoon;
 
+import android.app.AlarmManager;
 import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -15,12 +16,13 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 
+import com.app.soonitsoon.briefing.BriefingActivity;
 import com.app.soonitsoon.interest.InterestActivity;
 import com.app.soonitsoon.safety.SafetyActivity;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
-public class Alert{
+public class Alert {
     private Context context;
     private Application application;
 
@@ -30,7 +32,7 @@ public class Alert{
     }
 
     public void sendSafetyAlert(int dangerNum, int alertNum) {
-        final String GROUP_KEY_WORK_EMAIL = "com.android.example.WORK_EMAIL";
+        final String GROUP_KEY_SAFETY = "soonitsoon.safety";
 
         createNotificationChannel();
 
@@ -50,7 +52,7 @@ public class Alert{
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(true)
-                .setGroup(GROUP_KEY_WORK_EMAIL)
+                .setGroup(GROUP_KEY_SAFETY)
                 .setContentIntent(mPendingIntent);
 
         NotificationManager mNotificationManager =
@@ -76,7 +78,7 @@ public class Alert{
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "Alert")
                 .setSmallIcon(R.drawable.ic_alert2)
-                .setContentTitle(nickname + "에 대한 새로운 " + numOfNew+"개의 알림!!")
+                .setContentTitle(nickname + "에 대한 새로운 " + numOfNew + "개의 알림!!")
                 .setContentText("클릭하여 확인을 해주세요")
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
@@ -92,6 +94,38 @@ public class Alert{
 
         mNotificationManager.notify(index, mBuilder.build());
     }
+
+    public void sendBriefingAlert() {
+        final String GROUP_KEY_BRIEFING = "soonitsoon.briefing";
+
+        createNotificationChannel();
+
+        Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(application.getResources(), R.drawable.ic_alert_large);
+
+        PendingIntent mPendingIntent = PendingIntent.getActivity(context, 0
+                , new Intent(application.getApplicationContext(), BriefingActivity.class)
+                , PendingIntent.FLAG_CANCEL_CURRENT);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "Alert")
+                .setSmallIcon(R.drawable.ic_calendar)
+                .setContentTitle("오늘 하루 브리핑이 도착했어요!")
+                .setContentText("클릭하여 확인을 해주세요 >_O")
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                .setLargeIcon(mLargeIconForNoti)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .setOnlyAlertOnce(true)
+                .setGroup(GROUP_KEY_BRIEFING)
+                .setContentIntent(mPendingIntent);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) application.getSystemService(NOTIFICATION_SERVICE);
+
+        mNotificationManager.notify(0, mBuilder.build());
+
+    }
+
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because

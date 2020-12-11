@@ -31,7 +31,7 @@ public class CheckSafetyInfo {
         this.application = application;
         updateTimeline = new UpdateTimeline(context, application);
         dangerCount = 0;
-        alertNum = 0;
+        alertNum = 1;
     }
 
     // 접촉 위험 지역과 timeline을 비교해 danger값을 바꾸는 모듈
@@ -177,7 +177,7 @@ public class CheckSafetyInfo {
             alert.sendSafetyAlert(dangerCount, alertNum);
             alertNum++;
             if (alertNum == 5)
-                alertNum = 0;
+                alertNum = 1;
             dangerCount = 0;
         }
     }

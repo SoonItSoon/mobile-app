@@ -45,7 +45,7 @@
             android:layout_height="48dp"
             android:background="@color/colorRed"
             android:gravity="center"
-            android:text="00개의 장소에서 확진자와 접촉했을 가능성이 있습니다."
+            android:text="00개의 장소에서 확진자와 접촉했을 가능성이 있습니다.\n클릭하여 확인해주세요"
             android:textSize="15dp"
             android:fontFamily="@font/nanum_square"
             android:drawableLeft="@drawable/ic_bell"

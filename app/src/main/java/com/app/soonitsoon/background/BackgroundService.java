@@ -13,6 +13,10 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 
+
+import com.app.soonitsoon.Alert;
+import com.app.soonitsoon.CalDate;
+import com.app.soonitsoon.briefing.CheckBriefingTime;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -23,8 +27,14 @@ import com.app.soonitsoon.timeline.RecordTimeline;
 
 import org.json.JSONException;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.app.soonitsoon.timeline.DateNTime.getDate;
+import static com.app.soonitsoon.timeline.DateNTime.getTime;
 
 public class BackgroundService extends Service {
     private static final String TAG = "BackgoundService";
@@ -39,6 +49,7 @@ public class BackgroundService extends Service {
     private RecordTimeline recordTimeline;
     private CheckSafetyInfo checkSafetyInfo;
     private CheckInterestInfo checkInterestInfo;
+    private CheckBriefingTime checkBriefingTime;
 
     public BackgroundService() {
     }
@@ -61,6 +72,7 @@ public class BackgroundService extends Service {
         getLocation = new GetLocation(this);
         checkSafetyInfo = new CheckSafetyInfo(this, getApplication());
         checkInterestInfo = new CheckInterestInfo(this, getApplication());
+        checkBriefingTime = new CheckBriefingTime(this, getApplication());
 
 //        Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
     }
@@ -76,6 +88,22 @@ public class BackgroundService extends Service {
             @Override
             public void run() {
                 Log.e("테스크 카운터", String.valueOf(counter));
+                
+                // briefing 알람 보내기
+                String date = getDate();
+                String time = getTime();
+                if (CalDate.isFast(time, "16:20:00") == 1 && CalDate.isFast("16:40:00", time) == 1) {
+                    checkBriefingTime.sendBriefing(date);
+                }
+                // RecordTimeline 실행
+                // Timeline
+                Location location = getLocation.getLocation();
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                try {
+                    recordTimeline.excute(latitude, longitude);
+                } catch (JSONException e) {
+                    e.printStackTrace();
 
                 // 위치 권한이 허용되어 있는 경우에만
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
