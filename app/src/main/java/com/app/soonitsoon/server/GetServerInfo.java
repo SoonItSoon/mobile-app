@@ -143,12 +143,6 @@ public class GetServerInfo {
         }
     }
 
-    // 문자 검색 결과 반환
-    public static ArrayList<JSONObject> getSearchData(URL url) {
-
-        return new ArrayList<>();
-    }
-
     // URL 생성
     public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String subName, String eqMainLocation, String eqSubLocation, double scaleMin, double scaleMax, String innerText) throws MalformedURLException {
         StringBuilder strUrl = new StringBuilder("http://203.253.25.184:8080/search");
@@ -160,6 +154,35 @@ public class GetServerInfo {
         }
         strUrl.append("&disaster=").append(disasterIndex);
         strUrl.append("&level=").append(levels);
+        if (!subName.isEmpty() && !subName.equals("전체")) {
+            strUrl.append("&name=").append(subName);
+        }
+        if (!eqMainLocation.isEmpty() && !eqMainLocation.equals("전체")) {
+            strUrl.append("&obs_location=").append(eqMainLocation).append(" ").append(eqSubLocation);
+        }
+        if (disasterIndex == 2 && scaleMin != -1 && scaleMax != -1) {
+            strUrl.append("&scale_min=").append(scaleMin);
+            strUrl.append("&scale_max=").append(scaleMax);
+        }
+        if (!innerText.isEmpty()) {
+            strUrl.append("&inner_text=").append(innerText);
+        }
+
+        Log.e("Created URL", String.valueOf(strUrl));
+
+        return new URL(String.valueOf(strUrl));
+    }
+    public static URL makeCountConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String subName, String eqMainLocation, String eqSubLocation, double scaleMin, double scaleMax, String innerText) throws MalformedURLException {
+        StringBuilder strUrl = new StringBuilder("http://203.253.25.184:8080/count");
+        strUrl.append("?start_date=").append(startDateTime);
+        if (!endDateTime.isEmpty())
+            strUrl.append("&end_date=").append(endDateTime);
+        if (!mainLocation.isEmpty() && !mainLocation.equals("전체")) {
+            strUrl.append("&main_location=").append(mainLocation).append("&sub_location=").append(subLocation);
+        }
+        strUrl.append("&disaster=").append(disasterIndex);
+        if (!levels.isEmpty())
+            strUrl.append("&level=").append(levels);
         if (!subName.isEmpty() && !subName.equals("전체")) {
             strUrl.append("&name=").append(subName);
         }
