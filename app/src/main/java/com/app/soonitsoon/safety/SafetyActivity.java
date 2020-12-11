@@ -73,7 +73,7 @@ public class SafetyActivity extends AppCompatActivity {
 
     private void showDangerList (String strUpdateList) {
         // 위험지역 방문한 기록이 없으면
-        if (strUpdateList.equals("{}")) {
+        if (strUpdateList.isEmpty() || strUpdateList.equals("{}")) {
             textView.setVisibility(View.VISIBLE);
             return;
         }
