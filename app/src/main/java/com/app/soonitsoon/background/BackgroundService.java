@@ -1,18 +1,25 @@
 package com.app.soonitsoon.background;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 
+
 import com.app.soonitsoon.Alert;
 import com.app.soonitsoon.CalDate;
 import com.app.soonitsoon.briefing.CheckBriefingTime;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.app.soonitsoon.interest.CheckInterestInfo;
 import com.app.soonitsoon.safety.CheckSafetyInfo;
 import com.app.soonitsoon.timeline.GetLocation;
@@ -81,6 +88,7 @@ public class BackgroundService extends Service {
             @Override
             public void run() {
                 Log.e("테스크 카운터", String.valueOf(counter));
+                
                 // briefing 알람 보내기
                 String date = getDate();
                 String time = getTime();
@@ -96,6 +104,38 @@ public class BackgroundService extends Service {
                     recordTimeline.excute(latitude, longitude);
                 } catch (JSONException e) {
                     e.printStackTrace();
+
+                // 위치 권한이 허용되어 있는 경우에만
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        // RecordTimeline 실행
+                        // Timeline
+                        Location location = getLocation.getLocation();
+                        double latitude = location.getLatitude();
+                        double longitude = location.getLongitude();
+                        try {
+                            recordTimeline.excute(latitude, longitude);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Log.e(TAG, "GPS OFF!");
+                    }
+                } else {
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        // RecordTimeline 실행
+                        // Timeline
+                        Location location = getLocation.getLocation();
+                        double latitude = location.getLatitude();
+                        double longitude = location.getLongitude();
+                        try {
+                            recordTimeline.excute(latitude, longitude);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Log.e(TAG, "GPS OFF!");
+                    }
                 }
 
                 // checkSafetyInfo 실행
@@ -109,8 +149,6 @@ public class BackgroundService extends Service {
                 checkInterestInfo.checkInterest();
 
                 counter++;
-
-
             }
         };
         timer.schedule(tt, 0, PERIOD);

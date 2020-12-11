@@ -28,6 +28,7 @@ import com.app.soonitsoon.timeline.DateNTime;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -109,15 +110,19 @@ public class InterestActivity extends AppCompatActivity {
         selectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(context).setTitle("관심분야 선택").setItems(nicknames, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectBtn.setText(nicknames[which]);
-                        clearInterestContents();
-                        showInterestContents(nicknames[which]);
-                        Toast.makeText(context, "최근 일주일 동안의 재난문자 내용입니다.", Toast.LENGTH_SHORT).show();
-                    }
-                }).show();
+                if (interestSize > 0) {
+                    new AlertDialog.Builder(context).setTitle("관심분야 선택").setItems(nicknames, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            selectBtn.setText(nicknames[which]);
+                            clearInterestContents();
+                            showInterestContents(nicknames[which]);
+                            Toast.makeText(context, "최근 일주일 동안의 재난문자 내용입니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }).show();
+                } else {
+                    Toast.makeText(context, "먼저 관심분야를 설정해주세요!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -279,6 +284,8 @@ public class InterestActivity extends AppCompatActivity {
         try {
             JSONObject jsonResultData = new JSONObject(strResultData);
 
+            String tmpDate = "";
+
             // 데이터 하나씩 접근
             Iterator<String> iterator = jsonResultData.keys();
             while (iterator.hasNext()) {
@@ -395,9 +402,37 @@ public class InterestActivity extends AppCompatActivity {
                 textMsg.setPadding(0, 16, 0, 0);
                 subLayout.addView(textMsg);
 
+                // 날짜 Divider 생성
+                if (tmpDate.isEmpty() || !tmpDate.equals(sendDateTimeArray[0])) {
+
+                    LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    if (tmpDate.isEmpty())
+                        dividerParams.setMargins(4, 0, 4, 16);
+                    else
+                        dividerParams.setMargins(4, 48, 4, 16);
+
+                    tmpDate = sendDateTimeArray[0];
+
+                    LinearLayout dividerLayout = new LinearLayout(this);
+                    dividerLayout.setLayoutParams(dividerParams);
+                    dividerLayout.setOrientation(LinearLayout.VERTICAL);
+                    dividerLayout.setBackground(getResources().getDrawable(R.drawable.radius));
+
+                    TextView dividerText = new TextView(this);
+                    dividerText.setText(DateNTime.toKoreanDate(tmpDate));
+                    dividerText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    dividerText.setTextColor(getResources().getColor(R.color.colorWhite));
+                    dividerText.setTextSize(Dimension.DP, 36);
+                    dividerText.setPadding(0, 16, 0, 16);
+
+                    dividerLayout.addView(dividerText);
+                    linearLayout.addView(dividerLayout);
+                }
+
                 // 생성된 레이아웃 병합
                 linearLayout.addView(subLayout);
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

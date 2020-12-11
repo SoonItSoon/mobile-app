@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Dimension;
 import androidx.annotation.Nullable;
@@ -42,6 +43,7 @@ public class MessageResultActivity extends AppCompatActivity {
     // 결과 화면
     LinearLayout resultLayout;
     ListView resultListView;
+    LinearLayout conditionLayout;
 
     // 넘겨받은 검색 조건들
     private String fromDate;    // 검색 시작 날짜
@@ -90,77 +92,114 @@ public class MessageResultActivity extends AppCompatActivity {
             disasterLevelArray.add(levelArray);
         }
 
+        conditionLayout = findViewById(R.id.layout_search_condition);
+//        conditionLayout.setBackgroundColor(getResources().getColor(R.color.colorBackgroundDark));
         resultLayout = findViewById(R.id.layout_message_result);
+//        resultLayout.setBackgroundColor(getResources().getColor(R.color.colorBackgroundDark));
         resultListView = new ListView(this);
 
         // 유효한 값을 잘 넘겨받은 경우
         if (receiveCondition()) {
 
             ////////////////////////////////////////////////////////////////////////////////////// 로그 처리
-            String logLine1 = "검색 시작 날짜 : " + fromDate;
+            String logLine1 = DateNTime.toKoreanDate(fromDate) + "부터 " + DateNTime.toKoreanDate(toDate) + "까지" ;
             Log.e(TAG, logLine1);
-            String logLine2 = "검색 종료 날짜 : " + toDate;
-            Log.e(TAG, logLine2);
-            String logLine3 = "검색 지역 : " + mainLocation + " " + subLocation;
+//            String logLine2 = "검색 종료 날짜 : " + toDate;
+//            Log.e(TAG, logLine2);
+            String logLine3 = mainLocation + " " + subLocation + "지역에 발송된";
+            if (mainLocation.equals("전체"))
+                logLine3 = mainLocation + "지역에 발송된";
             Log.e(TAG, logLine3);
-            String logLine4 = "재난 종류 : " + disasterArray[disasterIndex];
-            Log.e(TAG, logLine4);
+            String logLine4 = disasterArray[disasterIndex];
             String logLine5 = "";
             String logLine6 = "";
-            StringBuilder logLine7 = new StringBuilder("알림 종류 :");
+            StringBuilder logLine7 = new StringBuilder();
             if (disasterIndex == 1) {   // 전염병
-                logLine5 = "전염병 종류 : " + disasterSubName;
-                Log.e(TAG, logLine5);
+                logLine4 += " (" + disasterSubName + ")";
+                Log.e(TAG, logLine4);
             } else if (disasterIndex == 2) {    // 지진
-                logLine5 = "규모 범위 : " + scale_min + " ~ " + scale_max;
-                Log.e(TAG, logLine5);
-                logLine6 = "지진 발생 지역 : " + eq_mainLocation + " " + eq_subLocation;
-                Log.e(TAG, logLine6);
+                logLine4 += " (" + eq_mainLocation;
+                if (!eq_mainLocation.equals("전체"))
+                    logLine4 += " " + eq_subLocation;
+                logLine4 += " " + scale_min + " ~ " + scale_max + ")";
+                Log.e(TAG, logLine4);
             } else if (disasterIndex == 3) {    // 미세먼지
             } else if (disasterIndex == 4) {    // 태풍
-                logLine5 = "태풍 이름 : " + disasterSubName;
-                Log.e(TAG, logLine5);
+                logLine4 += " (" + disasterSubName + ")";
+                Log.e(TAG, logLine4);
             } else if (disasterIndex == 5) {    // 홍수
             } else if (disasterIndex == 6) {    // 폭염
             } else if (disasterIndex == 7) {    // 한파
             } else if (disasterIndex == 8) {    // 호우
             } else if (disasterIndex == 9) {    // 대설
             }
+            logLine4 += "에 대한";
             for (int i = 1; i <= NUM_OF_DISASTER_LEVELS; i++) {
                 if (disasterSubLevel[i]){
-                    logLine7.append(" ").append(disasterLevelArray.get(disasterIndex)[i]);
+                    logLine7.append(disasterLevelArray.get(disasterIndex)[i]).append(" ");
                 }
             }
+            logLine7.append("관련 재난문자 입니다.");
             Log.e(TAG, String.valueOf(logLine7));
-            String logLine8 = "텍스트 검색 : " + innerText;
+            String logLine8 = "텍스트 검색 내용 : " + innerText;
+
+            LinearLayout textLayout = new LinearLayout(this);
+            textLayout.setOrientation(LinearLayout.VERTICAL);
+            textLayout.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            textParams.setMargins(0, 32, 0, 32);
+            textLayout.setLayoutParams(textParams);
+
+
             TextView textView1 = new TextView(this);
-            TextView textView2 = new TextView(this);
+            textView1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textView1.setTextSize(Dimension.DP, 36);
+            textView1.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+//            TextView textView2 = new TextView(this);
             TextView textView3 = new TextView(this);
+            textView3.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textView3.setTextSize(Dimension.DP, 36);
+            textView3.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
             TextView textView4 = new TextView(this);
-            TextView textView5 = new TextView(this);
-            TextView textView6 = new TextView(this);
+            textView4.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textView4.setTextSize(Dimension.DP, 36);
+            textView4.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+//            TextView textView5 = new TextView(this);
+//            TextView textView6 = new TextView(this);
             TextView textView7 = new TextView(this);
+            textView7.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textView7.setTextSize(Dimension.DP, 36);
+            textView7.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
             TextView textView8 = new TextView(this);
+            textView8.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textView8.setTextSize(Dimension.DP, 36);
+            textView8.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+
             textView1.setText(logLine1);
-            textView2.setText(logLine2);
+//            textView2.setText(logLine2);
             textView3.setText(logLine3);
             textView4.setText(logLine4);
-            resultLayout.addView(textView1);
-            resultLayout.addView(textView2);
-            resultLayout.addView(textView3);
-            resultLayout.addView(textView4);
-            if (disasterIndex == 1 || disasterIndex == 2 || disasterIndex == 4) {
-                textView5.setText(logLine5);
-                resultLayout.addView(textView5);
-            }
-            if (disasterIndex == 2) {
-                textView6.setText(logLine6);
-                resultLayout.addView(textView6);
-            }
+            textLayout.addView(textView1);
+//            resultLayout.addView(textView2);
+            textLayout.addView(textView3);
+            textLayout.addView(textView4);
+//            if (disasterIndex == 1 || disasterIndex == 2 || disasterIndex == 4) {
+//                textView5.setText(logLine5);
+//                resultLayout.addView(textView5);
+//            }
+//            if (disasterIndex == 2) {
+//                textView6.setText(logLine6);
+//                resultLayout.addView(textView6);
+//            }
             textView7.setText(logLine7);
-            resultLayout.addView(textView7);
-            textView8.setText(logLine8);
-            resultLayout.addView(textView8);
+            textLayout.addView(textView7);
+            if (!innerText.isEmpty()) {
+                textView8.setText(logLine8);
+                textLayout.addView(textView8);
+            }
+
+            conditionLayout.removeAllViews();
+            conditionLayout.addView(textLayout);
             ////////////////////////////////////////////////////////////////////////////////////// 로그 처리
 
             // getServerInfo로 전달할 생성이 필요한 값 생성
@@ -295,7 +334,7 @@ public class MessageResultActivity extends AppCompatActivity {
         // 검색 내용을 띄워줄 View 생성
         ScrollView scrollView = new ScrollView(this);
         LinearLayout.LayoutParams unitParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        unitParams.setMargins(4, 16, 4, 16);
+        unitParams.setMargins(4, 0, 4, 32);
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
@@ -415,8 +454,8 @@ public class MessageResultActivity extends AppCompatActivity {
                 TextView textMsg = new TextView(this);
                 textMsg.setText(msg);
                 textMsg.setTextSize(Dimension.DP, 64);
-                textMsg.setTextColor(getResources().getColor(R.color.colorWhite));
-                textMsg.setPadding(0, 16, 0, 0);
+                textMsg.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
+                textMsg.setPadding(0, 24, 0, 0);
                 subLayout.addView(textMsg);
 
                 // 생성된 레이아웃 병합
@@ -428,6 +467,8 @@ public class MessageResultActivity extends AppCompatActivity {
 
         scrollView.addView(linearLayout);
         resultLayout.addView(scrollView);
+
+        Toast.makeText(context, "재난문자는 최대 100건까지 검색이 가능합니다.", Toast.LENGTH_SHORT).show();
 
 
 //        // 받은 json 띄우는 곳

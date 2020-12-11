@@ -10,7 +10,8 @@
         android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:backgroundTint="@color/colorBackgroundDark">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -43,7 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/content_margin"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorBackgroundDark">
 
             <TextView
                 android:id="@+id/text_safety"
@@ -52,6 +54,7 @@
                 android:text="안전했어요!"
                 android:textAlignment="center"
                 android:textSize="50dp"
+                android:textColor="@color/colorSubTitleBtn"
                 android:fontFamily="@font/nanum_square"/>
 
 
