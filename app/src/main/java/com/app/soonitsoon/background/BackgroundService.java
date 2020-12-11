@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 
+import com.app.soonitsoon.Alert;
 import com.app.soonitsoon.interest.CheckInterestInfo;
 import com.app.soonitsoon.safety.CheckSafetyInfo;
 import com.app.soonitsoon.timeline.GetLocation;
@@ -17,6 +18,7 @@ import com.app.soonitsoon.timeline.RecordTimeline;
 
 import org.json.JSONException;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -64,6 +66,11 @@ public class BackgroundService extends Service {
         super.onStartCommand(intent, flags, startId);
         Log.e(TAG, "onStartCommand");
 
+        // Alarm
+        Calendar mCalendar = Calendar.getInstance();
+        mCalendar.set(Calendar.HOUR_OF_DAY, 21);
+        mCalendar.set(Calendar.MINUTE, 0);
+        mCalendar.set(Calendar.SECOND, 0);
         // 지정한 시간마다 동작하는 타이머
         final Timer timer = new Timer();
         TimerTask tt = new TimerTask() {
