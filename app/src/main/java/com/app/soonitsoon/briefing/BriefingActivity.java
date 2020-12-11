@@ -203,7 +203,7 @@ public class BriefingActivity extends AppCompatActivity {
     }
 
     private void showInterestContents() {
-        String startDateTime = CalDate.addDay(DateNTime.getDate(), -1) + " " + DateNTime.getTime();    // 검색 시작 날짜
+        String startDateTime = DateNTime.getDate() + " 00:00:00";    // 검색 시작 날짜
         // Rest Call 이용 서버 연결
         try {
             BriefingActivity.ServerConnect serverConnect =
@@ -217,7 +217,7 @@ public class BriefingActivity extends AppCompatActivity {
     private void showInterestContents(String nickname, int index) {
 
         // 불러온 검색 조건들
-        String startDateTime = CalDate.addDay(DateNTime.getDate(), -1) + " " + DateNTime.getTime();    // 검색 시작 날짜
+        String startDateTime = DateNTime.getDate() + " 00:00:00";    // 검색 시작 날짜
         String mainLocation;    // 시/도
         String subLocation;     // 시/군/구
         int disasterIndex;
@@ -331,9 +331,11 @@ public class BriefingActivity extends AppCompatActivity {
 //
 //        chart2.startAnimation();
 //
-
+        unitParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        unitParams.setMargins(4, 16, 4, 16);
 
         BarChart barChart = new BarChart(this);
+        barChart.setLayoutParams(unitParams);
         for (int i = 0; i<interestSize+1; i++) {
             int msgCount = 0;
             try {
@@ -351,9 +353,36 @@ public class BriefingActivity extends AppCompatActivity {
                 barChart.addBar(new BarModel(nicknames[i], msgCount, R.color.colorYellow));
         }
 
+
+//        android:layout_marginLeft="10dp"-->
+//<!--                        android:layout_marginTop="15dp"-->
+//<!--                        android:layout_marginRight="10dp"-->
+//<!--                        android:layout_marginBottom="20dp"-->
+//<!--                        android:padding="10dp"-->
+//<!--                        app:egBarWidth="20dp"-->
+//<!--                        app:egEnableScroll="true"-->
+//<!--                        app:egFixedBarWidth="true"-->
+//<!--                        app:egLegendHeight="40dp"-->
+//<!--                        app:egShowDecimal="true" />-->
+
+        linearLayout.removeAllViews();
+        scrollView.removeAllViews();
+        mainLayout.removeAllViews();
+
+        Log.e("asdfasdfasdf", " " + barChart.getChildCount());
+        barChart.setBarWidth(20);
+        barChart.setScrollEnabled(true);
+        barChart.setFixedBarWidth(true);
+        barChart.setLegendHeight(40);
+        barChart.setShowDecimal(true);
+
+        barChart.startAnimation();
+
         linearLayout.addView(barChart);
         scrollView.addView(linearLayout);
-        scrollView.addView(mainLayout);
+        mainLayout.addView(scrollView);
+
+
 
 
 
