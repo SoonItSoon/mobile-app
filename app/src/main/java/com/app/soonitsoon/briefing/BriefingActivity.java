@@ -125,12 +125,12 @@ public class BriefingActivity extends AppCompatActivity {
         chartAll1.startAnimation();
 
         chartAll2.clearChart();
-        chartAll2.addBar(new BarModel("12", 10f, 0xFF56B7F1));
-        chartAll2.addBar(new BarModel("13", 10f, 0xFF56B7F1));
-        chartAll2.addBar(new BarModel("14", 10f, 0xFF56B7F1));
-        chartAll2.addBar(new BarModel("15", 20f, 0xFF56B7F1));
-        chartAll2.addBar(new BarModel("16", 10f, 0xFF56B7F1));
-        chartAll2.addBar(new BarModel("17", 10f, 0xFF56B7F1));
+        chartAll2.addBar(new BarModel("11", 5, getColor(R.color.colorYellow)));
+        chartAll2.addBar(new BarModel("12", 20, 0xFF56B7F1));
+        chartAll2.addBar(new BarModel("13", 40, 0xFF56B7F1));
+        chartAll2.addBar(new BarModel("14", 50, 0xFF56B7F1));
+        chartAll2.addBar(new BarModel("15", 10, 0xFF56B7F1));
+        chartAll2.addBar(new BarModel("16", 130, 0xFF56B7F1));
         chartAll2.startAnimation();
 
         chart1.clearChart();

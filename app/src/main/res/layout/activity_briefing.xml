@@ -102,10 +102,10 @@
                             app:egEnableScroll="true"
                             app:egFixedBarWidth="true"
                             app:egLegendHeight="40dp"
-                            app:egShowDecimal="true"
+                            app:egShowDecimal="false"
                             app:egInnerPaddingColor="@color/colorBackgroundBtn"
                             app:egValueTextColor="@color/colorWhite"
-                            app:egLegendColor="@color/colorWhite"/>
+                            app:egLegendColor="@color/colorWhite" />
 
                         <org.eazegraph.lib.charts.BarChart
                             android:id="@+id/chart_all_2"
@@ -121,7 +121,7 @@
                             app:egEnableScroll="true"
                             app:egFixedBarWidth="true"
                             app:egLegendHeight="40dp"
-                            app:egShowDecimal="true" />
+                            app:egShowDecimal="false" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -161,7 +161,7 @@
                             app:egEnableScroll="true"
                             app:egFixedBarWidth="true"
                             app:egLegendHeight="40dp"
-                            app:egShowDecimal="true" />
+                            app:egShowDecimal="false" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -200,7 +200,7 @@
                             app:egEnableScroll="true"
                             app:egFixedBarWidth="true"
                             app:egLegendHeight="40dp"
-                            app:egShowDecimal="true" />
+                            app:egShowDecimal="false" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -239,8 +239,7 @@
                             app:egEnableScroll="true"
                             app:egFixedBarWidth="true"
                             app:egLegendHeight="40dp"
-                            app:egShowDecimal="true" />
-
+                            app:egShowDecimal="false" />
                     </LinearLayout>
                 </LinearLayout>
 

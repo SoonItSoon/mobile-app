@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Dimension;
 import androidx.annotation.Nullable;
@@ -65,8 +66,12 @@ public class InterestSettingActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent interestAddIntent = new Intent(getApplicationContext(), InterestAddActivity.class);
-                startActivity(interestAddIntent);
+                if (interestSize == 3) {
+                    Toast.makeText(context, "관심분야는 최대 3개까지만 추가할 수 있습니다!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent interestAddIntent = new Intent(getApplicationContext(), InterestAddActivity.class);
+                    startActivity(interestAddIntent);
+                }
             }
         });
 
