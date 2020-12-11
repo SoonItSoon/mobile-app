@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,11 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import androidx.annotation.Dimension;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.app.soonitsoon.CalDate;
 import com.app.soonitsoon.R;
 import com.app.soonitsoon.safety.SafetyActivity;
 import com.app.soonitsoon.server.GetServerInfo;
@@ -61,12 +56,30 @@ public class BriefingActivity extends AppCompatActivity {
     private ArrayList<String[]> disasterLevelArray; // 재난별 등급 Array
     private String[] nicknames; // 별명 Array
 
-    // chart 값
+    // 통계 Content View 및 Data
+    // All
+    LinearLayout layoutAll;
+    TextView textAll;
     PieChart chartAll1;
     BarChart chartAll2;
+    int[] msgNumAll;
+    // 1
+    LinearLayout layout1;
+    TextView text1;
     BarChart chart1;
+    int[] msgNum1;
+    // 2
+    LinearLayout layout2;
+    TextView text2;
     BarChart chart2;
+    int[] msgNum2;
+    // 3
+    LinearLayout layout3;
+    TextView text3;
     BarChart chart3;
+    int[] msgNum3;
+
+
     String[] serverResultList;
 
     // 비동기 이벤트 확인 값
@@ -113,11 +126,11 @@ public class BriefingActivity extends AppCompatActivity {
             disasterLevelArray.add(levelArray);
         }
 
-        chartAll1 = findViewById(R.id.chart_all_1);
-        chartAll2 = findViewById(R.id.chart_all_2);
-        chart1 = findViewById(R.id.chart_1);
-        chart2 = findViewById(R.id.chart_2);
-        chart3 = findViewById(R.id.chart_3);
+        // Contents 값들 초기화
+        initChartData();
+
+        // All Chart 생성
+
 
         chartAll1.clearChart();
         chartAll1.addPieSlice(new PieModel("TYPE 1", (int)60, getColor(R.color.colorYellow)));
@@ -176,6 +189,30 @@ public class BriefingActivity extends AppCompatActivity {
 
         // 오늘 하루 관심분야에 해당하는 재난문자 리스트
 //        showInterestList();
+    }
+
+    private void initChartData() {
+        // All
+        layoutAll = findViewById(R.id.layout_briefing_all);
+        textAll = findViewById(R.id.text_briefing_all);
+        chartAll1 = findViewById(R.id.chart_all_1);
+        chartAll2 = findViewById(R.id.chart_all_2);
+        msgNumAll = new int[7];
+        // 1
+        layout1 = findViewById(R.id.layout_briefing_1);
+        text1 = findViewById(R.id.text_briefing_1);
+        chart1 = findViewById(R.id.chart_1);
+        msgNum1 = new int[7];
+        // 2
+        layout2 = findViewById(R.id.layout_briefing_2);
+        text2 = findViewById(R.id.text_briefing_2);
+        chart2 = findViewById(R.id.chart_2);
+        msgNum2 = new int[7];
+        // 3
+        layout3 = findViewById(R.id.layout_briefing_3);
+        text3 = findViewById(R.id.text_briefing_3);
+        chart3 = findViewById(R.id.chart_3);
+        msgNum3 = new int[7];
     }
 
     private void showSafetyBtn () {

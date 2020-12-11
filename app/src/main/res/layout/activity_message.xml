@@ -426,6 +426,8 @@
                         app:scaleMin="10"
                         app:scaleMax="100"
                         app:scaleStep="1"
+                        android:backgroundTint="@color/colorBackgroundDark"
+                        app:trackColor="@color/colorWhite"
                         app:rangeColor="@color/colorPrimary"
                         app:thumbColor="@color/colorPrimary"
                         app:drawThumbsApart="true" />

@@ -213,6 +213,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_disaster_1_0"
+                    android:textColor="@color/colorWhite"
                     android:layout_marginTop="@dimen/content_margin"/>
                 <Button
                     android:id="@+id/btn_interest_disaster_1_0"
@@ -228,6 +229,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_disaster_1_1"
+                    android:textColor="@color/colorWhite"
                     android:layout_marginTop="@dimen/content_margin"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -301,6 +303,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_disaster_1_1"
+                    android:textColor="@color/colorWhite"
                     android:layout_marginTop="@dimen/content_margin"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -366,6 +369,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_disaster_2_0"
+                    android:textColor="@color/colorWhite"
                     android:layout_marginTop="@dimen/content_margin"/>
                 <LinearLayout
                     android:visibility="gone"
@@ -380,6 +384,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textColor="@color/colorWhite"
                         android:textAlignment="center"
                         android:text="1.0"/>
                     <io.apptik.widget.MultiSlider
@@ -392,12 +397,17 @@
                         app:scaleMin="10"
                         app:scaleMax="100"
                         app:scaleStep="1"
+                        android:backgroundTint="@color/colorBackgroundDark"
+                        app:trackColor="@color/colorWhite"
+                        app:rangeColor="@color/colorPrimary"
+                        app:thumbColor="@color/colorPrimary"
                         app:drawThumbsApart="true" />
                     <TextView
                         android:id="@+id/text_disaster_scale_max"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textColor="@color/colorWhite"
                         android:textAlignment="center"
                         android:text="10.0"/>
                 </LinearLayout>
@@ -406,6 +416,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_disaster_2_1"
+                    android:textColor="@color/colorWhite"
                     android:layout_marginTop="@dimen/content_margin"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -446,6 +457,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_disaster_3_0"
+                    android:textColor="@color/colorWhite"
                     android:layout_marginTop="@dimen/content_margin"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -519,6 +531,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_disaster_4_1"
+                    android:textColor="@color/colorWhite"
                     android:layout_marginTop="@dimen/content_margin"/>
                 <Button
                     android:id="@+id/btn_interest_disaster_4_1"
@@ -534,6 +547,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_disaster_4_0"
+                    android:textColor="@color/colorWhite"
                     android:layout_marginTop="@dimen/content_margin"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -607,6 +621,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_disaster_5_0"
+                    android:textColor="@color/colorWhite"
                     android:layout_marginTop="@dimen/content_margin"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -680,6 +695,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_disaster_6_0"
+                    android:textColor="@color/colorWhite"
                     android:layout_marginTop="@dimen/content_margin"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -751,6 +767,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_disaster_6_1"
+                    android:textColor="@color/colorWhite"
                     android:layout_marginTop="@dimen/content_margin"/>
                 <LinearLayout
                     android:layout_width="match_parent"
