@@ -61,7 +61,9 @@ public class CheckInterestInfo {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            int numOfNew = jsonResult.length();
+            int numOfNew = 0;
+            if (jsonResult != null)
+                numOfNew = jsonResult.length();
             if (serverResult.isEmpty()) {
                 Log.e(TAG, "서버연결 실패");
             } else if (serverResult.equals("{}")) {
