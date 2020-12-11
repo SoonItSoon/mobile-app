@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.app.soonitsoon.Alert;
@@ -41,7 +42,9 @@ public class BackgroundService extends Service {
     private static final String TAG = "BackgoundService";
 
     private static final int MININUTE = 1;
-    private static final int PERIOD = 1000 * 60 * MININUTE;
+    private static final int PERIOD = 1000 * 60 * MININUTE/10;
+    private static final float LIMIT_SPEED = 0;
+    private static final float LIMIT_ACCURACY = 1000;
 
     private Context context;
     private static int counter = 1;
@@ -103,6 +106,22 @@ public class BackgroundService extends Service {
                         // RecordTimeline 실행
                         // Timeline
                         Location location = getLocation.getLocation();
+                        String str = "";
+                        if (location.hasSpeed()) {
+                            str += "속도 : " + location.getSpeed()*3.6 + "km/h\n";
+                        }
+                        if (location.hasAccuracy()) {
+                            str += "정확도 : " + location.getAccuracy() + "m";
+                        }
+                        if (!str.isEmpty()) {
+                            Log.e(TAG, str);
+                        }
+                        if (location.hasAccuracy()) {
+                            while (location.getAccuracy() > LIMIT_ACCURACY) {
+                                Log.e(TAG, "정확도가 너무 낮다!");
+                                location = getLocation.getLocation();
+                            }
+                        }
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
                         try {
@@ -118,6 +137,22 @@ public class BackgroundService extends Service {
                         // RecordTimeline 실행
                         // Timeline
                         Location location = getLocation.getLocation();
+                        String str = "";
+                        if (location.hasSpeed()) {
+                            str += "속도 : " + location.getSpeed()*3.6 + "km/h\n";
+                        }
+                        if (location.hasAccuracy()) {
+                            str += "정확도 : " + location.getAccuracy() + "m";
+                        }
+                        if (!str.isEmpty()) {
+                            Log.e(TAG, str);
+                        }
+                        if (location.hasAccuracy()) {
+                            while (location.getAccuracy() > LIMIT_ACCURACY) {
+                                Log.e(TAG, "정확도가 너무 낮다!");
+                                location = getLocation.getLocation();
+                            }
+                        }
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
                         try {
