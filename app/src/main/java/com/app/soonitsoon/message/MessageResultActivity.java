@@ -381,7 +381,7 @@ public class MessageResultActivity extends AppCompatActivity {
 
                 String line1 = sendDateTime;
 
-                String line2 = sender + " 발송";
+//                String line2 = sender + " 발송";
                 // 전염병 (코로나-19) 발생안내에 대한 문자입니다.
                 String line3 = disasterArray[disaster];
                 if (!name.isEmpty()) {  // 전염병 또는 태풍의 이름이 있는 경우
@@ -411,10 +411,10 @@ public class MessageResultActivity extends AppCompatActivity {
                 textView1.setTextSize(Dimension.DP, 36);
                 textView1.setTextColor(getResources().getColor(R.color.colorPrimary));
                 // Text Line 2
-                TextView textView2 = new TextView(this);
-                textView2.setText(line2);
-                textView2.setTextSize(Dimension.DP, 36);
-                textView2.setTextColor(getResources().getColor(R.color.colorPrimary));
+//                TextView textView2 = new TextView(this);
+//                textView2.setText(line2);
+//                textView2.setTextSize(Dimension.DP, 36);
+//                textView2.setTextColor(getResources().getColor(R.color.colorPrimary));
                 // Text Line 3
                 TextView textView3 = new TextView(this);
                 textView3.setText(line3);
@@ -422,7 +422,7 @@ public class MessageResultActivity extends AppCompatActivity {
                 textView3.setTextColor(getResources().getColor(R.color.colorPrimary));
                 // 레이아웃에 추가
                 subLayout.addView(textView1);
-                subLayout.addView(textView2);
+//                subLayout.addView(textView2);
                 subLayout.addView(textView3);
                 // 추가 라인이 있다면
                 if (!line4.isEmpty()) {

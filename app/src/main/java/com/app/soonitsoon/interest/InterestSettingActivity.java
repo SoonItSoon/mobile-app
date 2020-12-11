@@ -122,11 +122,12 @@ public class InterestSettingActivity extends AppCompatActivity {
         interestText = findViewById(R.id.text_interest_setting_count);
         // 설정된 관심분야가 없는 경우
         if(interestSize == 0 ) {
-            interestText.setText("설정된 관심분야가 없습니다.");
+            interestText.setText("관심분야를 추가해주세요!");
+            interestText.setVisibility(View.VISIBLE);
         }
         // 설정된 관심분야가 있는 경우
         else {
-            interestText.setText("설정된 관심분야 개수 : " + interestSize);
+            interestText.setVisibility(View.GONE);
             showInterest();
             isShowingInterest = true;
         }
@@ -144,10 +145,12 @@ public class InterestSettingActivity extends AppCompatActivity {
         // 설정된 관심분야가 없는 경우
         if(interestSize == 0 ) {
             interestText.setText("설정된 관심분야가 없습니다.");
+            interestText.setVisibility(View.VISIBLE);
         }
         // 설정된 관심분야가 있는 경우
         else {
-            interestText.setText("설정된 관심분야 개수 : " + interestSize);
+//            interestText.setText("설정된 관심분야 개수 : " + interestSize);
+            interestText.setVisibility(View.GONE);
             if (isShowingInterest)
                 clearInterest();
             showInterest();

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.app.soonitsoon.CalDate;
 import com.app.soonitsoon.R;
 import com.app.soonitsoon.safety.SafetyActivity;
 import com.app.soonitsoon.server.GetServerInfo;
@@ -55,6 +56,7 @@ public class BriefingActivity extends AppCompatActivity {
     private String[] disasterArray; // 재난 종류 Array
     private ArrayList<String[]> disasterLevelArray; // 재난별 등급 Array
     private String[] nicknames; // 별명 Array
+    private String[] days;
 
     // 통계 Content View 및 Data
     // All
@@ -125,6 +127,12 @@ public class BriefingActivity extends AppCompatActivity {
             String[] levelArray = getResources().getStringArray(levelArrayID);
             disasterLevelArray.add(levelArray);
         }
+        // 날짜 Array 초기화
+        for (int i = 0; i < 6; i++) {
+            String tmp = DateNTime.toKoreanDate(CalDate.addDay(DateNTime.getDate(), -6 + i));
+            days[i] = tmp.split(" ")[2];
+        }
+        days[6] = "오늘";
 
         // Contents 값들 초기화
         initChartData();
@@ -137,41 +145,6 @@ public class BriefingActivity extends AppCompatActivity {
         chartAll1.addPieSlice(new PieModel("TYPE 2", (int)40, getColor(R.color.colorGreen)));
         chartAll1.startAnimation();
 
-        chartAll2.clearChart();
-        chartAll2.addBar(new BarModel("11", 5, getColor(R.color.colorYellow)));
-        chartAll2.addBar(new BarModel("12", 20, 0xFF56B7F1));
-        chartAll2.addBar(new BarModel("13", 40, 0xFF56B7F1));
-        chartAll2.addBar(new BarModel("14", 50, 0xFF56B7F1));
-        chartAll2.addBar(new BarModel("15", 10, 0xFF56B7F1));
-        chartAll2.addBar(new BarModel("16", 130, 0xFF56B7F1));
-        chartAll2.startAnimation();
-
-        chart1.clearChart();
-        chart1.addBar(new BarModel("12", 10f, 0xFF56B7F1));
-        chart1.addBar(new BarModel("13", 10f, 0xFF56B7F1));
-        chart1.addBar(new BarModel("14", 10f, 0xFF56B7F1));
-        chart1.addBar(new BarModel("15", 20f, 0xFF56B7F1));
-        chart1.addBar(new BarModel("16", 10f, 0xFF56B7F1));
-        chart1.addBar(new BarModel("17", 10f, 0xFF56B7F1));
-        chart1.startAnimation();
-
-        chart2.clearChart();
-        chart2.addBar(new BarModel("12", 10f, 0xFF56B7F1));
-        chart2.addBar(new BarModel("13", 10f, 0xFF56B7F1));
-        chart2.addBar(new BarModel("14", 10f, 0xFF56B7F1));
-        chart2.addBar(new BarModel("15", 20f, 0xFF56B7F1));
-        chart2.addBar(new BarModel("16", 10f, 0xFF56B7F1));
-        chart2.addBar(new BarModel("17", 10f, 0xFF56B7F1));
-        chart2.startAnimation();
-
-        chart3.clearChart();
-        chart3.addBar(new BarModel("12", 10f, 0xFF56B7F1));
-        chart3.addBar(new BarModel("13", 10f, 0xFF56B7F1));
-        chart3.addBar(new BarModel("14", 10f, 0xFF56B7F1));
-        chart3.addBar(new BarModel("15", 20f, 0xFF56B7F1));
-        chart3.addBar(new BarModel("16", 10f, 0xFF56B7F1));
-        chart3.addBar(new BarModel("17", 10f, 0xFF56B7F1));
-        chart3.startAnimation();
 
         // safety 버튼
         showSafetyBtn();
@@ -191,6 +164,7 @@ public class BriefingActivity extends AppCompatActivity {
 //        showInterestList();
     }
 
+    // 차트 데이터 초기화
     private void initChartData() {
         // All
         layoutAll = findViewById(R.id.layout_briefing_all);
@@ -214,6 +188,73 @@ public class BriefingActivity extends AppCompatActivity {
         chart3 = findViewById(R.id.chart_3);
         msgNum3 = new int[7];
     }
+
+    // 서버에서 받은 String 파싱해서 리턴
+    private int getNumFromJson(String strServerResult) {
+        int num = 0;
+        try {
+            JSONObject jsonObject = new JSONObject(strServerResult);
+            String tmpStr = jsonObject.optString("1", "");
+            JSONObject jsonUnit = new JSONObject(tmpStr);
+            num = jsonUnit.getInt("COUNT(*)");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return num;
+    }
+
+    // 서버에서 받은 데이터 배열을 차트에 추가
+    private void addChartData(int index, int[] array) {
+        // All
+        if (index == 0) {
+            chartAll2.clearChart();
+            chartAll2.addBar(new BarModel(days[0], array[0], getColor(R.color.colorWhite)));
+            chartAll2.addBar(new BarModel(days[1], array[1], getColor(R.color.colorWhite)));
+            chartAll2.addBar(new BarModel(days[2], array[2], getColor(R.color.colorWhite)));
+            chartAll2.addBar(new BarModel(days[3], array[3], getColor(R.color.colorWhite)));
+            chartAll2.addBar(new BarModel(days[4], array[4], getColor(R.color.colorWhite)));
+            chartAll2.addBar(new BarModel(days[5], array[5], getColor(R.color.colorWhite)));
+            chartAll2.addBar(new BarModel(days[6], array[6], getColor(R.color.colorYellow)));
+            chartAll2.startAnimation();
+        // 차트 1
+        } else if (index == 1) {
+            layout1.setVisibility(View.VISIBLE);
+            chart1.clearChart();
+            chart1.addBar(new BarModel(days[0], array[0], getColor(R.color.colorWhite)));
+            chart1.addBar(new BarModel(days[1], array[1], getColor(R.color.colorWhite)));
+            chart1.addBar(new BarModel(days[2], array[2], getColor(R.color.colorWhite)));
+            chart1.addBar(new BarModel(days[3], array[3], getColor(R.color.colorWhite)));
+            chart1.addBar(new BarModel(days[4], array[4], getColor(R.color.colorWhite)));
+            chart1.addBar(new BarModel(days[5], array[5], getColor(R.color.colorWhite)));
+            chart1.addBar(new BarModel(days[6], array[6], getColor(R.color.colorYellow)));
+            chart1.startAnimation();
+        // 차트 2
+        } else if (index == 2) {
+            layout2.setVisibility(View.VISIBLE);
+            chart2.clearChart();
+            chart2.addBar(new BarModel(days[0], array[0], getColor(R.color.colorWhite)));
+            chart2.addBar(new BarModel(days[1], array[1], getColor(R.color.colorWhite)));
+            chart2.addBar(new BarModel(days[2], array[2], getColor(R.color.colorWhite)));
+            chart2.addBar(new BarModel(days[3], array[3], getColor(R.color.colorWhite)));
+            chart2.addBar(new BarModel(days[4], array[4], getColor(R.color.colorWhite)));
+            chart2.addBar(new BarModel(days[5], array[5], getColor(R.color.colorWhite)));
+            chart2.addBar(new BarModel(days[6], array[6], getColor(R.color.colorYellow)));
+            chart2.startAnimation();
+        // 차트 3
+        } else if (index == 3) {
+            layout3.setVisibility(View.VISIBLE);
+            chart3.clearChart();
+            chart3.addBar(new BarModel(days[0], array[0], getColor(R.color.colorWhite)));
+            chart3.addBar(new BarModel(days[1], array[1], getColor(R.color.colorWhite)));
+            chart3.addBar(new BarModel(days[2], array[2], getColor(R.color.colorWhite)));
+            chart3.addBar(new BarModel(days[3], array[3], getColor(R.color.colorWhite)));
+            chart3.addBar(new BarModel(days[4], array[4], getColor(R.color.colorWhite)));
+            chart3.addBar(new BarModel(days[5], array[5], getColor(R.color.colorWhite)));
+            chart3.addBar(new BarModel(days[6], array[6], getColor(R.color.colorYellow)));
+            chart3.startAnimation();
+        }
+    }
+
 
     private void showSafetyBtn () {
         Button safetyBtn = findViewById(R.id.btn_briefing_isSafety);
