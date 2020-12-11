@@ -342,6 +342,8 @@ public class MessageResultActivity extends AppCompatActivity {
         try {
             JSONObject jsonResultData = new JSONObject(strResultData);
 
+            String tmpDate = "";
+
             // 데이터 하나씩 접근
             Iterator<String> iterator = jsonResultData.keys();
             while (iterator.hasNext()) {
@@ -457,6 +459,33 @@ public class MessageResultActivity extends AppCompatActivity {
                 textMsg.setTextColor(getResources().getColor(R.color.colorSubTitleBtn));
                 textMsg.setPadding(0, 24, 0, 0);
                 subLayout.addView(textMsg);
+
+                // 날짜 Divider 생성
+                if (tmpDate.isEmpty() || !tmpDate.equals(sendDateTimeArray[0])) {
+
+                    LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    if (tmpDate.isEmpty())
+                        dividerParams.setMargins(4, 0, 4, 16);
+                    else
+                        dividerParams.setMargins(4, 48, 4, 16);
+
+                    tmpDate = sendDateTimeArray[0];
+
+                    LinearLayout dividerLayout = new LinearLayout(this);
+                    dividerLayout.setLayoutParams(dividerParams);
+                    dividerLayout.setOrientation(LinearLayout.VERTICAL);
+                    dividerLayout.setBackground(getResources().getDrawable(R.drawable.radius));
+
+                    TextView dividerText = new TextView(this);
+                    dividerText.setText(DateNTime.toKoreanDate(tmpDate));
+                    dividerText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    dividerText.setTextColor(getResources().getColor(R.color.colorWhite));
+                    dividerText.setTextSize(Dimension.DP, 36);
+                    dividerText.setPadding(0, 16, 0, 16);
+
+                    dividerLayout.addView(dividerText);
+                    linearLayout.addView(dividerLayout);
+                }
 
                 // 생성된 레이아웃 병합
                 linearLayout.addView(subLayout);

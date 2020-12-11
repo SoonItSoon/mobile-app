@@ -101,9 +101,12 @@
                             android:padding="10dp"
                             app:egBarWidth="20dp"
                             app:egEnableScroll="true"
-                            app:egFixedBarWidth="true"
                             app:egLegendHeight="40dp"
                             app:egShowDecimal="false"
+                            app:egInnerValueUnit="%"
+                            app:egValueTextSize="24dp"
+                            app:egLegendTextSize="12dp"
+                            app:egAutoCenter="false"
                             app:egInnerPaddingColor="@color/colorBackgroundBtn"
                             app:egValueTextColor="@color/colorWhite"
                             app:egLegendColor="@color/colorWhite" />
@@ -119,7 +122,6 @@
                             android:padding="10dp"
                             app:egBarWidth="20dp"
                             app:egEnableScroll="true"
-                            app:egFixedBarWidth="true"
                             app:egLegendHeight="40dp"
                             app:egShowDecimal="false" />
                     </LinearLayout>
@@ -128,7 +130,6 @@
 
                 <!-- 관심분야1 레이아웃(Start) -->
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/layout_briefing_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -150,9 +151,8 @@
                         android:orientation="horizontal">
                         <org.eazegraph.lib.charts.BarChart
                             android:id="@+id/chart_1"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="15dp"
                             android:layout_marginRight="10dp"
@@ -160,7 +160,6 @@
                             android:padding="10dp"
                             app:egBarWidth="20dp"
                             app:egEnableScroll="true"
-                            app:egFixedBarWidth="true"
                             app:egLegendHeight="40dp"
                             app:egShowDecimal="false" />
                     </LinearLayout>
@@ -200,7 +199,6 @@
                             android:padding="10dp"
                             app:egBarWidth="20dp"
                             app:egEnableScroll="true"
-                            app:egFixedBarWidth="true"
                             app:egLegendHeight="40dp"
                             app:egShowDecimal="false" />
                     </LinearLayout>
@@ -240,7 +238,6 @@
                             android:padding="10dp"
                             app:egBarWidth="20dp"
                             app:egEnableScroll="true"
-                            app:egFixedBarWidth="true"
                             app:egLegendHeight="40dp"
                             app:egShowDecimal="false" />
                     </LinearLayout>

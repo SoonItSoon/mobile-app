@@ -128,9 +128,13 @@ public class BriefingActivity extends AppCompatActivity {
             disasterLevelArray.add(levelArray);
         }
         // 날짜 Array 초기화
+        days = new String[7];
         for (int i = 0; i < 6; i++) {
             String tmp = DateNTime.toKoreanDate(CalDate.addDay(DateNTime.getDate(), -6 + i));
             days[i] = tmp.split(" ")[2];
+            if (days[i].startsWith("0")) {
+                days[i] = days[i].replace("0", "");
+            }
         }
         days[6] = "오늘";
 
@@ -141,9 +145,30 @@ public class BriefingActivity extends AppCompatActivity {
 
 
         chartAll1.clearChart();
-        chartAll1.addPieSlice(new PieModel("TYPE 1", (int)60, getColor(R.color.colorYellow)));
-        chartAll1.addPieSlice(new PieModel("TYPE 2", (int)40, getColor(R.color.colorGreen)));
+        chartAll1.addPieSlice(new PieModel("전염병", 90, getColor(R.color.colorYellow)));
+        chartAll1.addPieSlice(new PieModel("지진", 5, getColor(R.color.colorSubTitleBtn)));
+        chartAll1.addPieSlice(new PieModel("미세먼지", 2, getColor(R.color.colorWhite)));
+        chartAll1.addPieSlice(new PieModel("태풍", 2, getColor(R.color.colorGreen)));
+        chartAll1.addPieSlice(new PieModel("기타", 1, getColor(R.color.colorSubTitle)));
         chartAll1.startAnimation();
+
+        int[] array0 = {288, 290, 180, 198, 390, 322, 350};
+        int[] array1 = {22, 24, 12, 11, 34, 28, 30};
+        int[] array2 = {28, 22, 24, 12, 33, 35, 28};
+        int[] array3 = {24, 28, 13, 17, 34, 28, 29};
+
+        if (interestSize >= 3) {
+            addChartData(3, array3);
+        }
+        if (interestSize >= 2) {
+            addChartData(2, array2);
+        }
+        if (interestSize >= 1) {
+            addChartData(1, array1);
+        }
+        if (interestSize >= 0) {
+            addChartData(0, array0);
+        }
 
 
         // safety 버튼
@@ -208,48 +233,51 @@ public class BriefingActivity extends AppCompatActivity {
         // All
         if (index == 0) {
             chartAll2.clearChart();
-            chartAll2.addBar(new BarModel(days[0], array[0], getColor(R.color.colorWhite)));
-            chartAll2.addBar(new BarModel(days[1], array[1], getColor(R.color.colorWhite)));
-            chartAll2.addBar(new BarModel(days[2], array[2], getColor(R.color.colorWhite)));
-            chartAll2.addBar(new BarModel(days[3], array[3], getColor(R.color.colorWhite)));
-            chartAll2.addBar(new BarModel(days[4], array[4], getColor(R.color.colorWhite)));
-            chartAll2.addBar(new BarModel(days[5], array[5], getColor(R.color.colorWhite)));
+            chartAll2.addBar(new BarModel(days[0], array[0], getColor(R.color.colorSubTitle)));
+            chartAll2.addBar(new BarModel(days[1], array[1], getColor(R.color.colorSubTitle)));
+            chartAll2.addBar(new BarModel(days[2], array[2], getColor(R.color.colorSubTitle)));
+            chartAll2.addBar(new BarModel(days[3], array[3], getColor(R.color.colorSubTitle)));
+            chartAll2.addBar(new BarModel(days[4], array[4], getColor(R.color.colorSubTitle)));
+            chartAll2.addBar(new BarModel(days[5], array[5], getColor(R.color.colorSubTitle)));
             chartAll2.addBar(new BarModel(days[6], array[6], getColor(R.color.colorYellow)));
             chartAll2.startAnimation();
         // 차트 1
         } else if (index == 1) {
             layout1.setVisibility(View.VISIBLE);
+            text1.setText(nicknames[0] + "에 대한 통계");
             chart1.clearChart();
-            chart1.addBar(new BarModel(days[0], array[0], getColor(R.color.colorWhite)));
-            chart1.addBar(new BarModel(days[1], array[1], getColor(R.color.colorWhite)));
-            chart1.addBar(new BarModel(days[2], array[2], getColor(R.color.colorWhite)));
-            chart1.addBar(new BarModel(days[3], array[3], getColor(R.color.colorWhite)));
-            chart1.addBar(new BarModel(days[4], array[4], getColor(R.color.colorWhite)));
-            chart1.addBar(new BarModel(days[5], array[5], getColor(R.color.colorWhite)));
+            chart1.addBar(new BarModel(days[0], array[0], getColor(R.color.colorSubTitle)));
+            chart1.addBar(new BarModel(days[1], array[1], getColor(R.color.colorSubTitle)));
+            chart1.addBar(new BarModel(days[2], array[2], getColor(R.color.colorSubTitle)));
+            chart1.addBar(new BarModel(days[3], array[3], getColor(R.color.colorSubTitle)));
+            chart1.addBar(new BarModel(days[4], array[4], getColor(R.color.colorSubTitle)));
+            chart1.addBar(new BarModel(days[5], array[5], getColor(R.color.colorSubTitle)));
             chart1.addBar(new BarModel(days[6], array[6], getColor(R.color.colorYellow)));
             chart1.startAnimation();
         // 차트 2
         } else if (index == 2) {
             layout2.setVisibility(View.VISIBLE);
+            text2.setText(nicknames[1] + "에 대한 통계");
             chart2.clearChart();
-            chart2.addBar(new BarModel(days[0], array[0], getColor(R.color.colorWhite)));
-            chart2.addBar(new BarModel(days[1], array[1], getColor(R.color.colorWhite)));
-            chart2.addBar(new BarModel(days[2], array[2], getColor(R.color.colorWhite)));
-            chart2.addBar(new BarModel(days[3], array[3], getColor(R.color.colorWhite)));
-            chart2.addBar(new BarModel(days[4], array[4], getColor(R.color.colorWhite)));
-            chart2.addBar(new BarModel(days[5], array[5], getColor(R.color.colorWhite)));
+            chart2.addBar(new BarModel(days[0], array[0], getColor(R.color.colorSubTitle)));
+            chart2.addBar(new BarModel(days[1], array[1], getColor(R.color.colorSubTitle)));
+            chart2.addBar(new BarModel(days[2], array[2], getColor(R.color.colorSubTitle)));
+            chart2.addBar(new BarModel(days[3], array[3], getColor(R.color.colorSubTitle)));
+            chart2.addBar(new BarModel(days[4], array[4], getColor(R.color.colorSubTitle)));
+            chart2.addBar(new BarModel(days[5], array[5], getColor(R.color.colorSubTitle)));
             chart2.addBar(new BarModel(days[6], array[6], getColor(R.color.colorYellow)));
             chart2.startAnimation();
         // 차트 3
         } else if (index == 3) {
             layout3.setVisibility(View.VISIBLE);
+            text3.setText(nicknames[2] + "에 대한 통계");
             chart3.clearChart();
-            chart3.addBar(new BarModel(days[0], array[0], getColor(R.color.colorWhite)));
-            chart3.addBar(new BarModel(days[1], array[1], getColor(R.color.colorWhite)));
-            chart3.addBar(new BarModel(days[2], array[2], getColor(R.color.colorWhite)));
-            chart3.addBar(new BarModel(days[3], array[3], getColor(R.color.colorWhite)));
-            chart3.addBar(new BarModel(days[4], array[4], getColor(R.color.colorWhite)));
-            chart3.addBar(new BarModel(days[5], array[5], getColor(R.color.colorWhite)));
+            chart3.addBar(new BarModel(days[0], array[0], getColor(R.color.colorSubTitle)));
+            chart3.addBar(new BarModel(days[1], array[1], getColor(R.color.colorSubTitle)));
+            chart3.addBar(new BarModel(days[2], array[2], getColor(R.color.colorSubTitle)));
+            chart3.addBar(new BarModel(days[3], array[3], getColor(R.color.colorSubTitle)));
+            chart3.addBar(new BarModel(days[4], array[4], getColor(R.color.colorSubTitle)));
+            chart3.addBar(new BarModel(days[5], array[5], getColor(R.color.colorSubTitle)));
             chart3.addBar(new BarModel(days[6], array[6], getColor(R.color.colorYellow)));
             chart3.startAnimation();
         }
