@@ -52,71 +52,202 @@
             android:paddingLeft="10dp"
             />
 
-        <LinearLayout
-            android:id="@+id/layout_briefing_content"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar"
             android:layout_margin="@dimen/content_margin"
-            android:background="@color/colorBackgroundDark"
-            android:orientation="vertical">
+            android:scrollbarSize="0dp">
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical"-->
-<!--                android:layout_marginBottom="@dimen/btn_margin">-->
+            <LinearLayout
+                android:id="@+id/layout_briefing_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/toolbar"
+                android:background="@color/colorBackgroundDark"
+                android:orientation="vertical">
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:text="관심분야에 대한 통계"-->
-<!--                    android:textSize="24dp"-->
-<!--                    android:layout_gravity="center"/>-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/radius"
+                    android:paddingTop="@dimen/content_margin"
+                    android:layout_marginBottom="@dimen/content_margin">
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="256dp"-->
-<!--                    android:weightSum="2"-->
-<!--                    android:orientation="horizontal">-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="전체에 대한 통계"
+                        android:textSize="24dp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_gravity="center"/>
 
-<!--                    <org.eazegraph.lib.charts.PieChart-->
-<!--                        android:id="@+id/tab1_chart_1"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:layout_marginLeft="10dp"-->
-<!--                        android:layout_marginTop="15dp"-->
-<!--                        android:layout_marginRight="10dp"-->
-<!--                        android:layout_marginBottom="20dp"-->
-<!--                        android:padding="10dp"-->
-<!--                        app:egBarWidth="20dp"-->
-<!--                        app:egEnableScroll="true"-->
-<!--                        app:egFixedBarWidth="true"-->
-<!--                        app:egLegendHeight="40dp"-->
-<!--                        app:egShowDecimal="true" />-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="256dp"
+                        android:weightSum="2"
+                        android:orientation="horizontal">
 
-<!--                    <org.eazegraph.lib.charts.BarChart-->
-<!--                        android:id="@+id/tab1_chart_2"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:layout_marginLeft="10dp"-->
-<!--                        android:layout_marginTop="15dp"-->
-<!--                        android:layout_marginRight="10dp"-->
-<!--                        android:layout_marginBottom="20dp"-->
-<!--                        android:padding="10dp"-->
-<!--                        app:egBarWidth="20dp"-->
-<!--                        app:egEnableScroll="true"-->
-<!--                        app:egFixedBarWidth="true"-->
-<!--                        app:egLegendHeight="40dp"-->
-<!--                        app:egShowDecimal="true" />-->
+                        <org.eazegraph.lib.charts.PieChart
+                            android:id="@+id/chart_all_1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:padding="10dp"
+                            app:egBarWidth="20dp"
+                            app:egEnableScroll="true"
+                            app:egFixedBarWidth="true"
+                            app:egLegendHeight="40dp"
+                            app:egShowDecimal="true"
+                            app:egInnerPaddingColor="@color/colorBackgroundBtn"
+                            app:egValueTextColor="@color/colorWhite"
+                            app:egLegendColor="@color/colorWhite"/>
 
-<!--                </LinearLayout>-->
-<!--            </LinearLayout>-->
+                        <org.eazegraph.lib.charts.BarChart
+                            android:id="@+id/chart_all_2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:padding="10dp"
+                            app:egBarWidth="20dp"
+                            app:egEnableScroll="true"
+                            app:egFixedBarWidth="true"
+                            app:egLegendHeight="40dp"
+                            app:egShowDecimal="true" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/content_margin"
+                    android:background="@drawable/radius"
+                    android:paddingTop="@dimen/content_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="관심분야1에 대한 통계"
+                        android:textSize="24dp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_gravity="center"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="256dp"
+                        android:orientation="horizontal">
+
+                        <org.eazegraph.lib.charts.BarChart
+                            android:id="@+id/chart_1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:padding="10dp"
+                            app:egBarWidth="20dp"
+                            app:egEnableScroll="true"
+                            app:egFixedBarWidth="true"
+                            app:egLegendHeight="40dp"
+                            app:egShowDecimal="true" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/radius"
+                    android:paddingTop="@dimen/content_margin"
+                    android:layout_marginBottom="@dimen/content_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="관심분야2에 대한 통계"
+                        android:textSize="24dp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_gravity="center"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="256dp"
+                        android:orientation="horizontal">
+
+                        <org.eazegraph.lib.charts.BarChart
+                            android:id="@+id/chart_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:padding="10dp"
+                            app:egBarWidth="20dp"
+                            app:egEnableScroll="true"
+                            app:egFixedBarWidth="true"
+                            app:egLegendHeight="40dp"
+                            app:egShowDecimal="true" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/radius"
+                    android:paddingTop="@dimen/content_margin"
+                    android:layout_marginBottom="@dimen/content_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="관심분야3에 대한 통계"
+                        android:textSize="24dp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_gravity="center"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="256dp"
+                        android:orientation="horizontal">
+
+                        <org.eazegraph.lib.charts.BarChart
+                            android:id="@+id/chart_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:padding="10dp"
+                            app:egBarWidth="20dp"
+                            app:egEnableScroll="true"
+                            app:egFixedBarWidth="true"
+                            app:egLegendHeight="40dp"
+                            app:egShowDecimal="true" />
+
+                    </LinearLayout>
+                </LinearLayout>
 
 
-        </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 

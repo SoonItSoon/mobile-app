@@ -62,8 +62,11 @@ public class BriefingActivity extends AppCompatActivity {
     private String[] nicknames; // 별명 Array
 
     // chart 값
-    PieChart chart1;
+    PieChart chartAll1;
+    BarChart chartAll2;
+    BarChart chart1;
     BarChart chart2;
+    BarChart chart3;
     String[] serverResultList;
 
     // 비동기 이벤트 확인 값
@@ -109,6 +112,53 @@ public class BriefingActivity extends AppCompatActivity {
             String[] levelArray = getResources().getStringArray(levelArrayID);
             disasterLevelArray.add(levelArray);
         }
+
+        chartAll1 = findViewById(R.id.chart_all_1);
+        chartAll2 = findViewById(R.id.chart_all_2);
+        chart1 = findViewById(R.id.chart_1);
+        chart2 = findViewById(R.id.chart_2);
+        chart3 = findViewById(R.id.chart_3);
+
+        chartAll1.clearChart();
+        chartAll1.addPieSlice(new PieModel("TYPE 1", (int)60, getColor(R.color.colorYellow)));
+        chartAll1.addPieSlice(new PieModel("TYPE 2", (int)40, getColor(R.color.colorGreen)));
+        chartAll1.startAnimation();
+
+        chartAll2.clearChart();
+        chartAll2.addBar(new BarModel("12", 10f, 0xFF56B7F1));
+        chartAll2.addBar(new BarModel("13", 10f, 0xFF56B7F1));
+        chartAll2.addBar(new BarModel("14", 10f, 0xFF56B7F1));
+        chartAll2.addBar(new BarModel("15", 20f, 0xFF56B7F1));
+        chartAll2.addBar(new BarModel("16", 10f, 0xFF56B7F1));
+        chartAll2.addBar(new BarModel("17", 10f, 0xFF56B7F1));
+        chartAll2.startAnimation();
+
+        chart1.clearChart();
+        chart1.addBar(new BarModel("12", 10f, 0xFF56B7F1));
+        chart1.addBar(new BarModel("13", 10f, 0xFF56B7F1));
+        chart1.addBar(new BarModel("14", 10f, 0xFF56B7F1));
+        chart1.addBar(new BarModel("15", 20f, 0xFF56B7F1));
+        chart1.addBar(new BarModel("16", 10f, 0xFF56B7F1));
+        chart1.addBar(new BarModel("17", 10f, 0xFF56B7F1));
+        chart1.startAnimation();
+
+        chart2.clearChart();
+        chart2.addBar(new BarModel("12", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("13", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("14", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("15", 20f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("16", 10f, 0xFF56B7F1));
+        chart2.addBar(new BarModel("17", 10f, 0xFF56B7F1));
+        chart2.startAnimation();
+
+        chart3.clearChart();
+        chart3.addBar(new BarModel("12", 10f, 0xFF56B7F1));
+        chart3.addBar(new BarModel("13", 10f, 0xFF56B7F1));
+        chart3.addBar(new BarModel("14", 10f, 0xFF56B7F1));
+        chart3.addBar(new BarModel("15", 20f, 0xFF56B7F1));
+        chart3.addBar(new BarModel("16", 10f, 0xFF56B7F1));
+        chart3.addBar(new BarModel("17", 10f, 0xFF56B7F1));
+        chart3.startAnimation();
 
         // safety 버튼
         showSafetyBtn();
@@ -313,78 +363,59 @@ public class BriefingActivity extends AppCompatActivity {
 
     private void showInterestResult() {
         // 서버에서 받은 String을 Json으로 파싱
-//        chart1 = findViewById(R.id.tab1_chart_1);
-//        chart2 = findViewById(R.id.tab1_chart_2);
+
+
+//        unitParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        unitParams.setMargins(4, 16, 4, 16);
 //
-//        chart1.clearChart();
+//        BarChart barChart = new BarChart(this);
+//        barChart.setLayoutParams(unitParams);
+//        for (int i = 0; i<interestSize+1; i++) {
+//            int msgCount = 0;
+//            try {
+//                JSONObject jsonResult = new JSONObject(serverResultList[i]);
+//                String strCount = jsonResult.getString("1");
+//                JSONObject jsonCount = new JSONObject(strCount);
+//                msgCount = jsonCount.getInt("COUNT(*)");
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            Log.e("테스트", " " + msgCount);
+//            if (i == interestSize)
+//                barChart.addBar(new BarModel("전체", msgCount, R.color.colorYellow));
+//            else
+//                barChart.addBar(new BarModel(nicknames[i], msgCount, R.color.colorYellow));
+//        }
 //
-//        chart1.addPieSlice(new PieModel("TYPE 1", 60, Color.parseColor("#CDA67F")));
-//        chart1.addPieSlice(new PieModel("TYPE 2", 40, Color.parseColor("#00BFFF")));
 //
-//        chart1.startAnimation();
+////        android:layout_marginLeft="10dp"-->
+////<!--                        android:layout_marginTop="15dp"-->
+////<!--                        android:layout_marginRight="10dp"-->
+////<!--                        android:layout_marginBottom="20dp"-->
+////<!--                        android:padding="10dp"-->
+////<!--                        app:egBarWidth="20dp"-->
+////<!--                        app:egEnableScroll="true"-->
+////<!--                        app:egFixedBarWidth="true"-->
+////<!--                        app:egLegendHeight="40dp"-->
+////<!--                        app:egShowDecimal="true" />-->
 //
-//        chart2.clearChart();
+//        linearLayout.removeAllViews();
+//        scrollView.removeAllViews();
+//        mainLayout.removeAllViews();
 //
-//        chart2.addBar(new BarModel("12", 10f, 0xFF56B7F1));
-//        chart2.addBar(new BarModel("13", 10f, 0xFF56B7F1));
-//        chart2.addBar(new BarModel("14", 10f, 0xFF56B7F1));
-//        chart2.addBar(new BarModel("15", 20f, 0xFF56B7F1));
-//        chart2.addBar(new BarModel("16", 10f, 0xFF56B7F1));
-//        chart2.addBar(new BarModel("17", 10f, 0xFF56B7F1));
+//        Log.e("asdfasdfasdf", " " + barChart.getChildCount());
+//        barChart.setBarWidth(20);
+//        barChart.setScrollEnabled(true);
+//        barChart.setFixedBarWidth(true);
+//        barChart.setLegendHeight(40);
+//        barChart.setShowDecimal(true);
 //
-//        chart2.startAnimation();
+//        barChart.startAnimation();
 //
-        unitParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        unitParams.setMargins(4, 16, 4, 16);
-
-        BarChart barChart = new BarChart(this);
-        barChart.setLayoutParams(unitParams);
-        for (int i = 0; i<interestSize+1; i++) {
-            int msgCount = 0;
-            try {
-                JSONObject jsonResult = new JSONObject(serverResultList[i]);
-                String strCount = jsonResult.getString("1");
-                JSONObject jsonCount = new JSONObject(strCount);
-                msgCount = jsonCount.getInt("COUNT(*)");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Log.e("테스트", " " + msgCount);
-            if (i == interestSize)
-                barChart.addBar(new BarModel("전체", msgCount, R.color.colorYellow));
-            else
-                barChart.addBar(new BarModel(nicknames[i], msgCount, R.color.colorYellow));
-        }
-
-
-//        android:layout_marginLeft="10dp"-->
-//<!--                        android:layout_marginTop="15dp"-->
-//<!--                        android:layout_marginRight="10dp"-->
-//<!--                        android:layout_marginBottom="20dp"-->
-//<!--                        android:padding="10dp"-->
-//<!--                        app:egBarWidth="20dp"-->
-//<!--                        app:egEnableScroll="true"-->
-//<!--                        app:egFixedBarWidth="true"-->
-//<!--                        app:egLegendHeight="40dp"-->
-//<!--                        app:egShowDecimal="true" />-->
-
-        linearLayout.removeAllViews();
-        scrollView.removeAllViews();
-        mainLayout.removeAllViews();
-
-        Log.e("asdfasdfasdf", " " + barChart.getChildCount());
-        barChart.setBarWidth(20);
-        barChart.setScrollEnabled(true);
-        barChart.setFixedBarWidth(true);
-        barChart.setLegendHeight(40);
-        barChart.setShowDecimal(true);
-
-        barChart.startAnimation();
-
-        linearLayout.addView(barChart);
-        scrollView.addView(linearLayout);
-        mainLayout.addView(scrollView);
-
+//        linearLayout.addView(barChart);
+//        scrollView.addView(linearLayout);
+//        mainLayout.addView(scrollView);
+//
 
 
 
