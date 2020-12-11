@@ -96,7 +96,7 @@ public class Alert {
     }
 
     public void sendBriefingAlert() {
-        final String GROUP_KEY_INTEREST = "soonitsoon.interest";
+        final String GROUP_KEY_BRIEFING = "soonitsoon.briefing";
 
         createNotificationChannel();
 
@@ -116,7 +116,7 @@ public class Alert {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(true)
-                .setGroup(GROUP_KEY_INTEREST)
+                .setGroup(GROUP_KEY_BRIEFING)
                 .setContentIntent(mPendingIntent);
 
         NotificationManager mNotificationManager =

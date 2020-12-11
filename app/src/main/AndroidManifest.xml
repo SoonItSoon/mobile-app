@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@menu/navi_menu" />
@@ -26,16 +27,14 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- BackgroundService -->
+        </activity> <!-- BackgroundService -->
         <service
             android:name=".background.BackgroundService"
             android:enabled="true"
-            android:stopWithTask="false">
-        </service>
-        <!-- 서비스 종료 이벤트 -->
+            android:stopWithTask="false"></service> <!-- 서비스 종료 이벤트 -->
         <receiver
             android:name=".background.RestarterBroadcastReceiver"
             android:enabled="true"
@@ -44,8 +43,7 @@
             <intent-filter>
                 <action android:name="com.app.soonitsoon.RestartService" />
             </intent-filter>
-        </receiver>
-        <!-- 부팅 이벤트 -->
+        </receiver> <!-- 부팅 이벤트 -->
         <receiver
             android:name=".background.BootReceiver"
             android:enabled="true"
@@ -55,19 +53,18 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="8e2fb23596dd9821f09a4820560c91be" />
 
-        <activity android:name=".timeline.TimelineActivity"/>
-        <activity android:name=".safety.SafetyActivity"/>
-        <activity android:name=".briefing.BriefingActivity"/>
-        <activity android:name=".interest.InterestActivity"/>
-        <activity android:name=".interest.InterestSettingActivity"/>
-        <activity android:name=".interest.InterestAddActivity"/>
-        <activity android:name=".message.MessageActivity"/>
-        <activity android:name=".message.MessageResultActivity"/>
+        <activity android:name=".timeline.TimelineActivity" />
+        <activity android:name=".safety.SafetyActivity" />
+        <activity android:name=".briefing.BriefingActivity" />
+        <activity android:name=".interest.InterestActivity" />
+        <activity android:name=".interest.InterestSettingActivity" />
+        <activity android:name=".interest.InterestAddActivity" />
+        <activity android:name=".message.MessageActivity" />
+        <activity android:name=".message.MessageResultActivity" />
     </application>
 
 </manifest>

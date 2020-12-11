@@ -153,13 +153,16 @@ public class BriefingActivity extends AppCompatActivity {
                     }
                 }
             }
-            safetyBtn.setText(dangerCount + "개의 장소에서 확진자와 접촉했을 가능성이 있습니다.");
+            safetyBtn.setText(dangerCount + "개의 장소에서 확진자와 접촉했을 가능성이 있습니다.\n클릭하여 확인해주세요>_0");
+            safetyBtn.setBackgroundColor(getColor(R.color.colorRed));
+            safetyBtn.setClickable(true);
         }
         // 확인안한 확진자 접촉 알림이 없으면 버튼을 없애자
         catch (JSONException e) {
             e.printStackTrace();
-            //safetyBtn.setVisibility(View.GONE);
-            safetyBtn.setText(dangerCount + "개의 장소에서 확진자와 접촉했을 가능성이 있습니다.");
+            safetyBtn.setText("당신은 안전했어요!");
+            safetyBtn.setBackgroundColor(getColor(R.color.colorGreen));
+            safetyBtn.setClickable(false);
         }
     }
 

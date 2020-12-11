@@ -11,6 +11,8 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.app.soonitsoon.Alert;
+import com.app.soonitsoon.CalDate;
+import com.app.soonitsoon.briefing.CheckBriefingTime;
 import com.app.soonitsoon.interest.CheckInterestInfo;
 import com.app.soonitsoon.safety.CheckSafetyInfo;
 import com.app.soonitsoon.timeline.GetLocation;
@@ -18,9 +20,14 @@ import com.app.soonitsoon.timeline.RecordTimeline;
 
 import org.json.JSONException;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.app.soonitsoon.timeline.DateNTime.getDate;
+import static com.app.soonitsoon.timeline.DateNTime.getTime;
 
 public class BackgroundService extends Service {
     private static final String TAG = "BackgoundService";
@@ -35,6 +42,7 @@ public class BackgroundService extends Service {
     private RecordTimeline recordTimeline;
     private CheckSafetyInfo checkSafetyInfo;
     private CheckInterestInfo checkInterestInfo;
+    private CheckBriefingTime checkBriefingTime;
 
     public BackgroundService() {
     }
@@ -57,6 +65,7 @@ public class BackgroundService extends Service {
         getLocation = new GetLocation(this);
         checkSafetyInfo = new CheckSafetyInfo(this, getApplication());
         checkInterestInfo = new CheckInterestInfo(this, getApplication());
+        checkBriefingTime = new CheckBriefingTime(this, getApplication());
 
 //        Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
     }
@@ -66,18 +75,18 @@ public class BackgroundService extends Service {
         super.onStartCommand(intent, flags, startId);
         Log.e(TAG, "onStartCommand");
 
-        // Alarm
-        Calendar mCalendar = Calendar.getInstance();
-        mCalendar.set(Calendar.HOUR_OF_DAY, 21);
-        mCalendar.set(Calendar.MINUTE, 0);
-        mCalendar.set(Calendar.SECOND, 0);
         // 지정한 시간마다 동작하는 타이머
         final Timer timer = new Timer();
         TimerTask tt = new TimerTask() {
             @Override
             public void run() {
                 Log.e("테스크 카운터", String.valueOf(counter));
-
+                // briefing 알람 보내기
+                String date = getDate();
+                String time = getTime();
+                if (CalDate.isFast(time, "16:20:00") == 1 && CalDate.isFast("16:40:00", time) == 1) {
+                    checkBriefingTime.sendBriefing(date);
+                }
                 // RecordTimeline 실행
                 // Timeline
                 Location location = getLocation.getLocation();
