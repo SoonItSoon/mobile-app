@@ -131,6 +131,8 @@ public class InterestActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         clearInterestContents();
+        TextView resultText = findViewById(R.id.text_interest_result);
+        resultText.setVisibility(View.VISIBLE);
         selectBtn.setText("관심분야 선택");
 
         // 알림을 통해서 들어온 경우
@@ -310,6 +312,8 @@ public class InterestActivity extends AppCompatActivity {
                 String name = jsonResultUnit.optString("name", "");
                 // 전염병 확진자 수
                 int confirmNum = jsonResultUnit.optInt("confirm_num", -1);
+                // 의심 지역
+                String dagerLocation = jsonResultUnit.optString("location_name", "");
                 // 전염병 링크
                 final String link = jsonResultUnit.optString("link", "");
                 // 지진 관측위치
@@ -325,21 +329,27 @@ public class InterestActivity extends AppCompatActivity {
 
                 String line1 = sendDateTime;
 
-                String line2 = sender + " 발송";
+//                String line2 = sender + " 발송";
                 // 전염병 (코로나-19) 발생안내에 대한 문자입니다.
                 String line3 = disasterArray[disaster];
                 if (!name.isEmpty()) {  // 전염병 또는 태풍의 이름이 있는 경우
-                    line3 += (" (" + name + ")");
+                    if (disaster == 1)
+                        line3 = name;
+                    if (disaster == 4)
+                        line3 += (" " + name);
                 }
-                line3 += (" - " + disasterLevelArray.get(disaster)[level]);
+                line3 += "에 관한 재난문자 입니다.";
+//                line3 += (" - " + disasterLevelArray.get(disaster)[level]);
                 // 추가 라인이 있는 경우
                 String line4 = "";
-                //if (confirmNum != -1) line4 = "확진자 수 : " + confirmNum;
-                if (!center.isEmpty() && !center.equals("null") && scale != -1) line4 = obsLocation + "에서 관측된 규모 " + scale;
-                else if (!flLocation.isEmpty() && !flLocation.equals("null")) line4 = flLocation + "에서 발생";
+                if (confirmNum != -1 && confirmNum != 0) line4 = "지역 확진자 수는 총 " + confirmNum + "명입니다.";
+                else if (level == 1 && disaster == 1 && !dagerLocation.isEmpty())
+                    line4 = dagerLocation + "방문자 보건소 방문 요청 내용입니다.";
+                if (!center.isEmpty() && !center.equals("null") && scale != -1) line4 = obsLocation + "에서 관측된 규모 " + scale + "의 지진입니다.";
+                else if (!flLocation.isEmpty() && !flLocation.equals("null")) line4 = flLocation + "에서 발생한 홍수입니다.";
                 // 추가 라인이 있는 경우
                 String line5 = "";
-                if (!link.isEmpty() && !link.equals("null")) line5 = link;
+                if (!link.isEmpty() && !link.equals("null")) line5 = "관련 링크 : " + link;
 
                 // 문자 하나에 대한 View 생성
                 // 레이아웃 생성
@@ -352,34 +362,34 @@ public class InterestActivity extends AppCompatActivity {
                 // Text Line 1
                 TextView textView1 = new TextView(this);
                 textView1.setText(line1);
-                textView1.setTextSize(Dimension.DP, 36);
+                textView1.setTextSize(Dimension.DP, 48);
                 textView1.setTextColor(getResources().getColor(R.color.colorPrimary));
                 // Text Line 2
-                TextView textView2 = new TextView(this);
-                textView2.setText(line2);
-                textView2.setTextSize(Dimension.DP, 36);
-                textView2.setTextColor(getResources().getColor(R.color.colorPrimary));
+//                TextView textView2 = new TextView(this);
+//                textView2.setText(line2);
+//                textView2.setTextSize(Dimension.DP, 36);
+//                textView2.setTextColor(getResources().getColor(R.color.colorPrimary));
                 // Text Line 3
                 TextView textView3 = new TextView(this);
                 textView3.setText(line3);
-                textView3.setTextSize(Dimension.DP, 36);
+                textView3.setTextSize(Dimension.DP, 48);
                 textView3.setTextColor(getResources().getColor(R.color.colorPrimary));
                 // 레이아웃에 추가
                 subLayout.addView(textView1);
-                subLayout.addView(textView2);
+//                subLayout.addView(textView2);
                 subLayout.addView(textView3);
                 // 추가 라인이 있다면
                 if (!line4.isEmpty()) {
                     TextView textView4 = new TextView(this);
                     textView4.setText(line4);
-                    textView4.setTextSize(Dimension.DP, 36);
+                    textView4.setTextSize(Dimension.DP, 48);
                     textView4.setTextColor(getResources().getColor(R.color.colorPrimary));
                     subLayout.addView(textView4);
                 }
                 if (!line5.isEmpty()) {
                     TextView textView5 = new TextView(this);
                     textView5.setText(line5);
-                    textView5.setTextSize(Dimension.DP, 36);
+                    textView5.setTextSize(Dimension.DP, 48);
                     textView5.setTextColor(getResources().getColor(R.color.colorPrimary));
                     textView5.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -397,7 +407,7 @@ public class InterestActivity extends AppCompatActivity {
                 // 문자 원본 추가
                 TextView textMsg = new TextView(this);
                 textMsg.setText(msg);
-                textMsg.setTextSize(Dimension.DP, 64);
+                textMsg.setTextSize(Dimension.DP, 36);
                 textMsg.setTextColor(getResources().getColor(R.color.colorWhite));
                 textMsg.setPadding(0, 16, 0, 0);
                 subLayout.addView(textMsg);

@@ -58,6 +58,15 @@
             android:layout_margin="@dimen/content_margin"
             android:background="@drawable/radius"
             android:textColor="@color/colorPrimary"/>
+        <TextView
+            android:id="@+id/text_interest_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:visibility="visible"
+            android:text="관심분야를 선택해주세요!"
+            android:textSize="24dp"
+            android:textColor="@color/colorSubTitleBtn"/>
 
         <LinearLayout
             android:id="@+id/layout_interest_content"
@@ -71,15 +80,6 @@
             android:orientation="vertical"
             android:backgroundTint="@color/colorBackgroundDark">
 
-            <TextView
-                android:id="@+id/text_interest_result"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAlignment="center"
-                android:visibility="visible"
-                android:text="관심분야를 선택해주세요!"
-                android:textSize="24dp"
-                android:textColor="@color/colorSubTitleBtn"/>
 
         </LinearLayout>
 

@@ -80,21 +80,24 @@ public class InterestSettingActivity extends AppCompatActivity {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(context).setTitle("삭제할 관심분야 선택").setItems(nicknames, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (interestSize != 0) {
-                            SharedPreferences.Editor editor = spref.edit();
-                            editor.putInt("size", --interestSize);
-                            editor.remove(nicknames[which]);
-                            editor.apply();
-                            initNicknameArray();
-                            if (isShowingInterest)
+                if (interestSize > 0) {
+                    new AlertDialog.Builder(context).setTitle("삭제할 관심분야 선택").setItems(nicknames, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (interestSize != 0) {
+                                SharedPreferences.Editor editor = spref.edit();
+                                editor.putInt("size", --interestSize);
+                                editor.remove(nicknames[which]);
+                                editor.apply();
+                                initNicknameArray();
                                 clearInterest();
-                            showInterest();
+                                showInterest();
+                            }
                         }
-                    }
-                }).show();
+                    }).show();
+                } else {
+                    Toast.makeText(context, "삭제할 관심분야가 없습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -122,7 +125,7 @@ public class InterestSettingActivity extends AppCompatActivity {
         interestText = findViewById(R.id.text_interest_setting_count);
         // 설정된 관심분야가 없는 경우
         if(interestSize == 0 ) {
-            interestText.setText("관심분야를 추가해주세요!");
+            interestText.setText("설정된 관심분야가 없습니다.");
             interestText.setVisibility(View.VISIBLE);
         }
         // 설정된 관심분야가 있는 경우
@@ -158,88 +161,92 @@ public class InterestSettingActivity extends AppCompatActivity {
     }
 
     private void showInterest() {
-        // 바깥 View 생성
-        ScrollView scrollView = new ScrollView(this);
-        LinearLayout.LayoutParams unitParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        unitParams.setMargins(4, 16, 4, 16);
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        if (interestSize > 0) {
+            // 바깥 View 생성
+            ScrollView scrollView = new ScrollView(this);
+            LinearLayout.LayoutParams unitParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            unitParams.setMargins(4, 16, 4, 16);
+            LinearLayout linearLayout = new LinearLayout(this);
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-        // Interests
-        Set<String> set = spref.getAll().keySet();
-        Iterator<String> iterator = set.iterator();
-        while (iterator.hasNext()) {
-            String nickname = iterator.next();
-            if (nickname.equals("size")) continue;
-            String strInterest = spref.getString(nickname, "");
-            if (!strInterest.isEmpty()) {
-                JSONObject jsonInterest = new JSONObject();
-                try {
-                    jsonInterest = new JSONObject(strInterest);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                // 관심분야 값 불러오기
-                String location = jsonInterest.optString("mainLocation", "") + " " + jsonInterest.optString("subLocation", "");
-                String disaster = disasterArray[jsonInterest.optInt("disasterIndex", 0)];
-                String disasterSubName = jsonInterest.optString("disasterSubName", "");
-                StringBuilder disasterLevel = new StringBuilder();
-                for (int j = 1; j <= NUM_OF_DISASTER_LEVELS; j++) {
-                    if (jsonInterest.optBoolean("disasterSubLevel" + j, false)){
-                        disasterLevel.append(disasterLevelArray.get(jsonInterest.optInt("disasterIndex", 0))[j]).append(" ");
+            // Interests
+            Set<String> set = spref.getAll().keySet();
+            Iterator<String> iterator = set.iterator();
+            while (iterator.hasNext()) {
+                String nickname = iterator.next();
+                if (nickname.equals("size")) continue;
+                String strInterest = spref.getString(nickname, "");
+                if (!strInterest.isEmpty()) {
+                    JSONObject jsonInterest = new JSONObject();
+                    try {
+                        jsonInterest = new JSONObject(strInterest);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                    // 관심분야 값 불러오기
+                    String location = jsonInterest.optString("mainLocation", "") + " " + jsonInterest.optString("subLocation", "");
+                    String disaster = disasterArray[jsonInterest.optInt("disasterIndex", 0)];
+                    String disasterSubName = jsonInterest.optString("disasterSubName", "");
+                    StringBuilder disasterLevel = new StringBuilder();
+                    for (int j = 1; j <= NUM_OF_DISASTER_LEVELS; j++) {
+                        if (jsonInterest.optBoolean("disasterSubLevel" + j, false)) {
+                            disasterLevel.append(disasterLevelArray.get(jsonInterest.optInt("disasterIndex", 0))[j]).append(" ");
+                        }
+                    }
+                    String scale_range = jsonInterest.optDouble("scale_min", 0) + " ~ " + jsonInterest.optDouble("scale_max", 0);
+                    String eqLocation = jsonInterest.optString("eq_mainLocation", "") + " " + jsonInterest.optString("eq_subLocation", "");
+
+                    // 뷰 생성
+                    LinearLayout subLayout = new LinearLayout(this);
+                    subLayout.setLayoutParams(unitParams);
+                    subLayout.setPadding(24, 24, 24, 24);
+                    subLayout.setOrientation(LinearLayout.VERTICAL);
+                    subLayout.setBackground(getResources().getDrawable(R.drawable.radius));
+
+                    TextView nicknameText = new TextView(this);
+                    nicknameText.setText(nickname);
+                    nicknameText.setTextSize(Dimension.DP, 64);
+                    nicknameText.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    subLayout.addView(nicknameText);
+
+                    TextView locationText = new TextView(this);
+                    locationText.setText("지역 : " + location);
+                    locationText.setTextSize(Dimension.DP, 48);
+                    locationText.setTextColor(getResources().getColor(R.color.colorWhite));
+                    subLayout.addView(locationText);
+
+                    TextView disasterText = new TextView(this);
+                    if (disasterSubName.isEmpty())
+                        disasterText.setText("재난 : " + disaster);
+                    else
+                        disasterText.setText("재난 : " + disaster + " (" + disasterSubName + ")");
+                    disasterText.setTextSize(Dimension.DP, 48);
+                    disasterText.setTextColor(getResources().getColor(R.color.colorWhite));
+                    subLayout.addView(disasterText);
+
+                    TextView levelText = new TextView(this);
+                    levelText.setText("키워드 : " + disasterLevel);
+                    levelText.setTextSize(Dimension.DP, 48);
+                    levelText.setTextColor(getResources().getColor(R.color.colorWhite));
+                    subLayout.addView(levelText);
+
+                    if (disaster.equals("지진")) {
+                        TextView eqText = new TextView(this);
+                        eqText.setText(eqLocation + "에서 발생한, 규모 " + scale_range + "의 지진");
+                        eqText.setTextSize(Dimension.DP, 48);
+                        eqText.setTextColor(getResources().getColor(R.color.colorWhite));
+                        subLayout.addView(eqText);
+                    }
+                    linearLayout.addView(subLayout);
                 }
-                String scale_range = jsonInterest.optDouble("scale_min", 0) + " ~ " + jsonInterest.optDouble("scale_max", 0);
-                String eqLocation = jsonInterest.optString("eq_mainLocation", "") + " " + jsonInterest.optString("eq_subLocation", "");
-
-                // 뷰 생성
-                LinearLayout subLayout = new LinearLayout(this);
-                subLayout.setLayoutParams(unitParams);
-                subLayout.setPadding(24,24, 24, 24);
-                subLayout.setOrientation(LinearLayout.VERTICAL);
-                subLayout.setBackground(getResources().getDrawable(R.drawable.radius));
-
-                TextView nicknameText = new TextView(this);
-                nicknameText.setText(nickname);
-                nicknameText.setTextSize(Dimension.DP, 64);
-                nicknameText.setTextColor(getResources().getColor(R.color.colorPrimary));
-                subLayout.addView(nicknameText);
-
-                TextView locationText = new TextView(this);
-                locationText.setText("지역 : " + location);
-                locationText.setTextSize(Dimension.DP, 48);
-                locationText.setTextColor(getResources().getColor(R.color.colorWhite));
-                subLayout.addView(locationText);
-
-                TextView disasterText = new TextView(this);
-                if (disasterSubName.isEmpty())
-                    disasterText.setText("재난 : " + disaster);
-                else
-                    disasterText.setText("재난 : " + disaster + " (" + disasterSubName + ")");
-                disasterText.setTextSize(Dimension.DP, 48);
-                disasterText.setTextColor(getResources().getColor(R.color.colorWhite));
-                subLayout.addView(disasterText);
-
-                TextView levelText = new TextView(this);
-                levelText.setText("키워드 : " + disasterLevel);
-                levelText.setTextSize(Dimension.DP, 48);
-                levelText.setTextColor(getResources().getColor(R.color.colorWhite));
-                subLayout.addView(levelText);
-
-                if (disaster.equals("지진")) {
-                    TextView eqText = new TextView(this);
-                    eqText.setText(eqLocation + "에서 발생한, 규모 " + scale_range + "의 지진");
-                    eqText.setTextSize(Dimension.DP, 48);
-                    eqText.setTextColor(getResources().getColor(R.color.colorWhite));
-                    subLayout.addView(eqText);
-                }
-
-                linearLayout.addView(subLayout);
             }
-        }
 
-        scrollView.addView(linearLayout);
-        interestLayout.addView(scrollView);
+            scrollView.addView(linearLayout);
+            interestLayout.addView(scrollView);
+        } else {
+            interestText.setText("설정된 관심분야가 없습니다.");
+            interestText.setVisibility(View.VISIBLE);
+        }
     }
 
     // 콘텐츠 지우는 기능
