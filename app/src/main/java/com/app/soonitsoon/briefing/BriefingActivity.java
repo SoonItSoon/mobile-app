@@ -142,14 +142,12 @@ public class BriefingActivity extends AppCompatActivity {
         initChartData();
 
         // All Chart 생성
-
-
         chartAll1.clearChart();
-        chartAll1.addPieSlice(new PieModel("전염병", 90, getColor(R.color.colorYellow)));
-        chartAll1.addPieSlice(new PieModel("지진", 5, getColor(R.color.colorSubTitleBtn)));
+        chartAll1.addPieSlice(new PieModel("전염병", 92, getColor(R.color.colorYellow)));
+        chartAll1.addPieSlice(new PieModel("지진", 2, getColor(R.color.colorSubTitleBtn)));
         chartAll1.addPieSlice(new PieModel("미세먼지", 2, getColor(R.color.colorWhite)));
         chartAll1.addPieSlice(new PieModel("태풍", 2, getColor(R.color.colorGreen)));
-        chartAll1.addPieSlice(new PieModel("기타", 1, getColor(R.color.colorSubTitle)));
+        chartAll1.addPieSlice(new PieModel("기타", 2, getColor(R.color.colorSubTitle)));
         chartAll1.startAnimation();
 
         int[] array0 = {288, 290, 180, 198, 390, 322, 350};
@@ -233,10 +231,10 @@ public class BriefingActivity extends AppCompatActivity {
         // All
         if (index == 0) {
             chartAll2.clearChart();
-            chartAll2.addBar(new BarModel(days[0], array[0], getColor(R.color.colorSubTitle)));
-            chartAll2.addBar(new BarModel(days[1], array[1], getColor(R.color.colorSubTitle)));
-            chartAll2.addBar(new BarModel(days[2], array[2], getColor(R.color.colorSubTitle)));
-            chartAll2.addBar(new BarModel(days[3], array[3], getColor(R.color.colorSubTitle)));
+//            chartAll2.addBar(new BarModel(days[0], array[0], getColor(R.color.colorSubTitle)));
+//            chartAll2.addBar(new BarModel(days[1], array[1], getColor(R.color.colorSubTitle)));
+//            chartAll2.addBar(new BarModel(days[2], array[2], getColor(R.color.colorSubTitle)));
+//            chartAll2.addBar(new BarModel(days[3], array[3], getColor(R.color.colorSubTitle)));
             chartAll2.addBar(new BarModel(days[4], array[4], getColor(R.color.colorSubTitle)));
             chartAll2.addBar(new BarModel(days[5], array[5], getColor(R.color.colorSubTitle)));
             chartAll2.addBar(new BarModel(days[6], array[6], getColor(R.color.colorYellow)));
@@ -244,7 +242,7 @@ public class BriefingActivity extends AppCompatActivity {
         // 차트 1
         } else if (index == 1) {
             layout1.setVisibility(View.VISIBLE);
-            text1.setText(nicknames[0] + "에 대한 통계");
+            text1.setText(nicknames[0]);
             chart1.clearChart();
             chart1.addBar(new BarModel(days[0], array[0], getColor(R.color.colorSubTitle)));
             chart1.addBar(new BarModel(days[1], array[1], getColor(R.color.colorSubTitle)));
@@ -257,7 +255,7 @@ public class BriefingActivity extends AppCompatActivity {
         // 차트 2
         } else if (index == 2) {
             layout2.setVisibility(View.VISIBLE);
-            text2.setText(nicknames[1] + "에 대한 통계");
+            text2.setText(nicknames[1]);
             chart2.clearChart();
             chart2.addBar(new BarModel(days[0], array[0], getColor(R.color.colorSubTitle)));
             chart2.addBar(new BarModel(days[1], array[1], getColor(R.color.colorSubTitle)));
@@ -270,7 +268,7 @@ public class BriefingActivity extends AppCompatActivity {
         // 차트 3
         } else if (index == 3) {
             layout3.setVisibility(View.VISIBLE);
-            text3.setText(nicknames[2] + "에 대한 통계");
+            text3.setText(nicknames[2]);
             chart3.clearChart();
             chart3.addBar(new BarModel(days[0], array[0], getColor(R.color.colorSubTitle)));
             chart3.addBar(new BarModel(days[1], array[1], getColor(R.color.colorSubTitle)));
