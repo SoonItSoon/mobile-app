@@ -28,6 +28,8 @@ public class CheckInterestInfo {
     private SharedPreferences spref;
     private int interestSize;
     private String[] nicknames;
+    private String interestPrevDateTime;
+    private String interestEndDateTime;
 
     public CheckInterestInfo(Context context, Application application) {
         this.context = context;
@@ -43,6 +45,17 @@ public class CheckInterestInfo {
             Log.e(TAG, "저장된 관심분야가 없습니다.");
             return;
         }
+
+        // 이전 시간 값 불러오기
+        SharedPreferences sp = context.getSharedPreferences("PrevData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        interestPrevDateTime = sp.getString("InterestPrevDateTime", "");
+        if (interestPrevDateTime.isEmpty()) {
+            interestPrevDateTime = CalDate.addtime(DateNTime.getDate(), DateNTime.getTime(), -5);
+        }
+        interestEndDateTime = CalDate.addtime(DateNTime.getDate(), DateNTime.getTime(), -1);
+
+        // 별명 불러오기
         initNicknameArray();
         int nicknameIndex = 5;
         for (String nickname : nicknames) {
@@ -74,6 +87,10 @@ public class CheckInterestInfo {
                 alert.sendInterestAlert(nicknameIndex++, nickname, numOfNew);
             }
         }
+
+        // 이전 시간 값 저장
+        editor.putString("InterestPrevDateTime", interestEndDateTime);
+        editor.apply();
     }
 
     // 관심분야 별명 Array 초기화
@@ -94,20 +111,9 @@ public class CheckInterestInfo {
     private URL makeInterestUrl(String nickname) {
         URL retUrl = null;
 
-        // 이전 시간 값 불러오기 및 저장
-        SharedPreferences sp = context.getSharedPreferences("PrevData", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        String interestPrevDateTime = sp.getString("InterestPrevDateTime", "");
-        if (interestPrevDateTime.isEmpty()) {
-            interestPrevDateTime = CalDate.addtime(DateNTime.getDate(), DateNTime.getTime(), -5);
-        }
-
-
         // 불러온 검색 조건들
         String startDateTime = interestPrevDateTime;
-        String endDateTime = CalDate.addtime(DateNTime.getDate(), DateNTime.getTime(), -1);
-        editor.putString("InterestPrevDateTime", endDateTime);
-        editor.apply();
+        String endDateTime = interestEndDateTime;
         String mainLocation;    // 시/도
         String subLocation;     // 시/군/구
         int disasterIndex;
