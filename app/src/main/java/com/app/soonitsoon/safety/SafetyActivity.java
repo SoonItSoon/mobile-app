@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.soonitsoon.R;
-import com.app.soonitsoon.timeline.DateNTime;
+import com.app.soonitsoon.datetime.DateNTime;
 import com.app.soonitsoon.timeline.GetTimeline;
 import com.app.soonitsoon.timeline.UpdateTimeline;
 
@@ -264,7 +264,7 @@ public class SafetyActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                MapDialog mapDialog = new MapDialog(context);
+                SafetyMapDialog mapDialog = new SafetyMapDialog(context);
                 mapDialog.callFunction(locName, Double.parseDouble(latitude), Double.parseDouble(longitude));
             }
         });

@@ -16,11 +16,11 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.app.soonitsoon.CalDate;
+import com.app.soonitsoon.datetime.CalDate;
 import com.app.soonitsoon.R;
 import com.app.soonitsoon.safety.SafetyActivity;
 import com.app.soonitsoon.server.GetServerInfo;
-import com.app.soonitsoon.timeline.DateNTime;
+import com.app.soonitsoon.datetime.DateNTime;
 
 import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.charts.PieChart;

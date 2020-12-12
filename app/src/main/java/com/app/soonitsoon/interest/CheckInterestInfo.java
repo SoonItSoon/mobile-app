@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.app.soonitsoon.Alert;
-import com.app.soonitsoon.CalDate;
+import com.app.soonitsoon.alert.SendAlert;
+import com.app.soonitsoon.datetime.CalDate;
 import com.app.soonitsoon.server.GetServerInfo;
-import com.app.soonitsoon.timeline.DateNTime;
+import com.app.soonitsoon.datetime.DateNTime;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,7 +70,7 @@ public class CheckInterestInfo {
                 Log.e(TAG, "새로운 데이터 없음");
             } else {
                 Log.e(TAG, "새로운 데이터 있음, 알림 전송");
-                Alert alert = new Alert(context, application);
+                SendAlert alert = new SendAlert(context, application);
                 alert.sendInterestAlert(nicknameIndex++, nickname, numOfNew);
             }
         }

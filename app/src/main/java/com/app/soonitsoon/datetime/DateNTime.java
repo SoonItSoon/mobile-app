@@ -1,4 +1,4 @@
-package com.app.soonitsoon.timeline;
+package com.app.soonitsoon.datetime;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

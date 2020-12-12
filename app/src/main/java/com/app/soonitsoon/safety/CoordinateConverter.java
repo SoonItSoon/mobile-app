@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class RequestHttpConnection {
+public class CoordinateConverter {
     public static String[] request(String address){
         String jsonResult = "";
         String connectionResult = "";

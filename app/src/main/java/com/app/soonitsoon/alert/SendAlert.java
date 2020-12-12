@@ -1,4 +1,4 @@
-package com.app.soonitsoon;
+package com.app.soonitsoon.alert;
 
 import android.app.Application;
 import android.app.Notification;
@@ -15,17 +15,18 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 
+import com.app.soonitsoon.R;
 import com.app.soonitsoon.briefing.BriefingActivity;
 import com.app.soonitsoon.interest.InterestActivity;
 import com.app.soonitsoon.safety.SafetyActivity;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
-public class Alert {
+public class SendAlert {
     private Context context;
     private Application application;
 
-    public Alert(Context context, Application application) {
+    public SendAlert(Context context, Application application) {
         this.context = context;
         this.application = application;
     }

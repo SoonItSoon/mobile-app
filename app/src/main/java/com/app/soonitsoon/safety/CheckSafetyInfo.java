@@ -4,8 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.app.soonitsoon.Alert;
-import com.app.soonitsoon.CalDate;
+import com.app.soonitsoon.alert.SendAlert;
+import com.app.soonitsoon.datetime.CalDate;
 import com.app.soonitsoon.server.GetServerInfo;
 import com.app.soonitsoon.timeline.CheckLocation;
 import com.app.soonitsoon.timeline.GetTimeline;
@@ -86,11 +86,11 @@ public class CheckSafetyInfo {
             // 2. sender가 "중대본"이 아니면 sender-(마지막글자)+locName으로 검색
             String[] strLocRequest = {""};
             if (sender.equals("중대본"))
-                strLocRequest = RequestHttpConnection.request(locName);
+                strLocRequest = CoordinateConverter.request(locName);
             else {
                 String senderLoc = sender.substring(0, sender.length() - 1);
                 String searchLoc = senderLoc + " " + locName;
-                strLocRequest = RequestHttpConnection.request(searchLoc);
+                strLocRequest = CoordinateConverter.request(searchLoc);
             }
 
             double dangerLat = Double.parseDouble(strLocRequest[1]);
@@ -173,7 +173,7 @@ public class CheckSafetyInfo {
             }
         }
         if (dangerCount != 0) {
-            Alert alert = new Alert(context, application);
+            SendAlert alert = new SendAlert(context, application);
             alert.sendSafetyAlert(dangerCount, alertNum);
             alertNum++;
             if (alertNum == 5)

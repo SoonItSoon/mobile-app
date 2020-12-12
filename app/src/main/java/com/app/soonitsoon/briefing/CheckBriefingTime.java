@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.app.soonitsoon.Alert;
+import com.app.soonitsoon.alert.SendAlert;
 
 public class CheckBriefingTime {
     private static Context context;
@@ -25,7 +25,7 @@ public class CheckBriefingTime {
 //            editor.putString("BriefingDate", date);
 //            editor.apply();
 
-            Alert briefingAlert = new Alert(context, application);
+            SendAlert briefingAlert = new SendAlert(context, application);
             briefingAlert.sendBriefingAlert();
 //        }
     }

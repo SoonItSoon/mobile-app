@@ -14,7 +14,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 
-import com.app.soonitsoon.CalDate;
+import com.app.soonitsoon.datetime.CalDate;
 import com.app.soonitsoon.briefing.CheckBriefingTime;
 
 import androidx.core.content.ContextCompat;
@@ -29,8 +29,8 @@ import org.json.JSONException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.app.soonitsoon.timeline.DateNTime.getDate;
-import static com.app.soonitsoon.timeline.DateNTime.getTime;
+import static com.app.soonitsoon.datetime.DateNTime.getDate;
+import static com.app.soonitsoon.datetime.DateNTime.getTime;
 
 public class BackgroundService extends Service {
     private static final String TAG = "BackgoundService";

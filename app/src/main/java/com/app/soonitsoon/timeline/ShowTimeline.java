@@ -3,6 +3,8 @@ package com.app.soonitsoon.timeline;
 import android.app.Application;
 import android.graphics.Color;
 
+import com.app.soonitsoon.datetime.DateNTime;
+
 import net.daum.mf.map.api.CameraUpdateFactory;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapPointBounds;

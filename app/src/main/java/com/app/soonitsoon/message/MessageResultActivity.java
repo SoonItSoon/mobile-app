@@ -22,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.soonitsoon.R;
 import com.app.soonitsoon.server.GetServerInfo;
-import com.app.soonitsoon.timeline.DateNTime;
+import com.app.soonitsoon.datetime.DateNTime;
 
 import org.json.JSONException;
 import org.json.JSONObject;

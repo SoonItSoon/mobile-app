@@ -13,7 +13,7 @@ import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
-public class MapDialog {
+public class SafetyMapDialog {
     private static Activity activity;
     private Context context;
 
@@ -21,7 +21,7 @@ public class MapDialog {
     ViewGroup mapViewContainer;
 
 
-    public MapDialog(Context context) {
+    public SafetyMapDialog(Context context) {
         this.context = context;
     }
 

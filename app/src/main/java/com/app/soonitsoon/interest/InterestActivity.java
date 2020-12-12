@@ -21,14 +21,13 @@ import androidx.annotation.Dimension;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.app.soonitsoon.CalDate;
+import com.app.soonitsoon.datetime.CalDate;
 import com.app.soonitsoon.R;
 import com.app.soonitsoon.server.GetServerInfo;
-import com.app.soonitsoon.timeline.DateNTime;
+import com.app.soonitsoon.datetime.DateNTime;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
