@@ -65,7 +65,7 @@ sendAlert
 
 ---
 
-## 구현 (27개)
+## 구현 (28개)
 
 ### Background (3개)
 
@@ -110,7 +110,7 @@ MessageActivity
 MessageResultActivity
 ```
 
-### Interest (3개)
+### Interest (4개)
 
 ```
 CheckInterestInfo
