@@ -1,6 +1,5 @@
 package com.app.soonitsoon;
 
-import android.app.AlarmManager;
 import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -126,18 +125,14 @@ public class Alert {
 
     }
 
-
+    // API 26 이상일 시 알람 채널 생성
     private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "SoonItSoon";
             String description = "SoonItSoon";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel("Alert", name, importance);
             channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             NotificationManager notificationManager = application.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }

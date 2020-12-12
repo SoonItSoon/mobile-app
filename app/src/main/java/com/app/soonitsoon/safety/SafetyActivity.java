@@ -269,7 +269,6 @@ public class SafetyActivity extends AppCompatActivity {
             }
         });
 
-
         // button Layout에 추가하자
         buttonLayout.addView(button_Y);
         buttonLayout.addView(button_N);

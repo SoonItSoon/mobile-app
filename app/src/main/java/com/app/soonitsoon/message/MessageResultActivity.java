@@ -506,15 +506,6 @@ public class MessageResultActivity extends AppCompatActivity {
         resultLayout.addView(scrollView);
 
         Toast.makeText(context, "재난문자는 최대 100건까지 검색이 가능합니다.", Toast.LENGTH_SHORT).show();
-
-
-//        // 받은 json 띄우는 곳
-//        TextView textView1 = new TextView(this);
-//        TextView textView2 = new TextView(this);
-//        textView1.setText(" ");
-//        textView2.setText(strResultData);
-//        resultLayout.addView(textView1);
-//        resultLayout.addView(textView2);
     }
 
     // 액티비티 쓰레드에서 url 콜을 하기 위한 AsyncTask class

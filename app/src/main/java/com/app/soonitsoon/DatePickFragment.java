@@ -24,15 +24,6 @@ public class DatePickFragment extends DialogFragment implements DatePickerDialog
     private Calendar maxCalendar; // fromDate MAX 값을 설정하기위한 toDate 값
     private Calendar minCalendar; // toDate MIN 값을 설정하기위한 toDate 값
 
-    // toDate 인 경우 생성
-//    public DatePickFragment(String date, int flag) {
-//        defaultDate = date;
-//        this.mapView = null;
-//        this.showTimeline = null;
-//        searchFlag = flag;
-//        maxCalendar = Calendar.getInstance();
-//    }
-
     // fromDate, toDate 인 경우 생성
     public DatePickFragment(String date, String targetDate, int flag) {
         defaultDate = date;

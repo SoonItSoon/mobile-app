@@ -15,6 +15,7 @@ public class CheckBriefingTime {
         this.application = application;
     }
 
+    // 브리핑 알림
     public void sendBriefing(String date) {
         SharedPreferences spref = context.getSharedPreferences("PrevData", Context.MODE_PRIVATE);
         String briefingDate = spref.getString("BriefingDate", "");

@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,7 +22,6 @@ import com.app.soonitsoon.background.BootReceiver;
 import com.app.soonitsoon.briefing.BriefingActivity;
 import com.app.soonitsoon.interest.InterestActivity;
 import com.app.soonitsoon.message.MessageActivity;
-import com.app.soonitsoon.safety.CheckSafetyInfo;
 import com.app.soonitsoon.safety.SafetyActivity;
 import com.app.soonitsoon.timeline.TimelineActivity;
 
@@ -35,10 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private BackgroundService mBackgroundService;
 
     private Context context = this;
-
-    // 나중에 지우기
-    private CheckSafetyInfo checkSafetyInfo;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
             intent.setData(Uri.parse(String.format("package:%s", this.getPackageName())));
             startActivity(intent);
         }
-
 
         // BackgroundService
         mBackgroundService = new BackgroundService(getApplicationContext());

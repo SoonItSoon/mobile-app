@@ -81,13 +81,11 @@ public class BriefingActivity extends AppCompatActivity {
     BarChart chart3;
     int[] msgNum3;
 
-
+    // 서버 결과 저장하는 Array
     String[] serverResultList;
 
     // 비동기 이벤트 확인 값
     private int catchCount;
-
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -141,6 +139,7 @@ public class BriefingActivity extends AppCompatActivity {
         // Contents 값들 초기화
         initChartData();
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
         // All Chart 생성
         chartAll1.clearChart();
         chartAll1.addPieSlice(new PieModel("전염병", 92, getColor(R.color.colorYellow)));
@@ -167,7 +166,7 @@ public class BriefingActivity extends AppCompatActivity {
         if (interestSize >= 0) {
             addChartData(0, array0);
         }
-
+        ///////////////////////////////////////////////////////////////////////////////////////////
 
         // safety 버튼
         showSafetyBtn();
@@ -354,6 +353,7 @@ public class BriefingActivity extends AppCompatActivity {
         }
     }
 
+    // 설정된 관심분야 수만큼 반복해서 실행
     private void showInterestList() {
         serverResultList = new String[interestSize+1];
         catchCount = 0;
@@ -363,9 +363,11 @@ public class BriefingActivity extends AppCompatActivity {
                 showInterestContents(nickname, i);
             }
         }
+        // 전체 통계
         showInterestContents();
     }
 
+    // 전체 통계 띄우기
     private void showInterestContents() {
         String startDateTime = DateNTime.getDate() + " 00:00:00";    // 검색 시작 날짜
         // Rest Call 이용 서버 연결
@@ -378,8 +380,8 @@ public class BriefingActivity extends AppCompatActivity {
         }
     }
 
+    // 관심분야 통계 띄우기
     private void showInterestContents(String nickname, int index) {
-
         // 불러온 검색 조건들
         String startDateTime = DateNTime.getDate() + " 00:00:00";    // 검색 시작 날짜
         String mainLocation;    // 시/도
@@ -499,16 +501,6 @@ public class BriefingActivity extends AppCompatActivity {
 //        }
 //
 //
-////        android:layout_marginLeft="10dp"-->
-////<!--                        android:layout_marginTop="15dp"-->
-////<!--                        android:layout_marginRight="10dp"-->
-////<!--                        android:layout_marginBottom="20dp"-->
-////<!--                        android:padding="10dp"-->
-////<!--                        app:egBarWidth="20dp"-->
-////<!--                        app:egEnableScroll="true"-->
-////<!--                        app:egFixedBarWidth="true"-->
-////<!--                        app:egLegendHeight="40dp"-->
-////<!--                        app:egShowDecimal="true" />-->
 //
 //        linearLayout.removeAllViews();
 //        scrollView.removeAllViews();
@@ -672,6 +664,7 @@ public class BriefingActivity extends AppCompatActivity {
 //        }
     }
 
+    // 생성된 layout을 하나의 Content layout에 띄우는 작업
     private void mergeLayouts() {
         for (LinearLayout layout : layouts) {
             linearLayout.addView(layout);

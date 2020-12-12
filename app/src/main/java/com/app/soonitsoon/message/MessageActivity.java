@@ -287,24 +287,6 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-//        // 텍스트 검색
-//        TextWatcher watcher = new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        };
-
         // 검색 버튼
         Button searchBtn = findViewById(R.id.btn_message_search);
         searchBtn.setOnClickListener(new View.OnClickListener() {

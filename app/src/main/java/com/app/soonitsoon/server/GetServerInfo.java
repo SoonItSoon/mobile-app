@@ -206,11 +206,9 @@ public class GetServerInfo {
     public static String getServerData(URL url) throws IOException {
         String strConnectionResult = "";
 
-
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         urlConnection.setRequestMethod("GET");
         urlConnection.connect();
-
 
         BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
         StringBuffer sb = new StringBuffer();
@@ -222,7 +220,6 @@ public class GetServerInfo {
         strConnectionResult = sb.toString();
 
         br.close();
-
 
         return strConnectionResult;
     }

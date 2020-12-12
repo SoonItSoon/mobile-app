@@ -12,14 +12,11 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
-import android.widget.Toast;
 
 
-import com.app.soonitsoon.Alert;
 import com.app.soonitsoon.CalDate;
 import com.app.soonitsoon.briefing.CheckBriefingTime;
 
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.app.soonitsoon.interest.CheckInterestInfo;
@@ -29,9 +26,6 @@ import com.app.soonitsoon.timeline.RecordTimeline;
 
 import org.json.JSONException;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -47,6 +41,8 @@ public class BackgroundService extends Service {
     private static final float LIMIT_ACCURACY = 1000;
 
     private Context context;
+
+    // 타이머 카운트
     private static int counter = 1;
 
     private GetLocation getLocation;
@@ -77,8 +73,6 @@ public class BackgroundService extends Service {
         checkSafetyInfo = new CheckSafetyInfo(this, getApplication());
         checkInterestInfo = new CheckInterestInfo(this, getApplication());
         checkBriefingTime = new CheckBriefingTime(this, getApplication());
-
-//        Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -120,6 +114,7 @@ public class BackgroundService extends Service {
                             if (location.getAccuracy() > LIMIT_ACCURACY) {
                                 Log.e(TAG, "정확도가 너무 낮다!");
                             }
+                            // 정확도가 1km 이하인 경우에만 측정
                             else {
                                 double latitude = location.getLatitude();
                                 double longitude = location.getLongitude();
@@ -152,6 +147,7 @@ public class BackgroundService extends Service {
                             if (location.getAccuracy() > LIMIT_ACCURACY) {
                                 Log.e(TAG, "정확도가 너무 낮다!");
                             }
+                            // 정확도가 1km 이하인 경우에만 측정
                             else {
                                 double latitude = location.getLatitude();
                                 double longitude = location.getLongitude();
@@ -182,8 +178,6 @@ public class BackgroundService extends Service {
         };
         timer.schedule(tt, 0, PERIOD);
 
-//        Toast.makeText(this, "onStartCommand", Toast.LENGTH_LONG).show();
-
         return START_STICKY;
     }
 
@@ -191,45 +185,18 @@ public class BackgroundService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.e(TAG, "onDestroy");
-
         Intent broadcastIntent = new Intent("com.app.soonitsoon.RestartService");
         sendBroadcast(broadcastIntent);
-
-//        Toast.makeText(this, "onDestroy", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         Log.e(TAG, "onTaskRemoved");
-//
-//        final Timer timer = new Timer();
-//        TimerTask tt = new TimerTask() {
-//            @Override
-//            public void run() {
-//                Log.e("테스크 카운터", String.valueOf(counter));
-//                counter++;
-//
-//                Location location = getLocation.getLocation();
-//                double latitude = location.getLatitude();
-////                double latitude = 38 - ((double)counter/10);
-//                double longitude = location.getLongitude();
-//                try {
-//                    recordTimeline.excute(latitude, longitude);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        };
-//        timer.schedule(tt, 0, PERIOD);
-
         // Intent 재시작
         Intent intent = new Intent(getApplicationContext(), BackgroundService.class);
         PendingIntent pendingIntent = PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() + 5000, pendingIntent);
         super.onTaskRemoved(rootIntent);
-
-//        Toast.makeText(this, "onTaskRemoved", Toast.LENGTH_LONG).show();
     }
 }

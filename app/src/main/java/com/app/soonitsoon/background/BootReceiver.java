@@ -27,8 +27,6 @@ public class BootReceiver extends BroadcastReceiver {
             new Handler().postDelayed(new Runnable() {
                 // 3초 후에 실행
                 @Override public void run() {
-                    //Toast.makeText(context, "-- BootReceiver.onReceive", Toast.LENGTH_LONG).show();
-
                     // BackgroundService
                     Intent serviceLauncher = new Intent(context, BackgroundService.class);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
