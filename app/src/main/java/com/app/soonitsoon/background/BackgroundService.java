@@ -117,17 +117,18 @@ public class BackgroundService extends Service {
                             Log.e(TAG, str);
                         }
                         if (location.hasAccuracy()) {
-                            while (location.getAccuracy() > LIMIT_ACCURACY) {
+                            if (location.getAccuracy() > LIMIT_ACCURACY) {
                                 Log.e(TAG, "정확도가 너무 낮다!");
-                                location = getLocation.getLocation();
                             }
-                        }
-                        double latitude = location.getLatitude();
-                        double longitude = location.getLongitude();
-                        try {
-                            recordTimeline.excute(latitude, longitude);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            else {
+                                double latitude = location.getLatitude();
+                                double longitude = location.getLongitude();
+                                try {
+                                    recordTimeline.excute(latitude, longitude);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
                     } else {
                         Log.e(TAG, "GPS OFF!");
@@ -148,17 +149,18 @@ public class BackgroundService extends Service {
                             Log.e(TAG, str);
                         }
                         if (location.hasAccuracy()) {
-                            while (location.getAccuracy() > LIMIT_ACCURACY) {
+                            if (location.getAccuracy() > LIMIT_ACCURACY) {
                                 Log.e(TAG, "정확도가 너무 낮다!");
-                                location = getLocation.getLocation();
                             }
-                        }
-                        double latitude = location.getLatitude();
-                        double longitude = location.getLongitude();
-                        try {
-                            recordTimeline.excute(latitude, longitude);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            else {
+                                double latitude = location.getLatitude();
+                                double longitude = location.getLongitude();
+                                try {
+                                    recordTimeline.excute(latitude, longitude);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
                     } else {
                         Log.e(TAG, "GPS OFF!");
