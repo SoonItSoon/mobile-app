@@ -325,7 +325,7 @@ public class BriefingActivity extends AppCompatActivity {
                 safetyBtn.setClickable(false);
             }
             else {
-                safetyBtn.setText(dangerCount + "개의 장소에서 확진자와 접촉했을 가능성이 있습니다.\n클릭하여 확인해주세요>_0");
+                safetyBtn.setText(dangerCount + "개의 장소에서 확진자와 접촉했을 가능성이 있습니다.\n클릭하여 확인해주세요! >_0");
                 safetyBtn.setBackgroundColor(getColor(R.color.colorRed));
                 safetyBtn.setClickable(true);
             }

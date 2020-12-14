@@ -20,13 +20,13 @@ public class CheckBriefingTime {
         SharedPreferences spref = context.getSharedPreferences("PrevData", Context.MODE_PRIVATE);
         String briefingDate = spref.getString("BriefingDate", "");
 
-//        if (!briefingDate.equals(date)) {
-//            SharedPreferences.Editor editor = spref.edit();
-//            editor.putString("BriefingDate", date);
-//            editor.apply();
+        if (!briefingDate.equals(date)) {
+            SharedPreferences.Editor editor = spref.edit();
+            editor.putString("BriefingDate", date);
+            editor.apply();
 
             SendAlert briefingAlert = new SendAlert(context, application);
             briefingAlert.sendBriefingAlert();
-//        }
+        }
     }
 }
