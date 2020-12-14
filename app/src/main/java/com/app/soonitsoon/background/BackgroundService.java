@@ -90,7 +90,7 @@ public class BackgroundService extends Service {
                 // briefing 알람 보내기
                 String date = getDate();
                 String time = getTime();
-                if (CalDate.isFast(time, "11:40:00") == 1 && CalDate.isFast("11:50:00", time) == 1) {
+                if (CalDate.isFast(time, "21:00:00") == 1 && CalDate.isFast("21:05:00", time) == 1) {
                     checkBriefingTime.sendBriefing(date);
                 }
 
