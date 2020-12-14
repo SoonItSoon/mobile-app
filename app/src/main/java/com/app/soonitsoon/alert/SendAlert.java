@@ -100,14 +100,14 @@ public class SendAlert {
 
         createNotificationChannel();
 
-        Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(application.getResources(), R.drawable.ic_alert_large);
+        Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(application.getResources(), R.drawable.ic_noti_cal);
 
         PendingIntent mPendingIntent = PendingIntent.getActivity(context, 0
                 , new Intent(application.getApplicationContext(), BriefingActivity.class)
                 , PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "Alert")
-                .setSmallIcon(R.drawable.ic_calendar)
+                .setSmallIcon(R.drawable.ic_noti_cal)
                 .setContentTitle("오늘 하루 브리핑이 도착했어요!")
                 .setContentText("클릭하여 확인을 해주세요 >_O")
                 .setDefaults(Notification.DEFAULT_VIBRATE)
