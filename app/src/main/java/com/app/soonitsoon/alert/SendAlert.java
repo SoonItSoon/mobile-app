@@ -77,7 +77,7 @@ public class SendAlert {
                 , PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "Alert")
-                .setSmallIcon(R.drawable.ic_alert2)
+                .setSmallIcon(R.drawable.ic_noti_inter)
                 .setContentTitle(nickname + "에 대한 새로운 " + numOfNew + "개의 알림!!")
                 .setContentText("클릭하여 확인을 해주세요")
                 .setDefaults(Notification.DEFAULT_VIBRATE)
@@ -100,7 +100,7 @@ public class SendAlert {
 
         createNotificationChannel();
 
-        Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(application.getResources(), R.drawable.ic_noti_cal);
+        Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(application.getResources(), R.drawable.ic_alert_large);
 
         PendingIntent mPendingIntent = PendingIntent.getActivity(context, 0
                 , new Intent(application.getApplicationContext(), BriefingActivity.class)
