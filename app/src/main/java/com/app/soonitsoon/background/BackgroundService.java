@@ -36,7 +36,7 @@ public class BackgroundService extends Service {
     private static final String TAG = "BackgoundService";
 
     private static final int MININUTE = 1;
-    private static final int PERIOD = 1000 * 60 * MININUTE/10;
+    private static final int PERIOD = 1000 * 60 * MININUTE;
     private static final float LIMIT_SPEED = 0;
     private static final float LIMIT_ACCURACY = 1000;
 
