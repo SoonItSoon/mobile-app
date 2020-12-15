@@ -398,7 +398,7 @@ public class MessageResultActivity extends AppCompatActivity {
 //                line3 += (" - " + disasterLevelArray.get(disaster)[level]);
                 // 추가 라인이 있는 경우
                 String line4 = "";
-                if (confirmNum != -1 && confirmNum != 0) line4 = "지역 확진자 수는 총 " + confirmNum + "명입니다.";
+                if (confirmNum != -1 && confirmNum != 0) line4 = confirmNum + "번 확진자 발생 알림!";
                 else if (level == 1 && disaster == 1 && !dagerLocation.isEmpty())
                     line4 = dagerLocation + "방문자 보건소 방문 요청 내용입니다.";
                 if (!center.isEmpty() && !center.equals("null") && scale != -1) line4 = obsLocation + "에서 관측된 규모 " + scale + "의 지진입니다.";
