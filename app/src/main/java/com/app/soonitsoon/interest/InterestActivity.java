@@ -342,7 +342,7 @@ public class InterestActivity extends AppCompatActivity {
                 // 추가 라인이 있는 경우
                 String line4 = "";
                 if (confirmNum != -1 && confirmNum != 0) line4 = confirmNum + "번 확진자 발생 알림!";
-                else if (level == 1 && disaster == 1 && !dagerLocation.isEmpty())
+                else if (level == 1 && disaster == 1 && !dagerLocation.isEmpty() && !dagerLocation.equals("null"))
                     line4 = dagerLocation + "방문자 보건소 방문 요청 내용입니다.";
                 if (!center.isEmpty() && !center.equals("null") && scale != -1) line4 = obsLocation + "에서 관측된 규모 " + scale + "의 지진입니다.";
                 else if (!flLocation.isEmpty() && !flLocation.equals("null")) line4 = flLocation + "에서 발생한 홍수입니다.";
