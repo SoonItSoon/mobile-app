@@ -142,16 +142,15 @@ public class BriefingActivity extends AppCompatActivity {
         ///////////////////////////////////////////////////////////////////////////////////////////
         // All Chart 생성
         chartAll1.clearChart();
-        chartAll1.addPieSlice(new PieModel("전염병", 92, getColor(R.color.colorYellow)));
-        chartAll1.addPieSlice(new PieModel("지진", 2, getColor(R.color.colorSubTitleBtn)));
-        chartAll1.addPieSlice(new PieModel("미세먼지", 2, getColor(R.color.colorWhite)));
-        chartAll1.addPieSlice(new PieModel("태풍", 2, getColor(R.color.colorGreen)));
-        chartAll1.addPieSlice(new PieModel("기타", 2, getColor(R.color.colorSubTitle)));
+        chartAll1.addPieSlice(new PieModel("전염병", 219, getColor(R.color.colorYellow)));
+        chartAll1.addPieSlice(new PieModel("대설", 4, getColor(R.color.colorSubTitleBtn)));
+        chartAll1.addPieSlice(new PieModel("한파", 1, getColor(R.color.colorWhite)));
+        chartAll1.addPieSlice(new PieModel("기타", 3, getColor(R.color.colorSubTitle)));
         chartAll1.startAnimation();
 
-        int[] array0 = {288, 290, 180, 198, 390, 322, 350};
-        int[] array1 = {22, 24, 12, 11, 34, 28, 30};
-        int[] array2 = {28, 22, 24, 12, 33, 35, 28};
+        int[] array0 = {288, 290, 180, 198, 317, 373, 227};
+        int[] array1 = {1, 1, 0, 0, 0, 0, 1};
+        int[] array2 = {4, 5, 3, 5, 3, 2, 2};
         int[] array3 = {24, 28, 13, 17, 34, 28, 29};
 
         if (interestSize >= 3) {
