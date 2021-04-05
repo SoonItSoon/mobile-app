@@ -21,6 +21,16 @@
             android:orientation="vertical"
             android:background="@color/colorBackgroundDark"
             android:weightSum="9">
+            <TextView
+                android:id="@+id/text_home_displayName"
+                android:text="@string/home_btn_signin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/btn_margin"
+                android:layout_marginRight="@dimen/btn_margin"
+                android:fontFamily="@font/nanum_square"/>
 
             <ImageView
                 android:layout_width="match_parent"
@@ -34,6 +44,7 @@
 
             <TextView
                 android:layout_width="match_parent"
+                android:id="@+id/test"
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:text="@string/home_title_desc"

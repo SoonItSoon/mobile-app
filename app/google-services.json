@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "690792656587",
+    "project_id": "soonitsoon-web-service",
+    "storage_bucket": "soonitsoon-web-service.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690792656587:android:9d321a4591ebfe0b0a754e",
+        "android_client_info": {
+          "package_name": "com.app.soonitsoon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "690792656587-gkejn1fmtr1t7gk9m5813fnbmvdt8sp5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXBFAFfqL7Aq7eN9pHz-o23ah2KAe46GM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "690792656587-gkejn1fmtr1t7gk9m5813fnbmvdt8sp5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
