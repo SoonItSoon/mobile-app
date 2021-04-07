@@ -138,7 +138,11 @@ public class RecordTimeline {
             timelineMap.put("latitude", latitude);
             timelineMap.put("longitude", longitude);
             timelineMap.put("danger", 0);
-            db.collection(mAuth.getCurrentUser().getUid()+"_TL").add(timelineMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            db.collection("UserData")
+                    .document("UserTimeline")
+                    .collection(mAuth.getCurrentUser().getUid())
+                    .add(timelineMap)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
@@ -150,6 +154,18 @@ public class RecordTimeline {
                             Log.w(TAG, "Error adding document", e);
                         }
                     });
+//            db.collection(mAuth.getCurrentUser().getUid()+"_TL").add(timelineMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                @Override
+//                public void onSuccess(DocumentReference documentReference) {
+//                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+//                }
+//            })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Log.w(TAG, "Error adding document", e);
+//                        }
+//                    });
         }
 
     }
