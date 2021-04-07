@@ -138,9 +138,9 @@ public class RecordTimeline {
             timelineMap.put("latitude", latitude);
             timelineMap.put("longitude", longitude);
             timelineMap.put("danger", 0);
-            db.collection("UserData")
-                    .document("UserTimeline")
-                    .collection(mAuth.getCurrentUser().getUid())
+            db.collection("userdata")
+                    .document(mAuth.getCurrentUser().getUid())
+                    .collection("timeline")
                     .add(timelineMap)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
