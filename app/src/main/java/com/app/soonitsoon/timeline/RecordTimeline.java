@@ -68,7 +68,7 @@ public class RecordTimeline {
 
                 // 데이터 파일로 저장
                 saveTimeline(date, stringTLList);
-                putFirestore(date, time, latitude, longitude);
+                putFirestoreTL(date, time, latitude, longitude);
 
                 // 현재 값을 이전 값으로 세팅
                 SharedPreferences.Editor editor = spref.edit();
@@ -100,7 +100,7 @@ public class RecordTimeline {
 
             // 데이터 파일로 저장
             saveTimeline(date, stringTLList);
-            putFirestore(date, time, latitude, longitude);
+            putFirestoreTL(date, time, latitude, longitude);
 
             // 현재 값을 이전 값으로 세팅
             SharedPreferences.Editor editor = spref.edit();
@@ -125,8 +125,8 @@ public class RecordTimeline {
         }
     }
 
-    // FireStore 저장
-    private void putFirestore(String date, String time, double latitude, double longitude) {
+    // FireStore에 Timeline 저장
+    private void putFirestoreTL(String date, String time, double latitude, double longitude) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() == null) {
@@ -154,19 +154,6 @@ public class RecordTimeline {
                             Log.w(TAG, "Error adding document", e);
                         }
                     });
-//            db.collection(mAuth.getCurrentUser().getUid()+"_TL").add(timelineMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                @Override
-//                public void onSuccess(DocumentReference documentReference) {
-//                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-//                }
-//            })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Log.w(TAG, "Error adding document", e);
-//                        }
-//                    });
         }
-
     }
 }

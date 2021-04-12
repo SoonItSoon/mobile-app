@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,23 +19,32 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.soonitsoon.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import io.apptik.widget.MultiSlider;
 
 public class InterestAddActivity extends AppCompatActivity {
+    private final static String TAG = "InterestAddActivity";
     private Activity activity = this;
     private Context context;
 
@@ -284,7 +294,7 @@ public class InterestAddActivity extends AppCompatActivity {
             }
         });
 
-        // 검색 버튼
+        // 관심분야 저장 버튼
         Button saveBtn = findViewById(R.id.btn_save_interest);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -340,6 +350,9 @@ public class InterestAddActivity extends AppCompatActivity {
                     editor.putInt("size", interestSize + 1); // 사이즈 값 갱신
                     editor.putString(nickname, strInterest); // 관심분야 json String
                     editor.apply();
+
+                    // Firebase에 저장
+                    putFirestoreInt(nickname, strInterest);
 
                     Toast.makeText(getApplicationContext(), "관심분야가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
                     finish();
@@ -798,6 +811,35 @@ public class InterestAddActivity extends AppCompatActivity {
         } else {
             checkBox.setTextColor(getResources().getColor(R.color.colorWhite));
             disasterSubLevel[num] = false;
+        }
+    }
+
+    // Firebase에 Interest 추가
+    private void putFirestoreInt(String nickname, String strInterest) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() == null) {
+            Log.e(TAG, "Firebase Auth Error!");
+        } else {
+            Map<String, Object> interestMap = new HashMap<>();
+            interestMap.put("nickname", nickname);
+            interestMap.put("interest_string", strInterest);
+            db.collection("userdata")
+                    .document(mAuth.getCurrentUser().getUid())
+                    .collection("interest")
+                    .add(interestMap)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error adding document", e);
+                        }
+                    });
         }
     }
 }

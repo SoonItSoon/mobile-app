@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,10 +17,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Dimension;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.soonitsoon.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +41,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class InterestSettingActivity extends AppCompatActivity {
+    private final static String TAG = "InterestSettingActivity";
     private final static int NUM_OF_DISASTER_LEVELS = 9;
     private Activity activity = this;
     private Context context = this;
@@ -81,19 +94,24 @@ public class InterestSettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (interestSize > 0) {
-                    new AlertDialog.Builder(context).setTitle("삭제할 관심분야 선택").setItems(nicknames, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (interestSize != 0) {
-                                SharedPreferences.Editor editor = spref.edit();
-                                editor.putInt("size", --interestSize);
-                                editor.remove(nicknames[which]);
-                                editor.apply();
-                                initNicknameArray();
-                                clearInterest();
-                                showInterest();
+                    new AlertDialog.Builder(context).setTitle("삭제할 관심분야 선택")
+                            .setItems(nicknames, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (interestSize != 0) {
+                                    SharedPreferences.Editor editor = spref.edit();
+                                    editor.putInt("size", --interestSize);
+                                    editor.remove(nicknames[which]);
+                                    editor.apply();
+
+                                    // Firebase에 선택된 Interest 삭제
+                                    delFirebaseInt(nicknames[which]);
+
+                                    initNicknameArray();
+                                    clearInterest();
+                                    showInterest();
+                                }
                             }
-                        }
                     }).show();
                 } else {
                     Toast.makeText(context, "삭제할 관심분야가 없습니다.", Toast.LENGTH_SHORT).show();
@@ -266,6 +284,49 @@ public class InterestSettingActivity extends AppCompatActivity {
             if (!nickname.equals("size") && interestSize > 0) {
                 nicknames[i++] = nickname;
             }
+        }
+    }
+
+    // Firebase에서 Interest 삭제
+    private void delFirebaseInt(String nickname) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() == null) {
+            Log.e(TAG, "Firebase Auth Error!");
+        } else {
+            final CollectionReference interestCollectionRef = db.collection("userdata")
+                    .document(mAuth.getCurrentUser().getUid())
+                    .collection("interest");
+            interestCollectionRef.whereEqualTo("nickname", nickname)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                    Toast.makeText(context, document.getId(), Toast.LENGTH_SHORT).show();
+                                    interestCollectionRef.document(document.getId())
+                                            .delete()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w(TAG, "Error deleting document", e);
+                                                }
+                                            });
+                                }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                                Toast.makeText(context, "Failure", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         }
     }
 }
