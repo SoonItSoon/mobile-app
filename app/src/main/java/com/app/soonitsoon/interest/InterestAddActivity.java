@@ -72,6 +72,7 @@ public class InterestAddActivity extends AppCompatActivity {
 
     // 재난 종류
     private final static int NUM_OF_DISASTER = 6;
+    private final static int NUM_OF_DISASTER_LEVELS = 9;
     private int disasterIndex;
 
     // 텍스트 검색 내용
@@ -333,7 +334,7 @@ public class InterestAddActivity extends AppCompatActivity {
                         jsonInterest.put("subLocation", subLocation);   // 시/군/구
                         jsonInterest.put("disasterIndex", disasterIndex);    // 전염병 종류
                         jsonInterest.put("disasterSubName", disasterSubName);    // 전염병 또는 태풍 이름
-                        for (int i = 0; i <= NUM_OF_DISASTER; i++) {
+                        for (int i = 0; i <= NUM_OF_DISASTER_LEVELS; i++) {
                             jsonInterest.put("disasterSubLevel" + i, disasterSubLevel[i]); // 선택된 알림 등급
                         }
                         jsonInterest.put("scale_min", scale_min);    // 지진 최소 규모
