@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.soonitsoon">
-
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -20,10 +19,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <meta-data
-            android:name="com.google.android.actions"
-            android:resource="@menu/navi_menu" />
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +29,7 @@
         <service
             android:name=".background.BackgroundService"
             android:enabled="true"
-            android:stopWithTask="false"></service> <!-- 서비스 종료 이벤트 -->
+            android:stopWithTask="false" /> <!-- 서비스 종료 이벤트 -->
         <receiver
             android:name=".background.RestarterBroadcastReceiver"
             android:enabled="true"
@@ -53,6 +48,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="8e2fb23596dd9821f09a4820560c91be" />

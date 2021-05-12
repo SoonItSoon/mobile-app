@@ -145,7 +145,7 @@ public class GetServerInfo {
 
     // URL 생성
     public static URL makeConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String subName, String eqMainLocation, String eqSubLocation, double scaleMin, double scaleMax, String innerText) throws MalformedURLException {
-        StringBuilder strUrl = new StringBuilder("http://203.253.25.184:8080/search");
+        StringBuilder strUrl = new StringBuilder("http://52.78.40.18:5000/search");
         strUrl.append("?start_date=").append(startDateTime);
         if (!endDateTime.isEmpty())
             strUrl.append("&end_date=").append(endDateTime);
@@ -173,7 +173,7 @@ public class GetServerInfo {
         return new URL(String.valueOf(strUrl));
     }
     public static URL makeCountConnUrl(String startDateTime, String endDateTime, String mainLocation, String subLocation, int disasterIndex, String levels, String subName, String eqMainLocation, String eqSubLocation, double scaleMin, double scaleMax, String innerText) throws MalformedURLException {
-        StringBuilder strUrl = new StringBuilder("http://203.253.25.184:8080/count");
+        StringBuilder strUrl = new StringBuilder("http://52.78.40.18:5000/count");
         strUrl.append("?start_date=").append(startDateTime);
         if (!endDateTime.isEmpty())
             strUrl.append("&end_date=").append(endDateTime);

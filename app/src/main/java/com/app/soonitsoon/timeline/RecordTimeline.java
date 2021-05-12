@@ -5,13 +5,22 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.app.soonitsoon.datetime.DateNTime;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RecordTimeline {
     private final static String TAG = "RecordTimeline";
@@ -59,6 +68,7 @@ public class RecordTimeline {
 
                 // 데이터 파일로 저장
                 saveTimeline(date, stringTLList);
+                putFirestoreTL(date, time, latitude, longitude);
 
                 // 현재 값을 이전 값으로 세팅
                 SharedPreferences.Editor editor = spref.edit();
@@ -90,6 +100,7 @@ public class RecordTimeline {
 
             // 데이터 파일로 저장
             saveTimeline(date, stringTLList);
+            putFirestoreTL(date, time, latitude, longitude);
 
             // 현재 값을 이전 값으로 세팅
             SharedPreferences.Editor editor = spref.edit();
@@ -111,6 +122,38 @@ public class RecordTimeline {
             outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    // FireStore에 Timeline 저장
+    private void putFirestoreTL(String date, String time, double latitude, double longitude) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() == null) {
+            Log.e(TAG, "Firebase Auth Error!");
+        } else {
+            Map<String, Object> timelineMap = new HashMap<>();
+            timelineMap.put("date", date);
+            timelineMap.put("time", time);
+            timelineMap.put("latitude", latitude);
+            timelineMap.put("longitude", longitude);
+            timelineMap.put("danger", 0);
+            db.collection("userdata")
+                    .document(mAuth.getCurrentUser().getUid())
+                    .collection("timeline")
+                    .add(timelineMap)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                }
+            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error adding document", e);
+                        }
+                    });
         }
     }
 }
