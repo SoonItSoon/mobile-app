@@ -85,7 +85,7 @@ public class CheckSafetyInfo {
             // 1. sender가 "중대본" 이면 locName으로만 검색
             // 2. sender가 "중대본"이 아니면 sender-(마지막글자)+locName으로 검색
             String[] strLocRequest = {""};
-            if (sender.equals("중대본"))
+            if (sender.equals("중대본") || sender.equals("테스트"))
                 strLocRequest = CoordinateConverter.request(locName);
             else {
                 String senderLoc = sender.substring(0, sender.length() - 1);
