@@ -88,11 +88,11 @@ public class BackgroundService extends Service {
                 Log.e("테스크 카운터", String.valueOf(counter));
 
                 // briefing 알람 보내기
-//                String date = getDate();
-//                String time = getTime();
-//                if (CalDate.isFast(time, "21:00:00") == 1 && CalDate.isFast("21:05:00", time) == 1) {
-//                    checkBriefingTime.sendBriefing(date);
-//                }
+                String date = getDate();
+                String time = getTime();
+                if (CalDate.isFast(time, "21:00:00") == 1 && CalDate.isFast("21:05:00", time) == 1) {
+                    checkBriefingTime.sendBriefing(date);
+                }
 
                 // 위치 권한이 허용되어 있는 경우에만
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
@@ -164,14 +164,14 @@ public class BackgroundService extends Service {
                 }
 
                 // checkSafetyInfo 실행
-//                try {
-//                    checkSafetyInfo.getDangerInfo();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    checkSafetyInfo.getDangerInfo();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 // CheckInterestInfo 실행
-//                checkInterestInfo.checkInterest();
+                checkInterestInfo.checkInterest();
 
                 counter++;
             }
